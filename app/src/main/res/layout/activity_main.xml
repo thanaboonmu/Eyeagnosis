@@ -7,33 +7,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.sirapat.eyeagnosis.MainActivity">
+    tools:context="com.example.sirapat.eyeagnosis.MainActivity"
+    android:baselineAligned="false">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/message"
+        <!--<TextView-->
+            <!--android:id="@+id/message"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+            <!--android:padding="10dp" />-->
+            <!--android:text="@string/title_home" -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:paddingBottom="20dp" >
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/title_home"/>
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:weightSum="2"
+            android:id="@+id/linearLayout"
+            android:baselineAligned="false">
+            <Button
+                android:id="@+id/goCameraActivity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="#227793"
+                android:padding="15dp"
+                android:text="I got it!"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:lottie_fileName="loading.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true" />
+            android:layout_marginBottom="20dp"
+            android:text="Tips: Take your eyes photo for disease diagnosis. Flash is recommended. For red reflect test, please take the photo in the dark environment. "
+            android:layout_above="@+id/linearLayout" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
