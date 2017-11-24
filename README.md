@@ -1,2 +1,4 @@
 # Eyeagnosis
-โทกระโปก
+
+
+TODO: Detect individual eye
