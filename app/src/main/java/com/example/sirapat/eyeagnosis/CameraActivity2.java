@@ -22,6 +22,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +56,7 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
     private Button imageButton = null;
     private ProgressBar bar = null;
     private IconRoundCornerProgressBar bar2 = null;
+    private Snackbar sensorSnackbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,14 +144,14 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
             try {
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
 
-//                Matrix mat = new Matrix(); //
-//                mat.postRotate((-90)); // only for sss8 (temp solution)
-//                img = Bitmap.createBitmap(img, 0,0, img.getWidth(), img.getHeight(), mat, true); //
+                Matrix mat = new Matrix(); //
+                mat.postRotate((-90)); // only for sss8 (temp solution)
+                img = Bitmap.createBitmap(img, 0,0, img.getWidth(), img.getHeight(), mat, true); //
 
                 Paint myPaint = new Paint();
                 myPaint.setColor(Color.YELLOW);
                 myPaint.setStyle(Paint.Style.STROKE);
-                myPaint.setStrokeWidth(3);
+                myPaint.setStrokeWidth(10);
 
                 Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
                 Canvas tempCanvas = new Canvas(tempBitmap);
@@ -196,7 +199,8 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
                 imageView.setImageDrawable(new BitmapDrawable(getResources(),tempBitmap));
 
 //                imageView.setImageBitmap(img);
-                Toast.makeText(getApplicationContext(), "File saved at: "+ uri.getPath(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "File saved at: "+ uri.getPath(), Toast.LENGTH_SHORT).show();
 
             } catch (Exception e){
                 e.printStackTrace();
@@ -207,6 +211,18 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
         } else {
             Log.e("ERROR", "can't get image");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+//        sensorToast.cancel();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        sensorToast.cancel();
     }
 
     @Override
@@ -222,22 +238,26 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
     }
 
     public void showSensorToast(String text) {
-        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0, 0);
-        toast.show();
+//        sensorSnackbar = Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_SHORT);
+//        sensorSnackbar.show();
+//        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+
+//        sensorToast.setGravity(Gravity.TOP, 0, 0);
+//        sensorToast.show();
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 //        bar.setProgress(Math.round(sensorEvent.values[0]));
-        bar2.setProgress(Math.round(sensorEvent.values[0]));
+
         if(sensorEvent.values[0] >= 50) {
-            showSensorToast("GOOD BRIGHTNESS");
-        } else if (sensorEvent.values[0] <= 50){
-            showSensorToast("TOO DARK");
+            Toast.makeText(getApplicationContext(), "GOOD", Toast.LENGTH_SHORT).show();
+//            showSensorToast("GOOD BRIGHTNESS");
         } else {
-            showSensorToast("TOO BRIGHT");
+            Toast.makeText(getApplicationContext(), "BAD", Toast.LENGTH_SHORT).show();
+//            showSensorToast("TOO DARK");
         }
+        bar2.setProgress(Math.round(sensorEvent.values[0]));
         Log.e("Light sensor value=: ",String.valueOf(sensorEvent.values[0]));
 
     }
