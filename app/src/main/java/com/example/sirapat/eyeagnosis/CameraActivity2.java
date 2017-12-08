@@ -54,7 +54,7 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
     private Button imageButton = null;
     private ProgressBar bar = null;
     private IconRoundCornerProgressBar bar2 = null;
-
+    //Kuy Git
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
