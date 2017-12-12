@@ -65,7 +65,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private ImageView leftImage = null;
     private ImageView rightImage = null;
     private int eyeSide = -1;
-
+    // test push
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
