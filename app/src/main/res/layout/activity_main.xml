@@ -29,17 +29,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:paddingBottom="20dp" >
+            android:layout_height="300dp"
+            android:paddingBottom="20dp">
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"/>
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/textView"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:typeface="sans"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:textColor="#0000FF"
+            android:text="Tips: Select NORMAL mode to detect Pinguecula/Pterygium, RED REFLECT to detect Cataract/Retinoblastoma."
+            android:layout_above="@+id/linearLayout" />
 
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -50,26 +65,27 @@
             android:id="@+id/linearLayout"
             android:baselineAligned="false">
             <Button
-                android:id="@+id/goCameraActivity"
+                android:id="@+id/normalModeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="#227793"
+                android:layout_weight="1"
+                android:background="#50C878"
                 android:padding="15dp"
-                android:text="I got it!"
+                android:text="NORMAL"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/redReflectModeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FF0000"
+                android:padding="15dp"
+                android:layout_marginLeft="4dp"
+                android:text="RED REFLECT"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Tips: Take your eyes photo for disease diagnosis. Flash is recommended. For red reflect test, please take the photo in the dark environment. "
-            android:layout_above="@+id/linearLayout" />
 
     </RelativeLayout>
 

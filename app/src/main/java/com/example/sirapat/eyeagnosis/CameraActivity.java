@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,13 +15,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,9 +28,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -44,49 +41,89 @@ import com.google.android.gms.vision.face.FaceDetector;
 import com.google.android.gms.vision.face.Landmark;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CameraActivity2 extends AppCompatActivity implements SensorEventListener {
+import static java.lang.Math.abs;
 
-    private ImageView imageView;
-    private Uri uri;
+public class CameraActivity extends AppCompatActivity implements SensorEventListener {
+
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 0;
+    final private int NORMAL_MODE = 0;
+    final private int RED_REFLECT_MODE = 1;
+    final private int LEFT_SIDE = 0;
+    final private int RIGHT_SIDE = 1;
+
     private int tag = 1;
-    private Sensor mLight;
-    private SensorManager mSensorManager;
-    private Button imageButton = null;
-    private ProgressBar bar = null;
-    private IconRoundCornerProgressBar bar2 = null;
-    private Snackbar sensorSnackbar = null;
+    private Uri uri = null;
+    private int diagnoseMode = -1;
+    private Sensor mLight = null;
+    private SensorManager mSensorManager = null;
+    private float previousSensorValue = 0;
+    private Toast sensorToast = null;
+    private IconRoundCornerProgressBar lightBar = null;
+    private ImageView leftImage = null;
+    private ImageView rightImage = null;
+    private int eyeSide = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera2);
-        imageButton = (Button) findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_camera);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            diagnoseMode = extras.getInt("mode");
+            if(diagnoseMode == -1) {
+                Log.e("ERROR","Mode = -1, something went wrong");
+            }
+        } else {
+            Log.e("ERROR", "Couldn't get mode from main activity");
+        }
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        lightBar = (IconRoundCornerProgressBar) findViewById(R.id.lightProgressBar);
+        TextView modeText = (TextView) findViewById(R.id.modeTextView);
+        if(diagnoseMode == NORMAL_MODE) {
+            modeText.setText("NORMAL MODE: Detecting Pinguecula / Pterygium [Flash is recommended]");
+            modeText.setTextColor(Color.parseColor("#50C878")); // GREEN
+        } else if(diagnoseMode == RED_REFLECT_MODE) {
+            modeText.setText("RED REFLECT MODE: Detecting Cataract / Retinoblastoma {Environment should be dark and Flash is required}");
+            modeText.setTextColor(Color.parseColor("#FF0000")); // RED
+        }
+        leftImage = (ImageView) findViewById(R.id.leftImageView);
+        rightImage = (ImageView) findViewById(R.id.rightImageView);
+        ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
+        leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                eyeSide = LEFT_SIDE;
                 openCamera(view);
             }
         });
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        imageView = (ImageView) findViewById(R.id.imageView);
-//        bar = (ProgressBar)findViewById(R.id.progressBar);
-        bar2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_2);
+        ImageButton rightButton = (ImageButton) findViewById(R.id.rightImageButton);
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eyeSide = RIGHT_SIDE;
+                openCamera(view);
+            }
+        });
 
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        builder.detectFileUriExposure();
+        // For Android 7+ (Nougat) File system
+        if(Build.VERSION.SDK_INT >= 24) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
     }
 
     public void openCamera(View view) {
-
         checkUserPermissions();
     }
 
+    // For Android 6+ Marshmallow Permission
     void checkUserPermissions(){
-        if ( Build.VERSION.SDK_INT >= 23){
+        if (Build.VERSION.SDK_INT >= 23){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                     PackageManager.PERMISSION_GRANTED  ){
                 requestPermissions(new String[]{
@@ -97,10 +134,7 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
         }
 
         takePicture();
-
     }
-    //get access to location permission
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
 
     @Override
@@ -111,7 +145,7 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
                     takePicture();
                 } else {
                     // Permission Denied
-                    Toast.makeText( this,"Can't save image" , Toast.LENGTH_SHORT)
+                    Toast.makeText( this,"PERMISSION DENIED (WRITE_EXTERNAL_STORAGE)" , Toast.LENGTH_SHORT)
                             .show();
                     Log.e("ERROR", "PERMISSION DENIED");
                 }
@@ -122,16 +156,17 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
     }
 
     void takePicture() {
-
         Intent intent = new Intent();
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
 
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "IMG_" + timestamp + ".jpg";
-//        File f = new File(getFilesDir(), "/eyeagnosis/" + imageFileName);
-//        File f = new File(Environment.getDataDirectory(), "/eyeagnosis/" + imageFileName);
-        File f = new File(Environment.getExternalStorageDirectory(), "DCIM/Camera/" + imageFileName);
-        uri = Uri.fromFile(f);
+        File dir = new File(Environment.getExternalStorageDirectory(), "DCIM/eyeagnosis");
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+        dir = new File(dir, "/" + imageFileName);
+        uri = Uri.fromFile(dir);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, tag);
     }
@@ -139,14 +174,22 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == tag && resultCode == RESULT_OK) {
-            getContentResolver().notifyChange(uri, null);
-            ContentResolver cr = getContentResolver();
             try {
+                // put the saved image into gallery
+                Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(uri);
+                sendBroadcast(mediaScanIntent);
+//                Bundle b = data.getExtras();
+//                Bitmap img = (Bitmap) b.get("data");
+//                imageView.setImageBitmap(img);
+                // load the saved image
+                getContentResolver().notifyChange(uri, null);
+                ContentResolver cr = getContentResolver();
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
 
-                Matrix mat = new Matrix(); //
-                mat.postRotate((-90)); // only for sss8 (temp solution)
-                img = Bitmap.createBitmap(img, 0,0, img.getWidth(), img.getHeight(), mat, true); //
+//                Matrix mat = new Matrix(); //
+//                mat.postRotate((-90)); // only for sss8 (temp solution)
+//                img = Bitmap.createBitmap(img, 0,0, img.getWidth(), img.getHeight(), mat, true); //
 
                 Paint myPaint = new Paint();
                 myPaint.setColor(Color.YELLOW);
@@ -166,15 +209,20 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
                         .build();
                 if(!faceDetector.isOperational()){
                     Log.e("ERROR","Couldn't set up face detector");
-                    imageView.setImageBitmap(img);
+                    if(eyeSide == LEFT_SIDE) {
+                        leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+                    } else if(eyeSide == RIGHT_SIDE) {
+                        rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+                    }
                     Toast.makeText(getApplicationContext(),"Could not set up the face detector!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
                 Frame frame = new Frame.Builder().setBitmap(img).build();
                 SparseArray<Face> faces = faceDetector.detect(frame);
                 if(faces.size() > 0) {
-                    Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(faces.size()) + " FACE DETECTED!!!", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(faces.size()) + " FACE DETECTED!!!", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER,0,0);
                     toast.show();
                 }
@@ -195,34 +243,20 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
                         }
                     }
                 }
-
-                imageView.setImageDrawable(new BitmapDrawable(getResources(),tempBitmap));
-
-//                imageView.setImageBitmap(img);
-                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), "File saved at: "+ uri.getPath(), Toast.LENGTH_SHORT).show();
-
+                if(eyeSide == LEFT_SIDE) {
+                    leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+                } else if(eyeSide == RIGHT_SIDE) {
+                    rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+                }
+                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_LONG).show();
             } catch (Exception e){
                 e.printStackTrace();
             }
-//            Bundle b = data.getExtras();
-//            Bitmap img = (Bitmap) b.get("data");
-//            imageView.setImageBitmap(img);
+
         } else {
             Log.e("ERROR", "can't get image");
+            Log.e("resultCode=: ", String.valueOf(resultCode));
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-//        sensorToast.cancel();
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        sensorToast.cancel();
     }
 
     @Override
@@ -237,28 +271,39 @@ public class CameraActivity2 extends AppCompatActivity implements SensorEventLis
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-    public void showSensorToast(String text) {
-//        sensorSnackbar = Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_SHORT);
-//        sensorSnackbar.show();
-//        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-
-//        sensorToast.setGravity(Gravity.TOP, 0, 0);
-//        sensorToast.show();
+    public void showSensorToast(String message) {
+        if(sensorToast != null) {
+            sensorToast.cancel();
+        }
+        sensorToast = Toast.makeText(CameraActivity.this, message, Toast.LENGTH_SHORT);
+        sensorToast.setGravity(Gravity.TOP, 0, 100);
+        sensorToast.show();
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-//        bar.setProgress(Math.round(sensorEvent.values[0]));
 
-        if(sensorEvent.values[0] >= 50) {
-            Toast.makeText(getApplicationContext(), "GOOD", Toast.LENGTH_SHORT).show();
-//            showSensorToast("GOOD BRIGHTNESS");
-        } else {
-            Toast.makeText(getApplicationContext(), "BAD", Toast.LENGTH_SHORT).show();
-//            showSensorToast("TOO DARK");
+        if(abs(previousSensorValue - sensorEvent.values[0]) >= 5) {
+            if(diagnoseMode == NORMAL_MODE) {
+                if(sensorEvent.values[0] >= 50) {
+                    showSensorToast("GOOD BRIGHTNESS");
+                } else {
+                    showSensorToast("TOO DARK");
+                }
+            } else if(diagnoseMode == RED_REFLECT_MODE) {
+                if(sensorEvent.values[0] >= 50) {
+                    showSensorToast("TOO BRIGHT");
+                } else {
+                    showSensorToast("GOOD DARKNESS");
+                }
+            } else {
+                Log.e("ERROR", "Mode = -1, can't show sensor toast");
+            }
+
+            previousSensorValue = sensorEvent.values[0];
+            lightBar.setProgress(Math.round(sensorEvent.values[0]));
+            Log.e("Light sensor value=: ",String.valueOf(sensorEvent.values[0]));
         }
-        bar2.setProgress(Math.round(sensorEvent.values[0]));
-        Log.e("Light sensor value=: ",String.valueOf(sensorEvent.values[0]));
 
     }
 

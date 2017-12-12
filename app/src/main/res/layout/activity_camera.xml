@@ -6,47 +6,90 @@
     android:layout_height="match_parent"
     tools:context="com.example.sirapat.eyeagnosis.CameraActivity">
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <TextView
+        android:id="@+id/modeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Eyeagnosis camera"
-        android:textColor="@android:color/black"/>
-
-    <Button
-        android:id="@+id/captureImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:text="DIAGNOSE MODE"
+        android:typeface="sans"
+        android:textStyle="italic|bold"
+        android:textSize="16sp"
+        android:maxLines="3"
+        android:layout_marginTop="18dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:background="@drawable/btn_broadcast_selected"/>
+        android:gravity="center_horizontal"/>
 
-    <Button
-        android:id="@+id/flash"
+    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
+        android:id="@+id/lightProgressBar"
+        android:layout_height="50dp"
+        android:layout_width="348dp"
+        app:rcBackgroundPadding="10dp"
+        app:rcMax="100"
+        app:rcIconSrc="@drawable/brightness"
+        app:rcIconBackgroundColor="#CCFFFF"
+        app:rcIconSize="50dp"
+        app:rcIconPadding="5dp"
+        app:rcProgress="20"
+        app:rcSecondaryProgress="50"
+        app:rcBackgroundColor="#CCFFFF"
+        app:rcProgressColor="#FFFF00"
+        app:rcSecondaryProgressColor="#FFFFCC"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/modeTextView"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/leftImageView"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:src="@drawable/left_eye"
+        android:layout_above="@+id/leftImageButton"
+        android:layout_below="@+id/lightProgressBar"
+        android:layout_alignLeft="@+id/lightProgressBar"
+        android:layout_alignStart="@+id/lightProgressBar" />
+    <ImageView
+        android:id="@+id/rightImageView"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/right_eye"
+        android:layout_alignTop="@+id/leftImageView"
+        android:layout_alignBottom="@+id/leftImageView"
+        android:layout_alignRight="@+id/lightProgressBar"
+        android:layout_alignEnd="@+id/lightProgressBar"/>
+
+    <ImageButton
+        android:id="@+id/leftImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginRight="25dp"
-        android:layout_toLeftOf="@id/captureImage"
-        android:background="@drawable/btn_flash"
-        />
-
-    <Button
-        android:id="@+id/flipCamera"
+        android:src="@drawable/camera"
+        android:background="@android:color/transparent"
+        android:padding="20dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_alignBottom="@+id/rightImageButton"
+        android:layout_toLeftOf="@+id/uploadImageButton"
+        android:layout_toStartOf="@+id/uploadImageButton" />
+    <ImageButton
+        android:id="@+id/rightImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/camera"
+        android:background="@android:color/transparent"
+        android:padding="20dp"
+        android:layout_above="@+id/uploadImageButton"
+        android:layout_toRightOf="@+id/uploadImageButton"
+        android:layout_toEndOf="@+id/uploadImageButton" />
+    <ImageButton
+        android:id="@+id/uploadImageButton"
+        android:src="@drawable/upload"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@id/captureImage"
-        android:background="@drawable/btn_flipcamera"
-        />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

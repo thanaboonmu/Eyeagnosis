@@ -15,8 +15,9 @@ import com.airbnb.lottie.LottieAnimationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    final private int NORMAL_MODE = 0;
+    final private int RED_REFLECT_MODE = 1;
     private TextView mTextMessage;
-    private Button mButton = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,13 +54,22 @@ public class MainActivity extends AppCompatActivity {
         animationView.loop(true);
         animationView.playAnimation();
 
-        mButton = (Button) findViewById(R.id.goCameraActivity);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        Button normalModeButton = (Button) findViewById(R.id.normalModeButton);
+        normalModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), CameraActivity2.class);
+                Intent i = new Intent(view.getContext(), CameraActivity.class);
+                i.putExtra("mode", NORMAL_MODE);
                 startActivity(i);
-                Log.v("state","going to cameraActivity2");
+            }
+        });
+        Button redReflectModeButton = (Button) findViewById(R.id.redReflectModeButton);
+        redReflectModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), CameraActivity.class);
+                i.putExtra("mode", RED_REFLECT_MODE);
+                startActivity(i);
             }
         });
     }
