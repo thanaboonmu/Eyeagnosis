@@ -42,7 +42,7 @@
     <ImageView
         android:id="@+id/leftImageView"
         android:layout_width="170dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:src="@drawable/left_eye"
         android:layout_above="@+id/leftImageButton"
         android:layout_below="@+id/lightProgressBar"
@@ -51,7 +51,7 @@
     <ImageView
         android:id="@+id/rightImageView"
         android:layout_width="170dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="6dp"
         android:layout_marginStart="6dp"
         android:src="@drawable/right_eye"

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,6 +16,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -59,13 +61,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private int diagnoseMode = -1;
     private Sensor mLight = null;
     private SensorManager mSensorManager = null;
-    private float previousSensorValue = 0;
+    private float previousSensorValue = 0.1f;
     private Toast sensorToast = null;
     private IconRoundCornerProgressBar lightBar = null;
     private ImageView leftImage = null;
     private ImageView rightImage = null;
     private int eyeSide = -1;
-    // test push
+    private String imageFileName = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +163,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
 
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "IMG_" + timestamp + ".jpg";
+        imageFileName = "IMG_" + timestamp + ".png";
         File dir = new File(Environment.getExternalStorageDirectory(), "DCIM/eyeagnosis");
         if(!dir.exists()) {
             dir.mkdirs();
@@ -169,6 +172,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         uri = Uri.fromFile(dir);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, tag);
+    }
+
+    private Bitmap rotateImage(Bitmap originalBitmap, int angle) {
+        Matrix mat = new Matrix();
+        mat.postRotate((angle));
+        return Bitmap.createBitmap(originalBitmap, 0,0, originalBitmap.getWidth(), originalBitmap.getHeight(), mat, true);
     }
 
     @Override
@@ -186,6 +195,24 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 getContentResolver().notifyChange(uri, null);
                 ContentResolver cr = getContentResolver();
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
+
+                ExifInterface ei = new ExifInterface("/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+
+                switch(orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        img = rotateImage(img, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        img = rotateImage(img, 180);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        img = rotateImage(img, 270);
+                        break;
+                    case ExifInterface.ORIENTATION_NORMAL:
+                    default:
+                }
 
 //                Matrix mat = new Matrix(); //
 //                mat.postRotate((-90)); // only for sss8 (temp solution)
@@ -283,7 +310,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        if(abs(previousSensorValue - sensorEvent.values[0]) >= 5) {
+        if(abs(previousSensorValue - sensorEvent.values[0]) >= 5 || previousSensorValue == 0.1f) {
             if(diagnoseMode == NORMAL_MODE) {
                 if(sensorEvent.values[0] >= 50) {
                     showSensorToast("GOOD BRIGHTNESS");
