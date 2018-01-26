@@ -26,6 +26,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -42,10 +43,21 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.google.android.gms.vision.face.Landmark;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
@@ -68,6 +80,8 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private ImageView rightImage = null;
     private int eyeSide = -1;
     private String imageFileName = null;
+    private Bitmap leftBitmap = null;
+    private Bitmap rightBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +109,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         }
         leftImage = (ImageView) findViewById(R.id.leftImageView);
         rightImage = (ImageView) findViewById(R.id.rightImageView);
-        ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
+        final ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +123,19 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             public void onClick(View view) {
                 eyeSide = RIGHT_SIDE;
                 openCamera(view);
+            }
+        });
+        ImageButton uploadButton = (ImageButton) findViewById(R.id.uploadImageButton);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(leftBitmap != null) {
+                    new HttpUpload(CameraActivity.this, leftBitmap).execute();
+                }
+                if(rightBitmap != null) {
+                    new HttpUpload(CameraActivity.this, rightBitmap).execute();
+                }
+//                uploadImage(leftBitmap);
             }
         });
 
@@ -213,10 +240,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     case ExifInterface.ORIENTATION_NORMAL:
                     default:
                 }
-
-//                Matrix mat = new Matrix(); //
-//                mat.postRotate((-90)); // only for sss8 (temp solution)
-//                img = Bitmap.createBitmap(img, 0,0, img.getWidth(), img.getHeight(), mat, true); //
+                if(eyeSide == LEFT_SIDE) {
+                    leftBitmap = img;
+                } else if (eyeSide == RIGHT_SIDE) {
+                    rightBitmap = img;
+                }
 
                 Paint myPaint = new Paint();
                 myPaint.setColor(Color.YELLOW);
@@ -232,7 +260,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                         .setTrackingEnabled(false)
                         .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                         .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
-//                        .setMode(FaceDetector.FAST_MODE)
+                        .setMode(FaceDetector.FAST_MODE)
                         .build();
                 if(!faceDetector.isOperational()){
                     Log.e("ERROR","Couldn't set up face detector");
@@ -275,7 +303,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 } else if(eyeSide == RIGHT_SIDE) {
                     rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
                 }
-                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -338,5 +366,58 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
+    public String getImageString(Bitmap bitmap) {
+        ByteArrayOutputStream ba = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, ba);
+        byte[] imageByte = ba.toByteArray();
+        String encode = Base64.encodeToString(imageByte, Base64.DEFAULT);
+        return encode;
+
+    }
+    private void uploadImage(Bitmap imageToSend) {
+        try {
+            URL url = new URL("http://localhost:8080/upload-image");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Cache-Control", "no-cache");
+
+            conn.setReadTimeout(35000);
+            conn.setConnectTimeout(35000);
+
+            OutputStream os = conn.getOutputStream();
+            imageToSend.compress(Bitmap.CompressFormat.PNG, 100, os);
+            os.flush();
+            os.close();
+
+            System.out.println("Response Code: " + conn.getResponseCode());
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            Log.d("sdfs", "sfsd");
+            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = responseStreamReader.readLine()) != null)
+                stringBuilder.append(line).append("\n");
+            responseStreamReader.close();
+
+            String response = stringBuilder.toString();
+            System.out.println(response);
+
+            conn.disconnect();
+
+        } catch(MalformedURLException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
