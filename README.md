@@ -1,12 +1,9 @@
 # Eyeagnosis
-
-Android
-TODO: Fix image rotation problem
-      / read write .tif file
-      / upload binary file
-      DONE!!!
       
-      TODO2: fully connect
+      ANDROID
+      TODO (NOW): แก้ส่งรูปพร้อมกัน 2 รูป , UI
+      TODO (LATER): login, tracking
+
       
       
       
