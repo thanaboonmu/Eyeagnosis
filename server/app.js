@@ -1,21 +1,9 @@
-var PythonShell = require('python-shell');
-
-var options = {
-  args: ["https://storage.googleapis.com/my-project-1479114136736.appspot.com/1516962482168-0.11378105224556578.png"]
-};
-
-
-PythonShell.run('test.py', options, function (err,results) {
-  if (err) throw err;
-  console.log(results);
-  console.log('finished');
-});
+// Eyeagnosis server
 
 var config = require('./config');
-
 var express = require('express');
-var multer = require('multer')
 var gcloud = require('google-cloud');
+var PythonShell = require('python-shell');
 
 var datastore = gcloud.datastore({
 projectId: config.projectId,
@@ -62,43 +50,60 @@ function uploadToBucket(imageData, callback) {
     stream.on('finish', function() {
       // Set this file to be publicly readable
       file.makePublic(function(err) {
-        if (err) return callback(err);
-        callback(null, imageUrl);
+        if (err) {
+            callback(err, null);
+        }
+        else {
+            callback(null, imageUrl);
+        }
       });
     });
     stream.end(imageData);
   }
 
+function runPython(imageUrl, callback) {
+    var options = {
+      args: [imageUrl]
+    };
+
+    PythonShell.run('test.py', options, function (err,results) {
+        if (err) {
+            return callback(err, null);
+        } else {
+            console.log("Python job is done: " + results);
+            callback(null, results);
+        }
+    });
+}
+
 app.post('/upload-image', rawBody, function (req, res) {
-
+    console.log(req);
     if (req.rawBody && req.bodyLength > 0) {
 
-        // TODO save image (req.rawBody) somewhere
+        // save image to bucket
         uploadToBucket(req.rawBody, function(err, imageUrl) {
-            console.log(imageUrl);
-            if (err) return callback(err);
+            if (err) {
+                res.status(500).send(err);
+            }
+            else {
+                console.log("Uploaded to bucket: " + imageUrl);
+                // call Python backend
+                runPython(imageUrl, function(err, results) {
+                    var response = {};
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    else {
+                        response.results = results;
+                        response.status = 'OK';
+                        console.log("Response: " + JSON.stringify(response));
+                        res.status(200).send(response);
+                    }
+                });
+            }
         });
-        // send some content as JSON
-        res.send(200, {status: 'OK'});
     } else {
-        res.send(500);
-    }
-
-});
-
-app.post('/diagnose', rawBody, function (req, res) {
-
-    if (req.rawBody && req.bodyLength > 0) {
-
-        // TODO save image (req.rawBody) somewhere
-        uploadToBucket(req.rawBody, function(err, imageUrl) {
-            console.log(imageUrl);
-            if (err) return callback(err);
-        });
-        // send some content as JSON
-        res.send(200, {status: 'OK'});
-    } else {
-        res.send(500);
+        res.status(500).send("No upload image found");
     }
 
 });
