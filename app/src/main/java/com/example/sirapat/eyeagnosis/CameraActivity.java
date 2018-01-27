@@ -26,7 +26,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -43,21 +42,10 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.google.android.gms.vision.face.Landmark;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
@@ -246,11 +234,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     rightBitmap = img;
                 }
 
-                Paint myPaint = new Paint();
-                myPaint.setColor(Color.YELLOW);
-                myPaint.setStyle(Paint.Style.STROKE);
-                myPaint.setStrokeWidth(10);
-
                 Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
                 Canvas tempCanvas = new Canvas(tempBitmap);
                 tempCanvas.drawBitmap(img, 0, 0, null);
@@ -270,9 +253,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                         rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
                     }
                     Toast.makeText(getApplicationContext(),"Could not set up the face detector!", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
                     return;
                 }
+
+                Paint myPaint = new Paint();
+                myPaint.setColor(Color.YELLOW);
+                myPaint.setStyle(Paint.Style.STROKE);
+                myPaint.setStrokeWidth(10);
 
                 Frame frame = new Frame.Builder().setBitmap(img).build();
                 SparseArray<Face> faces = faceDetector.detect(frame);
@@ -366,58 +354,5 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
-
-    public String getImageString(Bitmap bitmap) {
-        ByteArrayOutputStream ba = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, ba);
-        byte[] imageByte = ba.toByteArray();
-        String encode = Base64.encodeToString(imageByte, Base64.DEFAULT);
-        return encode;
-
-    }
-    private void uploadImage(Bitmap imageToSend) {
-        try {
-            URL url = new URL("http://localhost:8080/upload-image");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Cache-Control", "no-cache");
-
-            conn.setReadTimeout(35000);
-            conn.setConnectTimeout(35000);
-
-            OutputStream os = conn.getOutputStream();
-            imageToSend.compress(Bitmap.CompressFormat.PNG, 100, os);
-            os.flush();
-            os.close();
-
-            System.out.println("Response Code: " + conn.getResponseCode());
-
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            Log.d("sdfs", "sfsd");
-            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((line = responseStreamReader.readLine()) != null)
-                stringBuilder.append(line).append("\n");
-            responseStreamReader.close();
-
-            String response = stringBuilder.toString();
-            System.out.println(response);
-
-            conn.disconnect();
-
-        } catch(MalformedURLException e) {
-            e.printStackTrace();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

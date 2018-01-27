@@ -2,28 +2,25 @@ package com.example.sirapat.eyeagnosis;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import okhttp3.MediaType;
 
 /**
  * Created by sirapat on 1/25/2018 AD.
@@ -34,6 +31,7 @@ public class HttpUpload extends AsyncTask<Void, Integer, Void> {
     private Bitmap imageToSend = null;
     private Context context;
     private ProgressDialog progressDialog;
+    private String response = "";
 
     public HttpUpload(Context context, Bitmap imageToSend) {
         this.context = context;
@@ -52,16 +50,30 @@ public class HttpUpload extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
+//            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            imageToSend.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//            byte[] bitmapData = stream.toByteArray();
+//
+//            OkHttpClient client = new OkHttpClient();
+//            RequestBody requestBody = new MultipartBody.Builder()
+//                    .setType(MultipartBody.FORM)
+//                    .addPart(RequestBody.create(MEDIA_TYPE_PNG, bitmapData))
+//                    .build();
+//            final Request request = new Request.Builder()
+//                    .url("http://192.168.1.100:8080/upload-image")
+//                    .post(requestBody)
+//                    .build();
+//            Response response = client.newCall(request).execute();
+//            Log.e("response", response.toString());
             URL url = new URL("http://192.168.1.100:8080/upload-image");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
 
+            conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
-
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Cache-Control", "no-cache");
-
             conn.setReadTimeout(35000);
             conn.setConnectTimeout(35000);
 
@@ -71,7 +83,6 @@ public class HttpUpload extends AsyncTask<Void, Integer, Void> {
             os.close();
 
             Log.e("","Response Code: " + conn.getResponseCode());
-
             InputStream in = new BufferedInputStream(conn.getInputStream());
             BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(in));
             String line = "";
@@ -80,8 +91,13 @@ public class HttpUpload extends AsyncTask<Void, Integer, Void> {
                 stringBuilder.append(line).append("\n");
             responseStreamReader.close();
 
-            String response = stringBuilder.toString();
-            Log.e("",response);
+            response = stringBuilder.toString();
+            try {
+                JSONObject reader = new JSONObject(response);
+                response = reader.getString("status");
+            } catch (JSONException e) {
+                Log.e("","unexpected JSON exception", e);
+            }
 
             conn.disconnect();
 
@@ -103,5 +119,9 @@ public class HttpUpload extends AsyncTask<Void, Integer, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         progressDialog.dismiss();
+
+        Intent i = new Intent(context, Result.class);
+        i.putExtra("response", response);
+        context.startActivity(i);
     }
 }

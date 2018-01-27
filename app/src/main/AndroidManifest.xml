@@ -5,9 +5,10 @@
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
         android:value="face" />
-    
+
     <uses-feature android:name="android.hardware.camera2" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer"/>
+    <uses-feature android:name="android.hardware.sensor.accelerometer" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,7 +32,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".CameraActivity"></activity>
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".Result"></activity>
     </application>
 
 </manifest>
