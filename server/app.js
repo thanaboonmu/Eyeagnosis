@@ -66,20 +66,20 @@ function runPython(imageUrl, callback) {
       args: [imageUrl]
     };
 
-    PythonShell.run('test.py', options, function (err,results) {
+    PythonShell.run('test.py', options, function (err, results) {
         if (err) {
             return callback(err, null);
         } else {
-            console.log("Python job is done: " + results);
+            console.log("Python job is done");
+            console.log(results);
             callback(null, results);
         }
     });
 }
 
 app.post('/upload-image', rawBody, function (req, res) {
-    console.log(req);
+    
     if (req.rawBody && req.bodyLength > 0) {
-
         // save image to bucket
         uploadToBucket(req.rawBody, function(err, imageUrl) {
             if (err) {
@@ -94,9 +94,17 @@ app.post('/upload-image', rawBody, function (req, res) {
                         res.status(500).send(err);
                     }
                     else {
-                        response.results = results;
+                        var result = null
+                        if (results && results.length > 0) {
+                            result = JSON.parse(results[0].replace(new RegExp('\'', 'g'), '"'))
+                        }
+                        if (!result) {
+                            result = {}
+                        }
+                        result.side = req.query.side
+                        response.result = result;
                         response.status = 'OK';
-                        console.log("Response: " + JSON.stringify(response));
+                        console.log("Response: " + JSON.stringify(response) + "\n");
                         res.status(200).send(response);
                     }
                 });
