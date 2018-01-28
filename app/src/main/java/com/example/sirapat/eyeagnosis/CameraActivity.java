@@ -1,22 +1,20 @@
 package com.example.sirapat.eyeagnosis;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.ExifInterface;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -27,7 +25,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,12 +34,9 @@ import android.widget.Toast;
 
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.face.Face;
-import com.google.android.gms.vision.face.FaceDetector;
-import com.google.android.gms.vision.face.Landmark;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -71,6 +65,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private Bitmap leftBitmap = null;
     private Bitmap rightBitmap = null;
 
+    private ProgressDialog progressDialog;
+    String leftResponse = "";
+    String rightResponse = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,10 +87,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         lightBar = (IconRoundCornerProgressBar) findViewById(R.id.lightProgressBar);
         TextView modeText = (TextView) findViewById(R.id.modeTextView);
         if(diagnoseMode == NORMAL_MODE) {
-            modeText.setText("NORMAL MODE: Detecting Pinguecula / Pterygium [Flash is recommended]");
+            String modeMsg = "NORMAL MODE: Detecting Pinguecula / Pterygium [Flash is recommended]";
+            modeText.setText(modeMsg);
             modeText.setTextColor(Color.parseColor("#50C878")); // GREEN
         } else if(diagnoseMode == RED_REFLECT_MODE) {
-            modeText.setText("RED REFLECT MODE: Detecting Cataract / Retinoblastoma {Environment should be dark and Flash is required}");
+            String modeMsg = "RED REFLECT MODE: Detecting Cataract / Retinoblastoma {Environment should be dark and Flash is required}";
+            modeText.setText(modeMsg);
             modeText.setTextColor(Color.parseColor("#FF0000")); // RED
         }
         leftImage = (ImageView) findViewById(R.id.leftImageView);
@@ -117,13 +117,73 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(leftBitmap != null) {
-                    new HttpUpload(CameraActivity.this, leftBitmap).execute();
+                if (isNetworkConnected()) {
+                    if (leftBitmap != null && rightBitmap != null) { // both sides
+                        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                        HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
+                            @Override
+                            protected void onPostExecute(String res) {
+                                super.onPostExecute(res);
+                                leftResponse = res;
+                                HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
+                                    @Override
+                                    protected void onPostExecute(String res) {
+                                        super.onPostExecute(res);
+                                        rightResponse = res;
+                                        progressDialog.dismiss();
+                                        Intent i = new Intent(CameraActivity.this, Result.class);
+                                        i.putExtra("leftResponse", leftResponse);
+                                        i.putExtra("rightResponse", rightResponse);
+                                        CameraActivity.this.startActivity(i);
+                                    }
+                                };
+                                rightUpload.execute(RIGHT_SIDE);
+
+                            }
+                        };
+                        leftUpload.execute(LEFT_SIDE);
+                    } else if (leftBitmap != null || rightBitmap != null) {
+                        if (leftBitmap != null) { // left side
+                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
+                            HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
+                                @Override
+                                protected void onPostExecute(String res) {
+                                    super.onPostExecute(res);
+                                    leftResponse = res;
+                                    progressDialog.dismiss();
+                                    Intent i = new Intent(CameraActivity.this, Result.class);
+                                    i.putExtra("leftResponse", leftResponse);
+                                    CameraActivity.this.startActivity(i);
+                                }
+                            };
+                            leftUpload.execute(LEFT_SIDE);
+                        } else { //right side
+                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
+                            HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
+                                @Override
+                                protected void onPostExecute(String res) {
+                                    super.onPostExecute(res);
+                                    rightResponse = res;
+                                    progressDialog.dismiss();
+                                    Intent i = new Intent(CameraActivity.this, Result.class);
+                                    i.putExtra("rightResponse", rightResponse);
+                                    CameraActivity.this.startActivity(i);
+                                }
+                            };
+                            rightUpload.execute(RIGHT_SIDE);
+                        }
+                    } else {
+                        Toast.makeText(CameraActivity.this, "At least 1 eye is required", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(CameraActivity.this, "Can't upload, no internet connection", Toast.LENGTH_SHORT).show();
                 }
-                if(rightBitmap != null) {
-                    new HttpUpload(CameraActivity.this, rightBitmap).execute();
-                }
-//                uploadImage(leftBitmap);
             }
         });
 
@@ -133,6 +193,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             StrictMode.setVmPolicy(builder.build());
             builder.detectFileUriExposure();
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 
     public void openCamera(View view) {
@@ -203,9 +269,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScanIntent.setData(uri);
                 sendBroadcast(mediaScanIntent);
-//                Bundle b = data.getExtras();
-//                Bitmap img = (Bitmap) b.get("data");
-//                imageView.setImageBitmap(img);
                 // load the saved image
                 getContentResolver().notifyChange(uri, null);
                 ContentResolver cr = getContentResolver();
@@ -213,7 +276,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
                 ExifInterface ei = new ExifInterface("/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
                 int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-
 
                 switch(orientation) {
                     case ExifInterface.ORIENTATION_ROTATE_90:
@@ -230,68 +292,69 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 }
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
+                    leftImage.setImageBitmap(img);
                 } else if (eyeSide == RIGHT_SIDE) {
+                    rightImage.setImageBitmap(img);
                     rightBitmap = img;
                 }
-
-                Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
-                Canvas tempCanvas = new Canvas(tempBitmap);
-                tempCanvas.drawBitmap(img, 0, 0, null);
-
-                FaceDetector faceDetector = new
-                        FaceDetector.Builder(getApplicationContext())
-                        .setTrackingEnabled(false)
-                        .setLandmarkType(FaceDetector.ALL_LANDMARKS)
-                        .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
-                        .setMode(FaceDetector.FAST_MODE)
-                        .build();
-                if(!faceDetector.isOperational()){
-                    Log.e("ERROR","Couldn't set up face detector");
-                    if(eyeSide == LEFT_SIDE) {
-                        leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-                    } else if(eyeSide == RIGHT_SIDE) {
-                        rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-                    }
-                    Toast.makeText(getApplicationContext(),"Could not set up the face detector!", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Paint myPaint = new Paint();
-                myPaint.setColor(Color.YELLOW);
-                myPaint.setStyle(Paint.Style.STROKE);
-                myPaint.setStrokeWidth(10);
-
-                Frame frame = new Frame.Builder().setBitmap(img).build();
-                SparseArray<Face> faces = faceDetector.detect(frame);
-                if(faces.size() > 0) {
-                    Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(faces.size()) + " FACE DETECTED!!!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
-                    toast.show();
-                }
-                for(int i=0; i<faces.size(); i++) {
-                    Face thisFace = faces.valueAt(i);
-                    float x1 = thisFace.getPosition().x;
-                    float y1 = thisFace.getPosition().y;
-                    float x2 = x1 + thisFace.getWidth();
-                    float y2 = y1 + thisFace.getHeight();
-                    tempCanvas.drawRoundRect(new RectF(x1, y1, x2, y2), 2, 2, myPaint);
-                    Log.e("left prob=:",String.valueOf(thisFace.getIsLeftEyeOpenProbability()));
-                    Log.e("right prob=:",String.valueOf(thisFace.getIsRightEyeOpenProbability()));
-                    for(Landmark landmark : thisFace.getLandmarks()) {
-                        if (landmark.getType() == Landmark.LEFT_EYE || landmark.getType() == Landmark.RIGHT_EYE) {
-                            int cx = (int) landmark.getPosition().x;
-                            int cy = (int) landmark.getPosition().y;
-                            tempCanvas.drawCircle(cx, cy, 150, myPaint);
-                        }
-                    }
-                }
-                if(eyeSide == LEFT_SIDE) {
-                    leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-                } else if(eyeSide == RIGHT_SIDE) {
-                    rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-                }
                 Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
+//                Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
+//                Canvas tempCanvas = new Canvas(tempBitmap);
+//                tempCanvas.drawBitmap(img, 0, 0, null);
+//
+//                FaceDetector faceDetector = new
+//                        FaceDetector.Builder(getApplicationContext())
+//                        .setTrackingEnabled(false)
+//                        .setLandmarkType(FaceDetector.ALL_LANDMARKS)
+//                        .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
+//                        .setMode(FaceDetector.FAST_MODE)
+//                        .build();
+//                if(!faceDetector.isOperational()){
+//                    Log.e("ERROR","Couldn't set up face detector");
+//                    if(eyeSide == LEFT_SIDE) {
+//                        leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+//                    } else if(eyeSide == RIGHT_SIDE) {
+//                        rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+//                    }
+//                    Toast.makeText(getApplicationContext(),"Could not set up the face detector!", Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                Paint myPaint = new Paint();
+//                myPaint.setColor(Color.YELLOW);
+//                myPaint.setStyle(Paint.Style.STROKE);
+//                myPaint.setStrokeWidth(10);
+//
+//                Frame frame = new Frame.Builder().setBitmap(img).build();
+//                SparseArray<Face> faces = faceDetector.detect(frame);
+//                if(faces.size() > 0) {
+//                    Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(faces.size()) + " FACE DETECTED!!!", Toast.LENGTH_SHORT);
+//                    toast.setGravity(Gravity.CENTER,0,0);
+//                    toast.show();
+//                }
+//                for(int i=0; i<faces.size(); i++) {
+//                    Face thisFace = faces.valueAt(i);
+//                    float x1 = thisFace.getPosition().x;
+//                    float y1 = thisFace.getPosition().y;
+//                    float x2 = x1 + thisFace.getWidth();
+//                    float y2 = y1 + thisFace.getHeight();
+//                    tempCanvas.drawRoundRect(new RectF(x1, y1, x2, y2), 2, 2, myPaint);
+//                    Log.e("left prob=:",String.valueOf(thisFace.getIsLeftEyeOpenProbability()));
+//                    Log.e("right prob=:",String.valueOf(thisFace.getIsRightEyeOpenProbability()));
+//                    for(Landmark landmark : thisFace.getLandmarks()) {
+//                        if (landmark.getType() == Landmark.LEFT_EYE || landmark.getType() == Landmark.RIGHT_EYE) {
+//                            int cx = (int) landmark.getPosition().x;
+//                            int cy = (int) landmark.getPosition().y;
+//                            tempCanvas.drawCircle(cx, cy, 150, myPaint);
+//                        }
+//                    }
+//                }
+//                if(eyeSide == LEFT_SIDE) {
+//                    leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+//                } else if(eyeSide == RIGHT_SIDE) {
+//                    rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
+//                }
             } catch (Exception e){
                 e.printStackTrace();
             }
