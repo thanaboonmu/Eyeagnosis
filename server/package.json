@@ -13,6 +13,9 @@
     "express": "^4.12.3",
     "google-cloud": "^0.48.0",
     "googleapis": "^2.0.3",
-    "multer": "^0.1.8"
+    "multer": "^0.1.8",
+    "python-shell": "^0.4.0",
+    "fs": "^0.0.1-security",
+    "multiparty": "^4.1.3"
   }
 }
