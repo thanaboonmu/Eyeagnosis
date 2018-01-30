@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:26.+'
     compile 'com.airbnb.android:lottie:2.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'com.github.lzyzsd:circleprogress:1.2.1'
+    compile 'com.koushikdutta.ion:ion:2.+'
     testCompile 'junit:junit:4.12'
 }

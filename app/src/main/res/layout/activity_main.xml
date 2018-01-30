@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.sirapat.eyeagnosis.MainActivity"
-    android:baselineAligned="false">
-
+    android:baselineAligned="false"
+    android:background="@color/light_green">
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -33,26 +33,69 @@
             android:paddingBottom="20dp">
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="16sp"
+                android:text="Next photo can save your eyes"
+                android:layout_below="@+id/animation_view"/>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textView"
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="40dp"-->
+            <!--android:typeface="sans"-->
+            <!--android:textStyle="italic"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="#0000FF"-->
+            <!--android:text="Pinguecula/Pterygium."-->
+            <!--android:layout_above="@+id/linearLayout" />-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:typeface="sans"
-            android:textStyle="italic"
-            android:textSize="16sp"
-            android:textColor="#0000FF"
-            android:text="Tips: Select NORMAL mode to detect Pinguecula/Pterygium, RED REFLECT to detect Cataract/Retinoblastoma."
-            android:layout_above="@+id/linearLayout" />
+            android:layout_marginBottom="80dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:maxLines="2"
+                android:fontFamily="sans-serif"
+                android:textSize="16sp"
 
+                android:text="Pinguecula(ต้อลม)\nPterygium(ต้อเนื้อ)"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:maxLines="3"
+                android:fontFamily="sans-serif"
+                android:textSize="16sp"
+                android:text="Cataract(ต้อกระจก)\nRetinoblastoma\n(มะเร็งจอตา)"/>
+
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -81,7 +124,7 @@
                 android:layout_weight="1"
                 android:background="#FF0000"
                 android:padding="15dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="10dp"
                 android:text="RED REFLECT"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
@@ -89,12 +132,12 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"/>
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="?android:attr/windowBackground"-->
+        <!--app:menu="@menu/navigation"/>-->
 
 </LinearLayout>

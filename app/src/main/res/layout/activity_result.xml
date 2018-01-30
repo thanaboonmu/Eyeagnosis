@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.sirapat.eyeagnosis.Result">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="345dp"
-        android:layout_height="308dp"
-        android:text="none"
-        tools:layout_editor_absoluteY="6dp"
-        tools:layout_editor_absoluteX="7dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="RESULT"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <com.github.lzyzsd.circleprogress.DonutProgress
+            android:id="@+id/donut_progress"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/resultTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            app:donut_progress="30"/>
+        <com.github.lzyzsd.circleprogress.DonutProgress
+            android:id="@+id/donut_progress_right"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="@+id/donut_progress"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            app:donut_progress="30"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/donut_progress"
+            android:text="Your severity of Pinguecula is minor. No need to meet opthalmologist. You should shield your eyes from the sun."
+            android:typeface="sans"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="32dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+</ScrollView>

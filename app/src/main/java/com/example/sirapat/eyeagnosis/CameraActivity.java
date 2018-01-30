@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -22,6 +23,7 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,10 +36,15 @@ import android.widget.Toast;
 
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static java.lang.Math.abs;
@@ -49,6 +56,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private int RED_REFLECT_MODE = 1;
     final private int LEFT_SIDE = 0;
     final private int RIGHT_SIDE = 1;
+    // LOCAL IP
+    final private String MY_HOME = "192.168.1.100";
+    final private String SENIOR_5G = "192.168.1.193";
+    final private String CHAMP = "192.168.1.8";
+    //
 
     private int tag = 1;
     private Uri uri = null;
@@ -64,10 +76,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private String imageFileName = null;
     private Bitmap leftBitmap = null;
     private Bitmap rightBitmap = null;
-
+    private String leftFilePath = "";
+    private String rightFilePath = "";
     private ProgressDialog progressDialog;
-    String leftResponse = "";
-    String rightResponse = "";
+    private String leftResponse = "";
+    private String rightResponse = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +110,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         }
         leftImage = (ImageView) findViewById(R.id.leftImageView);
         rightImage = (ImageView) findViewById(R.id.rightImageView);
-        final ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
+        progressDialog = new ProgressDialog(CameraActivity.this);
+        progressDialog.setMessage("Uploading Picture...");
+        progressDialog.setCancelable(false);
+        ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,64 +135,128 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             public void onClick(View view) {
                 if (isNetworkConnected()) {
                     if (leftBitmap != null && rightBitmap != null) { // both sides
-                        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-                        progressDialog.setCancelable(false);
                         progressDialog.show();
-                        HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
-                            @Override
-                            protected void onPostExecute(String res) {
-                                super.onPostExecute(res);
-                                leftResponse = res;
-                                HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
+                        Ion.with(CameraActivity.this)
+                                .load("http://" + CHAMP + ":8080/upload-image?side=left")
+                                .progressDialog(progressDialog)
+                                .setMultipartParameter("name", "source")
+                                .setMultipartFile("image", "image/png", new File(leftFilePath))
+                                .asJsonObject()
+                                .setCallback(new FutureCallback<JsonObject>() {
                                     @Override
-                                    protected void onPostExecute(String res) {
-                                        super.onPostExecute(res);
-                                        rightResponse = res;
-                                        progressDialog.dismiss();
-                                        Intent i = new Intent(CameraActivity.this, Result.class);
-                                        i.putExtra("leftResponse", leftResponse);
-                                        i.putExtra("rightResponse", rightResponse);
-                                        CameraActivity.this.startActivity(i);
+                                    public void onCompleted(Exception e, JsonObject result) {
+                                        leftResponse = result.toString();
+                                        Ion.with(CameraActivity.this)
+                                                .load("http://" + CHAMP + ":8080/upload-image?side=right")
+                                                .progressDialog(progressDialog)
+                                                .setMultipartParameter("name", "source")
+                                                .setMultipartFile("image", "image/png", new File(rightFilePath))
+                                                .asJsonObject()
+                                                .setCallback(new FutureCallback<JsonObject>() {
+                                                    @Override
+                                                    public void onCompleted(Exception e, JsonObject result) {
+                                                        progressDialog.dismiss();
+                                                        rightResponse = result.toString();
+                                                        Intent i = new Intent(CameraActivity.this, Result.class);
+                                                        i.putExtra("leftResponse", leftResponse);
+                                                        i.putExtra("rightResponse", rightResponse);
+                                                        CameraActivity.this.startActivity(i);
+                                                    }
+                                                });
                                     }
-                                };
-                                rightUpload.execute(RIGHT_SIDE);
-
-                            }
-                        };
-                        leftUpload.execute(LEFT_SIDE);
+                                });
+//                        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+//                        progressDialog.setCancelable(false);
+//                        progressDialog.show();
+//                        HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
+//                            @Override
+//                            protected void onPostExecute(String res) {
+//                                super.onPostExecute(res);
+//                                leftResponse = res;
+//                                HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
+//                                    @Override
+//                                    protected void onPostExecute(String res) {
+//                                        super.onPostExecute(res);
+//                                        rightResponse = res;
+//                                        progressDialog.dismiss();
+//                                        Intent i = new Intent(CameraActivity.this, Result.class);
+//                                        i.putExtra("leftResponse", leftResponse);
+//                                        i.putExtra("rightResponse", rightResponse);
+//                                        CameraActivity.this.startActivity(i);
+//                                    }
+//                                };
+//                                rightUpload.execute(RIGHT_SIDE);
+//
+//                            }
+//                        };
+//                        leftUpload.execute(LEFT_SIDE);
                     } else if (leftBitmap != null || rightBitmap != null) {
                         if (leftBitmap != null) { // left side
-                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-                            progressDialog.setCancelable(false);
                             progressDialog.show();
-                            HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
-                                @Override
-                                protected void onPostExecute(String res) {
-                                    super.onPostExecute(res);
-                                    leftResponse = res;
-                                    progressDialog.dismiss();
-                                    Intent i = new Intent(CameraActivity.this, Result.class);
-                                    i.putExtra("leftResponse", leftResponse);
-                                    CameraActivity.this.startActivity(i);
-                                }
-                            };
-                            leftUpload.execute(LEFT_SIDE);
+                            Ion.with(CameraActivity.this)
+                                    .load("http://" + CHAMP + ":8080/upload-image?side=left")
+                                    .progressDialog(progressDialog)
+                                    .setMultipartParameter("name", "source")
+                                    .setMultipartFile("image", "image/png", new File(leftFilePath))
+                                    .asJsonObject()
+                                    .setCallback(new FutureCallback<JsonObject>() {
+                                        @Override
+                                        public void onCompleted(Exception e, JsonObject result) {
+                                            progressDialog.dismiss();
+                                            leftResponse = result.toString();
+                                            Intent i = new Intent(CameraActivity.this, Result.class);
+                                            i.putExtra("leftResponse", leftResponse);
+                                            CameraActivity.this.startActivity(i);
+                                        }
+                                    });
+//                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+//                            progressDialog.setCancelable(false);
+//                            progressDialog.show();
+//                            HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
+//                                @Override
+//                                protected void onPostExecute(String res) {
+//                                    super.onPostExecute(res);
+//                                    leftResponse = res;
+//                                    progressDialog.dismiss();
+//                                    Intent i = new Intent(CameraActivity.this, Result.class);
+//                                    i.putExtra("leftResponse", leftResponse);
+//                                    CameraActivity.this.startActivity(i);
+//                                }
+//                            };
+//                            leftUpload.execute(LEFT_SIDE);
                         } else { //right side
-                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-                            progressDialog.setCancelable(false);
                             progressDialog.show();
-                            HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
-                                @Override
-                                protected void onPostExecute(String res) {
-                                    super.onPostExecute(res);
-                                    rightResponse = res;
-                                    progressDialog.dismiss();
-                                    Intent i = new Intent(CameraActivity.this, Result.class);
-                                    i.putExtra("rightResponse", rightResponse);
-                                    CameraActivity.this.startActivity(i);
-                                }
-                            };
-                            rightUpload.execute(RIGHT_SIDE);
+                            Ion.with(CameraActivity.this)
+                                    .load("http://" + CHAMP + ":8080/upload-image?side=right")
+                                    .progressDialog(progressDialog)
+                                    .setMultipartParameter("name", "source")
+                                    .setMultipartFile("image", "image/png", new File(rightFilePath))
+                                    .asJsonObject()
+                                    .setCallback(new FutureCallback<JsonObject>() {
+                                        @Override
+                                        public void onCompleted(Exception e, JsonObject result) {
+                                            progressDialog.dismiss();
+                                            rightResponse = result.toString();
+                                            Intent i = new Intent(CameraActivity.this, Result.class);
+                                            i.putExtra("rightResponse", rightResponse);
+                                            CameraActivity.this.startActivity(i);
+                                        }
+                                    });
+//                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
+//                            progressDialog.setCancelable(false);
+//                            progressDialog.show();
+//                            HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
+//                                @Override
+//                                protected void onPostExecute(String res) {
+//                                    super.onPostExecute(res);
+//                                    rightResponse = res;
+//                                    progressDialog.dismiss();
+//                                    Intent i = new Intent(CameraActivity.this, Result.class);
+//                                    i.putExtra("rightResponse", rightResponse);
+//                                    CameraActivity.this.startActivity(i);
+//                                }
+//                            };
+//                            rightUpload.execute(RIGHT_SIDE);
                         }
                     } else {
                         Toast.makeText(CameraActivity.this, "At least 1 eye is required", Toast.LENGTH_SHORT).show();
@@ -273,7 +353,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 getContentResolver().notifyChange(uri, null);
                 ContentResolver cr = getContentResolver();
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
-
                 ExifInterface ei = new ExifInterface("/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
                 int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
@@ -290,12 +369,15 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     case ExifInterface.ORIENTATION_NORMAL:
                     default:
                 }
+
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
+                    leftFilePath = uri.getPath();
                     leftImage.setImageBitmap(img);
                 } else if (eyeSide == RIGHT_SIDE) {
-                    rightImage.setImageBitmap(img);
                     rightBitmap = img;
+                    rightFilePath = uri.getPath();
+                    rightImage.setImageBitmap(img);
                 }
                 Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
 //                Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
