@@ -60,6 +60,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private String MY_HOME = "192.168.1.100";
     final private String SENIOR_5G = "192.168.1.193";
     final private String CHAMP = "192.168.1.8";
+    final private String KMUTT_SECURE = "10.35.247.141";
     //
 
     private int tag = 1;
@@ -81,6 +82,8 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private ProgressDialog progressDialog;
     private String leftResponse = "";
     private String rightResponse = "";
+
+    File dir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +150,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                     public void onCompleted(Exception e, JsonObject result) {
                                         leftResponse = result.toString();
                                         Ion.with(CameraActivity.this)
-                                                .load("http://" + CHAMP + ":8080/upload-image?side=right")
+                                                .load("http://" + MY_HOME + ":8080/upload-image?side=right")
                                                 .progressDialog(progressDialog)
                                                 .setMultipartParameter("name", "source")
                                                 .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -194,7 +197,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                         if (leftBitmap != null) { // left side
                             progressDialog.show();
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + CHAMP + ":8080/upload-image?side=left")
+                                    .load("http://" + MY_HOME + ":8080/upload-image?side=left")
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -227,7 +230,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                         } else { //right side
                             progressDialog.show();
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + CHAMP + ":8080/upload-image?side=right")
+                                    .load("http://" + MY_HOME + ":8080/upload-image?side=right")
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -325,7 +328,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         imageFileName = "IMG_" + timestamp + ".png";
-        File dir = new File(Environment.getExternalStorageDirectory(), "DCIM/eyeagnosis");
+        dir = new File(Environment.getExternalStorageDirectory(), "DCIM/eyeagnosis");
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -372,6 +375,9 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
+//                    FileOutputStream fos = new FileOutputStream(dir);
+//                    img.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//                    uri = Uri.fromFile(dir);
                     leftFilePath = uri.getPath();
                     leftImage.setImageBitmap(img);
                 } else if (eyeSide == RIGHT_SIDE) {

@@ -29,7 +29,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="345dp"
             android:paddingBottom="20dp">
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
@@ -41,13 +41,24 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
             <TextView
+                android:id="@+id/slogan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="16sp"
+                android:textSize="20dp"
                 android:text="Next photo can save your eyes"
-                android:layout_below="@+id/animation_view"/>
+                android:layout_below="@+id/animation_view"
+                android:layout_marginTop="15dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:fontFamily="sans-serif"
+                android:textSize="18dp"
+                android:text="Select a detection mode"
+                android:layout_below="@+id/slogan"
+                android:layout_marginTop="28dp"/>
         </RelativeLayout>
 
         <!--<TextView-->
@@ -107,27 +118,35 @@
             android:weightSum="2"
             android:id="@+id/linearLayout"
             android:baselineAligned="false">
-            <Button
+            <info.hoang8f.widget.FButton
                 android:id="@+id/normalModeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#50C878"
                 android:padding="15dp"
-                android:text="NORMAL"
+                android:text="Normal"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-            <Button
+                android:textSize="18dp"
+                app:buttonColor="#50C878"
+                app:shadowColor="#7f8c8d"
+                app:shadowEnabled="true"
+                app:shadowHeight="5dp"
+                app:cornerRadius="7dp" />
+            <info.hoang8f.widget.FButton
                 android:id="@+id/redReflectModeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#FF0000"
                 android:padding="15dp"
                 android:layout_marginLeft="10dp"
-                android:text="RED REFLECT"
+                android:text="Red Reflect"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                app:buttonColor="#FF0000"
+                app:shadowColor="#7f8c8d"
+                app:shadowEnabled="true"
+                app:shadowHeight="5dp"
+                app:cornerRadius="7dp" />
         </LinearLayout>
 
     </RelativeLayout>
