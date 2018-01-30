@@ -5,7 +5,6 @@
     Download server folder
     $ cd server
     $ npm install
-    $ npm install python-shell
     $ node app.js
     test.py will be used [can be edited on app.js]
     
@@ -13,7 +12,7 @@
        
     Download postman
     Make a post request to http://localhost:8080/upload-image
-    In Body > binary insert an image
+    In Body > form-data > name a key and insert value with an image
   
   
    Progress
