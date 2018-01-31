@@ -18,7 +18,7 @@
     $ cd server
     $ npm install
     $ node app.js
-    test.py will be used [can be edited on app.js]
+    normal.py will be used [can be edited on app.js]
     
    How to test?
        
