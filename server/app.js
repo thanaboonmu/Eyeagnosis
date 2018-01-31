@@ -64,12 +64,19 @@ function uploadToBucket(imageData, callback) {
     stream.end(imageData);
   }
 
-function runPython(imageUrl, callback) {
+function runPython(imageUrl, mode, callback) {
     var options = {
       args: [imageUrl]
     };
-
-    PythonShell.run('test.py', options, function (err, results) {
+    var filename = "normal_test.py"
+    if (mode == "normal") {
+        filename = "normal_test.py";
+    } else if (mode == "red_reflect") {
+        filename = "red_reflect_test.py";
+    } else {
+        filename = "normal_test.py";
+    }
+    PythonShell.run(filename, options, function (err, results) {
         if (err) {
             return callback(err, null);
         } else {
@@ -101,7 +108,7 @@ app.post('/upload-image', function (req, res) {
                         console.log("Finish uploading@ " + new Date());
                         console.log('Uploaded to bucket: ' + imageUrl);
                         // call Python backend
-                        runPython(imageUrl, function(err, results) {
+                        runPython(imageUrl, req.query.mode, function(err, results) {
                             var response = {};
                             if (err) {
                                 res.status(500).send(err);
