@@ -1,6 +1,6 @@
 # Eyeagnosis 2018
    License Agreement
-      This software is a work developed by Nopmongkol Udompapong, Sirapat Na Ranong, Thanaboon Muangwong from KMUTT under the    provision of …(Advisor’s name)…. under …(Project’s name)… , which has
+      This software is a work developed by Nopmongkol Udompapong, Sirapat Na Ranong, Thanaboon Muangwong from KMUTT under the    provision of Dr.Sutathip. under Eyeagnosis, which has
    been supported by the National Electronics and Computer Technology Center (NECTEC), in
    order to encourage pupils and students to learn and practice their skills in developing
    software. Therefore, the intellectual property of this software shall belong to the developer
@@ -23,16 +23,15 @@
    How to test?
        
     Download postman
-    Make a post request to http://localhost:8080/upload-image
+    Post request to http://localhost:8080/upload-image?side=left&mode=normal [side=left|right] [mode=normal|red_reflect]
     In Body > form-data > name a key and insert value with an image
   
   
    Progress
    
     ANDROID
-     TODO (NOW): แก้ส่งรูปพร้อมกัน 2 รูป , UI
-     TODO (LATER): login, tracking
-     50%
+     TODO (LATER): fix rotation/png, login, tracking
+     70%
     Python
      50% 
     IOS
