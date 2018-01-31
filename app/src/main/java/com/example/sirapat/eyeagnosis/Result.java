@@ -10,6 +10,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class Result extends AppCompatActivity {
 
@@ -20,10 +21,18 @@ public class Result extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        TextView textView = (TextView) findViewById(R.id.resultTextView);
-        DonutProgress donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
-        donutProgress.setFinishedStrokeWidth(40);
-        donutProgress.setUnfinishedStrokeWidth(40);
+
+        DonutProgress leftProgress = (DonutProgress) findViewById(R.id.leftDonut);
+        leftProgress.setFinishedStrokeWidth(40);
+        leftProgress.setUnfinishedStrokeWidth(40);
+        DonutProgress rightProgress = (DonutProgress) findViewById(R.id.rightDonut);
+        rightProgress.setFinishedStrokeWidth(40);
+        rightProgress.setUnfinishedStrokeWidth(40);
+        TextView leftDiseaseView = (TextView) findViewById(R.id.leftDisease);
+        TextView rightDiseaseView = (TextView) findViewById(R.id.rightDisease);
+        TextView leftRec = (TextView) findViewById(R.id.leftRec);
+        TextView rightRec = (TextView) findViewById(R.id.rightRec);
+
         Bundle extras = getIntent().getExtras();
 
         if(extras != null) {
@@ -36,15 +45,19 @@ public class Result extends AppCompatActivity {
                     JSONObject leftResult = leftResObj.getJSONObject("result");
                     String leftDisease = leftResult.getString("disease");
                     Double leftPossibility = leftResult.getDouble("possibility");
-                    Integer leftSeverity = leftResult.getInt("severity");
+//                    Integer leftSeverity = leftResult.getInt("severity");
                     Log.e("Disease: ", leftDisease);
                     Log.e("Possibility: ", String.valueOf(leftPossibility));
-                    Log.e("Severity: ", String.valueOf(leftSeverity));
-                    textView.setText(leftDisease);
-                    donutProgress.setProgress((float)(leftPossibility*100));
-                    if (leftPossibility > 0.5) {
-                        donutProgress.setFinishedStrokeColor(Color.RED);
-                        donutProgress.setUnfinishedStrokeColor(Color.GREEN);
+                    leftDiseaseView.setText(leftDisease);
+                    leftProgress.setProgress((float)(leftPossibility*100));
+                    if (leftDisease == "Healthy") {
+                        leftProgress.setFinishedStrokeColor(Color.GREEN);
+                        leftProgress.setUnfinishedStrokeColor(Color.RED);
+                        leftRec.setText("Congratulations ! Your left eye is healty.");
+                    } else {
+                        leftProgress.setFinishedStrokeColor(Color.RED);
+                        leftProgress.setUnfinishedStrokeColor(Color.GREEN);
+                        leftRec.setText("Warning! There's no need to meet the doctor yet at this level. However, you need to avoid wind and sunlight when you go outside.");
                     }
                 } else {
                     Log.e("LEFT", "NO DATA");
@@ -55,10 +68,20 @@ public class Result extends AppCompatActivity {
                     JSONObject rightResult = rightResObj.getJSONObject("result");
                     String rightDisease = rightResult.getString("disease");
                     Double rightPossibility = rightResult.getDouble("possibility");
-                    Integer rightSeverity = rightResult.getInt("severity");
+//                    Integer rightSeverity = rightResult.getInt("severity");
                     Log.e("Disease: ", rightDisease);
                     Log.e("Possibility: ", String.valueOf(rightPossibility));
-                    Log.e("Severity: ", String.valueOf(rightSeverity));
+                    rightDiseaseView.setText(rightDisease);
+                    rightProgress.setProgress((float)(rightPossibility*100));
+                    if (rightDisease == "Healthy") {
+                        rightProgress.setFinishedStrokeColor(Color.GREEN);
+                        rightProgress.setUnfinishedStrokeColor(Color.RED);
+                        rightRec.setText("Congratulations ! Your left eye is healty.");
+                    } else {
+                        rightProgress.setFinishedStrokeColor(Color.RED);
+                        rightProgress.setUnfinishedStrokeColor(Color.GREEN);
+                        rightRec.setText("Warning! There's no need to meet the doctor yet at this level. However, you need to avoid wind and sunlight when you go outside.");
+                    }
                 } else {
                     Log.e("RIGHT", "NO DATA");
                 }

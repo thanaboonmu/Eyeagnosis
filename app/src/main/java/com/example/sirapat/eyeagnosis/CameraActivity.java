@@ -38,6 +38,7 @@ import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.io.File;
@@ -55,12 +56,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private int LEFT_SIDE = 0;
     final private int RIGHT_SIDE = 1;
     // LOCAL IP
-    final private String MY_HOME = "192.168.1.100";
+    final private String HME = "192.168.1.100";
     final private String SENIOR_5G = "192.168.1.193";
-    final private String CHAMP = "192.168.1.8";
+    final private String CMP = "192.168.1.8";
     final private String KMUTT_SECURE = "10.35.247.141";
-    final private String MIKE = "192.168.0.108";
-    private String IP = MIKE;
+    final private String MKE = "192.168.0.108";
+    private String IP = "192.168.0.110";
     //
 
     private int tag = 1;
@@ -386,7 +387,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
                 ExifInterface ei = new ExifInterface("/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
                 int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-
                 switch(orientation) {
                     case ExifInterface.ORIENTATION_ROTATE_90:
                         img = rotateImage(img, 90);
@@ -400,7 +400,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     case ExifInterface.ORIENTATION_NORMAL:
                     default:
                 }
-
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
 //                    FileOutputStream fos = new FileOutputStream(dir);
@@ -508,14 +507,18 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         if(abs(previousSensorValue - sensorEvent.values[0]) >= 5 || previousSensorValue == 0.1f) {
             if(diagnoseMode == NORMAL_MODE) {
                 if(sensorEvent.values[0] >= 50) {
+                    lightBar.setIconImageResource(R.drawable.brightness);
                     showSensorToast("GOOD BRIGHTNESS");
                 } else {
+                    lightBar.setIconImageResource(R.drawable.too_dark);
                     showSensorToast("TOO DARK");
                 }
             } else if(diagnoseMode == RED_REFLECT_MODE) {
                 if(sensorEvent.values[0] >= 10) {
+                    lightBar.setIconImageResource(R.drawable.too_bright);
                     showSensorToast("TOO BRIGHT");
                 } else {
+                    lightBar.setIconImageResource(R.drawable.good_darkness);
                     showSensorToast("GOOD DARKNESS");
                 }
             } else {

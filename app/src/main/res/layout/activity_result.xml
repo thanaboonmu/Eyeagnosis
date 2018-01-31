@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     tools:context="com.example.sirapat.eyeagnosis.Result">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,39 +18,113 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="RESULT"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:typeface="sans" />
+            android:fontFamily="sans-serif-medium"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:text="Diagnosis result" />
+
+        <TextView
+            android:id="@+id/leftEyeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resultTextView"
+            android:layout_alignRight="@+id/leftDonut"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:text="Left eye"/>
+        <TextView
+            android:id="@+id/rightEyeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resultTextView"
+            android:layout_alignStart="@+id/rightDonut"
+            android:layout_alignLeft="@+id/rightDonut"
+            android:layout_alignRight="@+id/rightDonut"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:text="Right eye"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
-            android:id="@+id/donut_progress"
+            android:id="@+id/leftDonut"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_below="@+id/resultTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            app:donut_progress="30"/>
+            android:layout_below="@+id/leftEyeText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:donut_progress="0"/>
         <com.github.lzyzsd.circleprogress.DonutProgress
-            android:id="@+id/donut_progress_right"
+            android:id="@+id/rightDonut"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_alignParentLeft="@+id/donut_progress"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            app:donut_progress="30"/>
+            android:layout_alignTop="@+id/leftDonut"
+            android:layout_alignBottom="@+id/leftDonut"
+            android:layout_toRightOf="@+id/leftDonut"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="30dp"
+            app:donut_progress="0"/>
         <TextView
+            android:id="@+id/leftDisease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/donut_progress"
-            android:text="Your severity of Pinguecula is minor. No need to meet opthalmologist. You should shield your eyes from the sun."
-            android:typeface="sans"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="32dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"/>
-    </LinearLayout>
+            android:layout_below="@+id/leftDonut"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/leftDonut"
+            android:layout_alignRight="@+id/leftDonut"
+            android:layout_alignStart="@+id/leftDonut"
+            android:layout_alignEnd="@+id/leftDonut"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:text="Unknown" />
+        <TextView
+            android:id="@+id/rightDisease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rightDonut"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/rightDonut"
+            android:layout_alignRight="@+id/rightDonut"
+            android:layout_alignStart="@+id/rightDonut"
+            android:layout_alignEnd="@+id/rightDonut"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:text="Unknown" />
+        <TextView
+            android:id="@+id/leftRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftDisease"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/leftDonut"
+            android:layout_alignRight="@+id/leftDonut"
+            android:layout_alignStart="@+id/leftDonut"
+            android:layout_alignEnd="@+id/leftDonut"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:text="Recommendation [Not diagnosed yet]" />
+        <TextView
+            android:id="@+id/rightRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rightDisease"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/rightDonut"
+            android:layout_alignRight="@+id/rightDonut"
+            android:layout_alignStart="@+id/rightDonut"
+            android:layout_alignEnd="@+id/rightDonut"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:text="Recommendation [Not diagnosed yet]" />
+    </RelativeLayout>
 </ScrollView>
