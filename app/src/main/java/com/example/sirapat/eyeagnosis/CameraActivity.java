@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -23,12 +22,12 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,12 +38,11 @@ import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.InetAddress;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static java.lang.Math.abs;
@@ -61,11 +59,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private String SENIOR_5G = "192.168.1.193";
     final private String CHAMP = "192.168.1.8";
     final private String KMUTT_SECURE = "10.35.247.141";
+    final private String MIKE = "192.168.0.108";
+    private String IP = MIKE;
     //
 
     private int tag = 1;
     private Uri uri = null;
     private int diagnoseMode = -1;
+    private String mode = "normal";
     private Sensor mLight = null;
     private SensorManager mSensorManager = null;
     private float previousSensorValue = 0.1f;
@@ -103,19 +104,23 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         lightBar = (IconRoundCornerProgressBar) findViewById(R.id.lightProgressBar);
         TextView modeText = (TextView) findViewById(R.id.modeTextView);
         if(diagnoseMode == NORMAL_MODE) {
-            String modeMsg = "NORMAL MODE: Detecting Pinguecula / Pterygium [Flash is recommended]";
+            String modeMsg = "NORMAL TEST\n(Flash is recommended)";
+            mode = "normal";
             modeText.setText(modeMsg);
-            modeText.setTextColor(Color.parseColor("#50C878")); // GREEN
+            modeText.setTextColor(Color.parseColor("#00A86B")); // JADE
         } else if(diagnoseMode == RED_REFLECT_MODE) {
-            String modeMsg = "RED REFLECT MODE: Detecting Cataract / Retinoblastoma {Environment should be dark and Flash is required}";
+            mode = "red_reflect";
+            String modeMsg = "RED REFLECT TEST\n(Dark environment & Flash are required)";
             modeText.setText(modeMsg);
             modeText.setTextColor(Color.parseColor("#FF0000")); // RED
         }
         leftImage = (ImageView) findViewById(R.id.leftImageView);
         rightImage = (ImageView) findViewById(R.id.rightImageView);
-        progressDialog = new ProgressDialog(CameraActivity.this);
-        progressDialog.setMessage("Uploading Picture...");
-        progressDialog.setCancelable(false);
+//        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Analyzing...", true);
+//        progressDialog = new ProgressDialog(CameraActivity.this);
+//        progressDialog.setMessage("Uploaded, Analyzing...");
+//        progressDialog.setCancelable(false);
+        final CatLoadingView loading = new CatLoadingView();
         ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,15 +137,16 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 openCamera(view);
             }
         });
-        ImageButton uploadButton = (ImageButton) findViewById(R.id.uploadImageButton);
+        ImageButton uploadButton = (ImageButton) findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isNetworkConnected()) {
                     if (leftBitmap != null && rightBitmap != null) { // both sides
-                        progressDialog.show();
+//                        progressDialog.show();
+                        loading.show(getSupportFragmentManager(), "Analyzing");
                         Ion.with(CameraActivity.this)
-                                .load("http://" + CHAMP + ":8080/upload-image?side=left")
+                                .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
                                 .progressDialog(progressDialog)
                                 .setMultipartParameter("name", "source")
                                 .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -148,24 +154,34 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                 .setCallback(new FutureCallback<JsonObject>() {
                                     @Override
                                     public void onCompleted(Exception e, JsonObject result) {
-                                        leftResponse = result.toString();
-                                        Ion.with(CameraActivity.this)
-                                                .load("http://" + MY_HOME + ":8080/upload-image?side=right")
-                                                .progressDialog(progressDialog)
-                                                .setMultipartParameter("name", "source")
-                                                .setMultipartFile("image", "image/png", new File(rightFilePath))
-                                                .asJsonObject()
-                                                .setCallback(new FutureCallback<JsonObject>() {
-                                                    @Override
-                                                    public void onCompleted(Exception e, JsonObject result) {
-                                                        progressDialog.dismiss();
-                                                        rightResponse = result.toString();
-                                                        Intent i = new Intent(CameraActivity.this, Result.class);
-                                                        i.putExtra("leftResponse", leftResponse);
-                                                        i.putExtra("rightResponse", rightResponse);
-                                                        CameraActivity.this.startActivity(i);
-                                                    }
-                                                });
+                                        if (result != null) {
+                                            leftResponse = result.toString();
+                                            Ion.with(CameraActivity.this)
+                                                    .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
+                                                    .progressDialog(progressDialog)
+                                                    .setMultipartParameter("name", "source")
+                                                    .setMultipartFile("image", "image/png", new File(rightFilePath))
+                                                    .asJsonObject()
+                                                    .setCallback(new FutureCallback<JsonObject>() {
+                                                        @Override
+                                                        public void onCompleted(Exception e, JsonObject result) {
+//                                                        progressDialog.dismiss();
+                                                            loading.dismiss();
+                                                            if (result != null) {
+                                                                rightResponse = result.toString();
+                                                                Intent i = new Intent(CameraActivity.this, Result.class);
+                                                                i.putExtra("leftResponse", leftResponse);
+                                                                i.putExtra("rightResponse", rightResponse);
+                                                                CameraActivity.this.startActivity(i);
+                                                            } else {
+                                                                Toast.makeText(CameraActivity.this, "Server isn't running", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            loading.dismiss();
+                                            Toast.makeText(CameraActivity.this, "Server isn't running", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 });
 //                        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
@@ -195,9 +211,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 //                        leftUpload.execute(LEFT_SIDE);
                     } else if (leftBitmap != null || rightBitmap != null) {
                         if (leftBitmap != null) { // left side
-                            progressDialog.show();
+//                            progressDialog.show();
+                            loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + MY_HOME + ":8080/upload-image?side=left")
+                                    .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -205,11 +222,16 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                     .setCallback(new FutureCallback<JsonObject>() {
                                         @Override
                                         public void onCompleted(Exception e, JsonObject result) {
-                                            progressDialog.dismiss();
-                                            leftResponse = result.toString();
-                                            Intent i = new Intent(CameraActivity.this, Result.class);
-                                            i.putExtra("leftResponse", leftResponse);
-                                            CameraActivity.this.startActivity(i);
+                                            loading.dismiss();
+//                                            progressDialog.dismiss();
+                                            if(result != null) {
+                                                leftResponse = result.toString();
+                                                Intent i = new Intent(CameraActivity.this, Result.class);
+                                                i.putExtra("leftResponse", leftResponse);
+                                                CameraActivity.this.startActivity(i);
+                                            } else {
+                                                Toast.makeText(CameraActivity.this, "Server isn't running", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
 //                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
@@ -228,9 +250,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 //                            };
 //                            leftUpload.execute(LEFT_SIDE);
                         } else { //right side
-                            progressDialog.show();
+//                            progressDialog.show();
+                            loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + MY_HOME + ":8080/upload-image?side=right")
+                                    .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -238,11 +261,16 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                     .setCallback(new FutureCallback<JsonObject>() {
                                         @Override
                                         public void onCompleted(Exception e, JsonObject result) {
-                                            progressDialog.dismiss();
-                                            rightResponse = result.toString();
-                                            Intent i = new Intent(CameraActivity.this, Result.class);
-                                            i.putExtra("rightResponse", rightResponse);
-                                            CameraActivity.this.startActivity(i);
+//                                            progressDialog.dismiss();
+                                            loading.dismiss();
+                                            if (result != null) {
+                                                rightResponse = result.toString();
+                                                Intent i = new Intent(CameraActivity.this, Result.class);
+                                                i.putExtra("rightResponse", rightResponse);
+                                                CameraActivity.this.startActivity(i);
+                                            } else {
+                                                Toast.makeText(CameraActivity.this, "Server isn't running", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
 //                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
@@ -485,7 +513,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     showSensorToast("TOO DARK");
                 }
             } else if(diagnoseMode == RED_REFLECT_MODE) {
-                if(sensorEvent.values[0] >= 50) {
+                if(sensorEvent.values[0] >= 10) {
                     showSensorToast("TOO BRIGHT");
                 } else {
                     showSensorToast("GOOD DARKNESS");

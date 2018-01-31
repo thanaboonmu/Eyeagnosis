@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.example.sirapat.eyeagnosis"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -36,5 +36,7 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'info.hoang8f:fbutton:1.0.5'
+    compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.1'
+    compile 'com.mikhaellopez:circularimageview:3.0.2'
     testCompile 'junit:junit:4.12'
 }

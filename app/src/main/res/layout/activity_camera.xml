@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sirapat.eyeagnosis.CameraActivity">
+    tools:context="com.example.sirapat.eyeagnosis.CameraActivity"
+    android:background="@color/light_green">
 
     <TextView
         android:id="@+id/modeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="18dp"
+        android:textColor="#000000"
         android:text="DIAGNOSE MODE"
-        android:typeface="sans"
-        android:textStyle="italic|bold"
-        android:textSize="16sp"
-        android:maxLines="3"
+        android:maxLines="2"
         android:layout_marginTop="18dp"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal" />
 
     <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
         android:id="@+id/lightProgressBar"
@@ -34,12 +35,12 @@
         app:rcBackgroundColor="#CCFFFF"
         app:rcProgressColor="#FFFF00"
         app:rcSecondaryProgressColor="#FFFFCC"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/modeTextView"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/leftImageView"
         android:layout_width="170dp"
         android:layout_height="200dp"
@@ -47,8 +48,11 @@
         android:layout_above="@+id/leftImageButton"
         android:layout_below="@+id/lightProgressBar"
         android:layout_alignLeft="@+id/lightProgressBar"
-        android:layout_alignStart="@+id/lightProgressBar" />
-    <ImageView
+        android:layout_alignStart="@+id/lightProgressBar"
+        android:layout_marginTop="20dp"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="4dp" />
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/rightImageView"
         android:layout_width="170dp"
         android:layout_height="200dp"
@@ -60,6 +64,28 @@
         android:layout_alignRight="@+id/lightProgressBar"
         android:layout_alignEnd="@+id/lightProgressBar"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leftImageView"
+        android:layout_alignStart="@+id/leftImageButton"
+        android:layout_alignLeft="@+id/leftImageButton"
+        android:layout_alignRight="@+id/leftImageButton"
+        android:fontFamily="sans-serif"
+        android:textSize="14dp"
+        android:textColor="#000000"
+        android:text="Left eye photo" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rightImageView"
+        android:layout_alignStart="@+id/rightImageButton"
+        android:layout_alignLeft="@+id/rightImageButton"
+        android:layout_alignRight="@+id/rightImageButton"
+        android:fontFamily="sans-serif"
+        android:textSize="14dp"
+        android:textColor="#000000"
+        android:text="Right eye photo" />
     <ImageButton
         android:id="@+id/leftImageButton"
         android:layout_width="wrap_content"
@@ -70,8 +96,8 @@
         android:layout_marginRight="7dp"
         android:layout_marginEnd="7dp"
         android:layout_alignBottom="@+id/rightImageButton"
-        android:layout_toLeftOf="@+id/uploadImageButton"
-        android:layout_toStartOf="@+id/uploadImageButton" />
+        android:layout_toLeftOf="@+id/uploadButton"
+        android:layout_toStartOf="@+id/uploadButton" />
     <ImageButton
         android:id="@+id/rightImageButton"
         android:layout_width="wrap_content"
@@ -79,15 +105,16 @@
         android:src="@drawable/camera"
         android:background="@android:color/transparent"
         android:padding="20dp"
-        android:layout_above="@+id/uploadImageButton"
-        android:layout_toRightOf="@+id/uploadImageButton"
-        android:layout_toEndOf="@+id/uploadImageButton" />
+        android:layout_above="@+id/uploadButton"
+        android:layout_toRightOf="@+id/uploadButton"
+        android:layout_toEndOf="@+id/uploadButton" />
+
     <ImageButton
-        android:id="@+id/uploadImageButton"
-        android:src="@drawable/upload"
-        android:background="@android:color/transparent"
+        android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/upload"
         android:layout_marginBottom="12dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
