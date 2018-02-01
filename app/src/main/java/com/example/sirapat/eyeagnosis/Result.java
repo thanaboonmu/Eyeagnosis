@@ -58,7 +58,7 @@ public class Result extends AppCompatActivity {
                     } else {
                         leftProgress.setFinishedStrokeColor(Color.RED);
                         leftProgress.setUnfinishedStrokeColor(Color.GREEN);
-                        leftRec.setText("Warning! There's no need to meet the doctor yet at this level. However, you need to avoid wind and sunlight when you go outside.");
+                        leftRec.setText("Danger! You have to meet a doctor as soon as possible.");
                     }
                 } else {
                     Log.e("LEFT", "NO DATA");
@@ -81,7 +81,7 @@ public class Result extends AppCompatActivity {
                     } else {
                         rightProgress.setFinishedStrokeColor(Color.RED);
                         rightProgress.setUnfinishedStrokeColor(Color.GREEN);
-                        rightRec.setText("Warning! There's no need to meet the doctor yet at this level. However, you need to avoid wind and sunlight when you go outside.");
+                        rightRec.setText("Danger! You have to meet a doctor as soon as possible.");
                     }
                 } else {
                     Log.e("RIGHT", "NO DATA");
