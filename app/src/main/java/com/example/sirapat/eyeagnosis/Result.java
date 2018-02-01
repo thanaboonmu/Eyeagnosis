@@ -50,10 +50,11 @@ public class Result extends AppCompatActivity {
                     Log.e("Possibility: ", String.valueOf(leftPossibility));
                     leftDiseaseView.setText(leftDisease);
                     leftProgress.setProgress((float)(leftPossibility*100));
+
                     if (leftDisease == "Healthy") {
                         leftProgress.setFinishedStrokeColor(Color.GREEN);
                         leftProgress.setUnfinishedStrokeColor(Color.RED);
-                        leftRec.setText("Congratulations ! Your left eye is healty.");
+                        leftRec.setText("Congratulations ! Your left eye is healthy.");
                     } else {
                         leftProgress.setFinishedStrokeColor(Color.RED);
                         leftProgress.setUnfinishedStrokeColor(Color.GREEN);
@@ -76,7 +77,7 @@ public class Result extends AppCompatActivity {
                     if (rightDisease == "Healthy") {
                         rightProgress.setFinishedStrokeColor(Color.GREEN);
                         rightProgress.setUnfinishedStrokeColor(Color.RED);
-                        rightRec.setText("Congratulations ! Your left eye is healty.");
+                        rightRec.setText("Congratulations ! Your left eye is healthy.");
                     } else {
                         rightProgress.setFinishedStrokeColor(Color.RED);
                         rightProgress.setUnfinishedStrokeColor(Color.GREEN);

@@ -61,7 +61,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private String CMP = "192.168.1.8";
     final private String KMUTT_SECURE = "10.35.247.141";
     final private String MKE = "192.168.0.108";
-    private String IP = "192.168.0.110";
+    private String IP = KMUTT_SECURE;
     //
 
     private int tag = 1;
