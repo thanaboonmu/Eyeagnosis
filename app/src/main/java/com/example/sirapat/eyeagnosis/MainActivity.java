@@ -6,8 +6,10 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,14 +30,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_home: {
                     return true;
-                case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                }
+                case R.id.navigation_camera: {
+                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                    i.putExtra("mode", NORMAL_MODE);
+                    startActivity(i);
                     return true;
-                case R.id.navigation_settings:
-//                    mTextMessage.setText(R.string.title_settings);
+                }
+                case R.id.navigation_result:
+                    Intent i = new Intent(getApplicationContext(), Result.class);
+                    startActivity(i);
                     return true;
             }
             return false;
@@ -47,33 +53,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        mTextMessage = (TextView) findViewById(R.id.message);
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
 
         LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
         animationView.setAnimation("camera2.json");
         animationView.loop(true);
         animationView.playAnimation();
 
-        Button normalModeButton = (Button) findViewById(R.id.normalModeButton);
-        normalModeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), CameraActivity.class);
-                i.putExtra("mode", NORMAL_MODE);
-                startActivity(i);
-            }
-        });
-        Button redReflectModeButton = (Button) findViewById(R.id.redReflectModeButton);
-        redReflectModeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), CameraActivity.class);
-                i.putExtra("mode", RED_REFLECT_MODE);
-                startActivity(i);
-            }
-        });
+//        Button normalModeButton = (Button) findViewById(R.id.normalModeButton);
+//        normalModeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(view.getContext(), CameraActivity.class);
+//                i.putExtra("mode", NORMAL_MODE);
+//                startActivity(i);
+//            }
+//        });
+//        Button redReflectModeButton = (Button) findViewById(R.id.redReflectModeButton);
+//        redReflectModeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(view.getContext(), CameraActivity.class);
+//                i.putExtra("mode", RED_REFLECT_MODE);
+//                startActivity(i);
+//            }
+//        });
     }
 
 }

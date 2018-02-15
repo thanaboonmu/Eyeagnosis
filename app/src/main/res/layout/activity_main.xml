@@ -1,164 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.sirapat.eyeagnosis.MainActivity"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.sirapat.eyeagnosis.MainActivity"
-    android:baselineAligned="false"
-    android:background="@color/light_green">
-    <RelativeLayout
-        android:id="@+id/content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout0"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="2"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <!--<TextView-->
-            <!--android:id="@+id/message"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
-            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-            <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
-            <!--android:padding="10dp" />-->
-            <!--android:text="@string/title_home" -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="170dp"
+            android:layout_height="180dp"
+            android:layout_weight="1" />
 
-        <RelativeLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Normal mode\ncan detects\n1. Pinguecula\n2. Ptertygium.\n\nRed reflect mode\ncan detects\n1. Cataract \n2. Retinoblastoma." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="2"
+        android:layout_below="@+id/linearLayout0"
+        android:layout_marginTop="11dp" >
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp" >
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="14dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-            <TextView
-                android:id="@+id/slogan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="20dp"
-                android:textColor="#000000"
-                android:text="Next photo can save your eyes"
-                android:layout_below="@+id/animation_view"
-                android:layout_marginTop="15dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:fontFamily="sans-serif"
-                android:textSize="18dp"
-                android:textColor="#000000"
-                android:text="Select a detection mode"
-                android:layout_below="@+id/slogan"
-                android:layout_marginTop="28dp"/>
-        </RelativeLayout>
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView"-->
-            <!--android:paddingLeft="20dp"-->
-            <!--android:paddingRight="20dp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="40dp"-->
-            <!--android:typeface="sans"-->
-            <!--android:textStyle="italic"-->
-            <!--android:textSize="16sp"-->
-            <!--android:textColor="#0000FF"-->
-            <!--android:text="Pinguecula/Pterygium."-->
-            <!--android:layout_above="@+id/linearLayout" />-->
-        <LinearLayout
-            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Pinguecula(ต้อลม)"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginBottom="80dp"
-            android:weightSum="2">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:maxLines="2"
-                android:fontFamily="sans-serif"
-                android:textSize="16sp"
-                android:textColor="#000000"
-                android:text="Pinguecula(ต้อลม)\nPterygium(ต้อเนื้อ)"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:maxLines="3"
-                android:fontFamily="sans-serif"
-                android:textSize="16sp"
-                android:textColor="#000000"
-                android:text="Cataract(ต้อกระจก)\nRetinoblastoma\n(มะเร็งจอตา)"/>
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Cataract(ต้อกระจก)"/>
+    </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="2"
+        android:layout_below="@+id/linearLayout1">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:weightSum="2"
-            android:id="@+id/linearLayout"
-            android:baselineAligned="false">
-            <info.hoang8f.widget.FButton
-                android:id="@+id/normalModeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="15dp"
-                android:text="Normal"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:buttonColor="#50C878"
-                app:shadowColor="#7f8c8d"
-                app:shadowEnabled="true"
-                app:shadowHeight="5dp"
-                app:cornerRadius="7dp" />
-            <info.hoang8f.widget.FButton
-                android:id="@+id/redReflectModeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="15dp"
-                android:layout_marginLeft="10dp"
-                android:text="Red Reflect"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:buttonColor="#FF0000"
-                app:shadowColor="#7f8c8d"
-                app:shadowEnabled="true"
-                app:shadowHeight="5dp"
-                app:cornerRadius="7dp" />
-        </LinearLayout>
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="appears as a yellow-coloured on the white of the eye and won't grow across cornea."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="is a clouding of the normally clear lens of eye. You'll have difficulty to see thing."/>
+    </LinearLayout>
 
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:background="?android:attr/windowBackground"-->
-        <!--app:menu="@menu/navigation"/>-->
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="2"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="5dp">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Pterygium(ต้อเนื้อ)"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Retinoblastoma"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="2"
+        android:layout_below="@+id/linearLayout3" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="can be seen as a fleshy, pink growth on the white of the eye, and usually extend onto the cornea."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="is cancer of the eye. It begins in the retina, usually affects young children, sometimes occur in adults."/>
+    </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation"/>
+
+</RelativeLayout>

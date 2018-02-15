@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.example.sirapat.eyeagnosis.Result">
-
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/resultTextView"
@@ -18,9 +13,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="20dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Diagnosis result" />
 
         <TextView
@@ -31,9 +26,9 @@
             android:layout_alignRight="@+id/leftDonut"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif--condensed"
             android:textSize="18dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Left eye"/>
         <TextView
             android:id="@+id/rightEyeText"
@@ -45,9 +40,9 @@
             android:layout_alignRight="@+id/rightDonut"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif--condensed"
             android:textSize="18dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Right eye"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
@@ -79,9 +74,9 @@
             android:layout_alignStart="@+id/leftDonut"
             android:layout_alignEnd="@+id/leftDonut"
             android:gravity="center"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="16dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Unknown" />
         <TextView
             android:id="@+id/rightDisease"
@@ -94,9 +89,9 @@
             android:layout_alignStart="@+id/rightDonut"
             android:layout_alignEnd="@+id/rightDonut"
             android:gravity="center"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="16dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:text="Unknown" />
         <TextView
             android:id="@+id/leftRec"
@@ -108,10 +103,10 @@
             android:layout_alignRight="@+id/leftDonut"
             android:layout_alignStart="@+id/leftDonut"
             android:layout_alignEnd="@+id/leftDonut"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="16dp"
-            android:textColor="#000000"
-            android:text="Recommendation [Not diagnosed yet]" />
+            android:textColor="@color/black"
+            android:text="Recommendation\n(Not diagnosed yet)" />
         <TextView
             android:id="@+id/rightRec"
             android:layout_width="wrap_content"
@@ -122,9 +117,17 @@
             android:layout_alignRight="@+id/rightDonut"
             android:layout_alignStart="@+id/rightDonut"
             android:layout_alignEnd="@+id/rightDonut"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="16dp"
-            android:textColor="#000000"
-            android:text="Recommendation [Not diagnosed yet]" />
-    </RelativeLayout>
-</ScrollView>
+            android:textColor="@color/black"
+            android:text="Recommendation\n(Not diagnosed yet)" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation"/>
+
+</RelativeLayout>

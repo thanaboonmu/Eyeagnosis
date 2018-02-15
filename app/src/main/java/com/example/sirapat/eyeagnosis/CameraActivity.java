@@ -6,7 +6,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.hardware.Sensor;
@@ -20,16 +22,23 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,11 +47,9 @@ import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,15 +63,17 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private int LEFT_SIDE = 0;
     final private int RIGHT_SIDE = 1;
     // LOCAL IP
-    final private String HME = "192.168.1.100";
-    final private String SENIOR_5G = "192.168.1.193";
+    final private String HME = "192.168.1.110";
+    final private String SENIOR_5G = "192.168.1.86";
     final private String CMP = "192.168.1.8";
     final private String KMUTT_SECURE = "10.35.247.141";
     final private String MKE = "192.168.0.108";
-    private String IP = KMUTT_SECURE;
+    private String IP = HME;
     //
 
-    private int tag = 1;
+    final private int CAMERA_INTENT = 1;
+    final private int BROWSE_INTENT = 2;
+
     private Uri uri = null;
     private int diagnoseMode = -1;
     private String mode = "normal";
@@ -84,13 +93,45 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private ProgressDialog progressDialog;
     private String leftResponse = "";
     private String rightResponse = "";
+    private TextView modeText;
 
     File dir;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home: {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.navigation_camera: {
+                    return true;
+                }
+                case R.id.navigation_result:
+                    Intent i = new Intent(getApplicationContext(), Result.class);
+                    startActivity(i);
+                    return true;
+            }
+            return false;
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+        setTitle("Normal test");
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             diagnoseMode = extras.getInt("mode");
@@ -103,25 +144,38 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         lightBar = (IconRoundCornerProgressBar) findViewById(R.id.lightProgressBar);
-        TextView modeText = (TextView) findViewById(R.id.modeTextView);
-        if(diagnoseMode == NORMAL_MODE) {
-            String modeMsg = "NORMAL TEST\n(Flash is recommended)";
-            mode = "normal";
-            modeText.setText(modeMsg);
-            modeText.setTextColor(Color.parseColor("#00A86B")); // JADE
-        } else if(diagnoseMode == RED_REFLECT_MODE) {
-            mode = "red_reflect";
-            String modeMsg = "RED REFLECT TEST\n(Dark environment & Flash are required)";
-            modeText.setText(modeMsg);
-            modeText.setTextColor(Color.parseColor("#FF0000")); // RED
-        }
+        modeText = (TextView) findViewById(R.id.modeTextView);
+        String modeMsg = "NORMAL TEST\nต้อลม/ต้อเนื้อ";
+        modeText.setText(modeMsg);
+        modeText.setTextColor(Color.parseColor("#00A86B")); // JADE
+        Switch switchMode = (Switch) findViewById(R.id.switch1);
+        switchMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (diagnoseMode == NORMAL_MODE) {
+                    diagnoseMode = RED_REFLECT_MODE;
+                    mode = "red_reflect";
+                    setTitle("Red reflect test");
+                    String modeMsg = "RED REFLECT TEST\nต้อกระจก/มะเร็งจอตา";
+                    modeText.setText(modeMsg);
+                    modeText.setTextColor(Color.parseColor("#FF0000")); // RED
+                } else {
+                    diagnoseMode = NORMAL_MODE;
+                    mode = "normal";
+                    setTitle("Normal test");
+                    String modeMsg = "NORMAL TEST\nต้อลม/ต้อเนื้อ";
+                    modeText.setText(modeMsg);
+                    modeText.setTextColor(Color.parseColor("#00A86B")); // JADE
+                }
+            }
+        });
+
         leftImage = (ImageView) findViewById(R.id.leftImageView);
         rightImage = (ImageView) findViewById(R.id.rightImageView);
 //        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Analyzing...", true);
 //        progressDialog = new ProgressDialog(CameraActivity.this);
 //        progressDialog.setMessage("Uploaded, Analyzing...");
 //        progressDialog.setCancelable(false);
-        final CatLoadingView loading = new CatLoadingView();
         ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +192,29 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 openCamera(view);
             }
         });
-        ImageButton uploadButton = (ImageButton) findViewById(R.id.uploadButton);
+
+        Button leftBrowseButton = (Button) findViewById(R.id.leftBrowseButton);
+        leftBrowseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eyeSide = LEFT_SIDE;
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, BROWSE_INTENT);
+            }
+        });
+
+        Button rightBrowseButton = (Button) findViewById(R.id.rightBrowseButton);
+        rightBrowseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eyeSide = RIGHT_SIDE;
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, BROWSE_INTENT);
+            }
+        });
+
+        final CatLoadingView loading = new CatLoadingView();
+        Button uploadButton = (Button) findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,7 +440,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         dir = new File(dir, "/" + imageFileName);
         uri = Uri.fromFile(dir);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(intent, tag);
+        startActivityForResult(intent, CAMERA_INTENT);
     }
 
     private Bitmap rotateImage(Bitmap originalBitmap, int angle) {
@@ -373,9 +449,30 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         return Bitmap.createBitmap(originalBitmap, 0,0, originalBitmap.getWidth(), originalBitmap.getHeight(), mat, true);
     }
 
+    private Bitmap checkOrientation(Bitmap img, String filepath) {
+        try {
+            ExifInterface ei = new ExifInterface(filepath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    return rotateImage(img, 90);
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    return rotateImage(img, 180);
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    return rotateImage(img, 270);
+                case ExifInterface.ORIENTATION_NORMAL:
+                default:
+                    return img;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return img;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == tag && resultCode == RESULT_OK) {
+        if(requestCode == CAMERA_INTENT && resultCode == RESULT_OK) {
             try {
                 // put the saved image into gallery
                 Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -385,21 +482,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 getContentResolver().notifyChange(uri, null);
                 ContentResolver cr = getContentResolver();
                 Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
-                ExifInterface ei = new ExifInterface("/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
-                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-                switch(orientation) {
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        img = rotateImage(img, 90);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        img = rotateImage(img, 180);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_270:
-                        img = rotateImage(img, 270);
-                        break;
-                    case ExifInterface.ORIENTATION_NORMAL:
-                    default:
-                }
+                img = checkOrientation(img, "/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
 //                    FileOutputStream fos = new FileOutputStream(dir);
@@ -474,6 +557,28 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 e.printStackTrace();
             }
 
+        } else if(requestCode == BROWSE_INTENT && resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            if (eyeSide == LEFT_SIDE) {
+                leftBitmap = BitmapFactory.decodeFile(picturePath);
+                leftBitmap = checkOrientation(leftBitmap, picturePath);
+                leftImage.setImageBitmap(leftBitmap);
+                leftFilePath = picturePath;
+            } else if (eyeSide == RIGHT_SIDE){
+                rightBitmap = BitmapFactory.decodeFile(picturePath);
+                rightBitmap = checkOrientation(rightBitmap, picturePath);
+                rightImage.setImageBitmap(rightBitmap);
+                rightFilePath = picturePath;
+            }
         } else {
             Log.e("ERROR", "can't get image");
             Log.e("resultCode=: ", String.valueOf(resultCode));
@@ -506,6 +611,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
         if(abs(previousSensorValue - sensorEvent.values[0]) >= 5 || previousSensorValue == 0.1f) {
             if(diagnoseMode == NORMAL_MODE) {
+                lightBar.setIconImageResource(R.drawable.brightness);
                 if(sensorEvent.values[0] >= 50) {
                     lightBar.setIconImageResource(R.drawable.brightness);
                     showSensorToast("GOOD BRIGHTNESS");
@@ -514,6 +620,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     showSensorToast("TOO DARK");
                 }
             } else if(diagnoseMode == RED_REFLECT_MODE) {
+                lightBar.setIconImageResource(R.drawable.good_darkness);
                 if(sensorEvent.values[0] >= 10) {
                     lightBar.setIconImageResource(R.drawable.too_bright);
                     showSensorToast("TOO BRIGHT");

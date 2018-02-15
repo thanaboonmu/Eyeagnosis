@@ -1,10 +1,16 @@
 package com.example.sirapat.eyeagnosis;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
@@ -14,13 +20,61 @@ import org.w3c.dom.Text;
 
 public class Result extends AppCompatActivity {
 
-    String leftResponse;
-    String rightResponse;
+    final private int NORMAL_MODE = 0;
+    String leftResponse="";
+    String rightResponse="";
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home: {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.navigation_camera: {
+                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                    i.putExtra("mode", NORMAL_MODE);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.navigation_result:
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("leftState", leftResponse);
+        savedInstanceState.putString("rightState", rightResponse);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        super.onRestoreInstanceState(savedInstanceState);
+        leftResponse = savedInstanceState.getString("leftState");
+        rightResponse = savedInstanceState.getString("rightState");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        setTitle("Result");
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
 
         DonutProgress leftProgress = (DonutProgress) findViewById(R.id.leftDonut);
         leftProgress.setFinishedStrokeWidth(40);
