@@ -1,6 +1,6 @@
 # Eyeagnosis 2018
    License Agreement
-      This software is a work developed by Nopmongkol Udompapong, Sirapat Na Ranong, Thanaboon Muangwong from KMUTT under the    provision of Dr.Sutathip. under Eyeagnosis, which has
+      This software is a work developed by Nopmongkol Udompapong, Sirapat Na Ranong, Thanaboon Muangwong from KMUTT under the    provision of Dr.Suthatip. under Eyeagnosis, which has
    been supported by the National Electronics and Computer Technology Center (NECTEC), in
    order to encourage pupils and students to learn and practice their skills in developing
    software. Therefore, the intellectual property of this software shall belong to the developer
@@ -18,7 +18,7 @@
     $ cd server
     $ npm install
     $ node app.js
-    normal.py will be used [can be edited on app.js]
+    normal_test.py will be used [can be edited on app.js]
     
    How to test?
        
