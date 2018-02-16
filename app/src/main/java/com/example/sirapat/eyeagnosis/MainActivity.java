@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     final private int RED_REFLECT_MODE = 1;
     private TextView mTextMessage;
 
+    String tempLeftRes;
+    String tempRightRes;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -41,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.navigation_result:
                     Intent i = new Intent(getApplicationContext(), Result.class);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
                     startActivity(i);
                     return true;
             }
@@ -58,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            if (extras.getString("tempLeftRes") != null) {
+                tempLeftRes = extras.getString("tempLeftRes");
+            }
+            if (extras.getString("tempRightRes") != null) {
+                tempRightRes = extras.getString("tempRightRes");
+            }
+        } else {
+            Log.e("Temp Res: ", "No temp res yet");
+        }
 
         LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
         animationView.setAnimation("camera2.json");
@@ -84,4 +105,13 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.sirapat.eyeagnosis;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,8 +22,8 @@ import org.w3c.dom.Text;
 public class Result extends AppCompatActivity {
 
     final private int NORMAL_MODE = 0;
-    String leftResponse="";
-    String rightResponse="";
+    String leftResponse;
+    String rightResponse;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,12 +33,24 @@ public class Result extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home: {
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    if (leftResponse != null) {
+                        i.putExtra("tempLeftRes",leftResponse);
+                    }
+                    if (rightResponse != null) {
+                        i.putExtra("tempRightRes", rightResponse);
+                    }
                     startActivity(i);
                     return true;
                 }
                 case R.id.navigation_camera: {
                     Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                     i.putExtra("mode", NORMAL_MODE);
+                    if (leftResponse != null) {
+                        i.putExtra("tempLeftRes",leftResponse);
+                    }
+                    if (rightResponse != null) {
+                        i.putExtra("tempRightRes", rightResponse);
+                    }
                     startActivity(i);
                     return true;
                 }
@@ -50,18 +63,13 @@ public class Result extends AppCompatActivity {
     };
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("leftState", leftResponse);
-        savedInstanceState.putString("rightState", rightResponse);
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-
-        super.onRestoreInstanceState(savedInstanceState);
-        leftResponse = savedInstanceState.getString("leftState");
-        rightResponse = savedInstanceState.getString("rightState");
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
     }
 
     @Override
@@ -69,6 +77,14 @@ public class Result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         setTitle("Result");
+
+        Bundle extras0 = getIntent().getExtras();
+        if(extras0 != null) {
+            leftResponse = extras0.getString("tempLeftRes");
+            rightResponse = extras0.getString("tempRightRes");
+        } else {
+            Log.e("Temp response: ", "No temp Result yet");
+        }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -90,61 +106,65 @@ public class Result extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if(extras != null) {
-            leftResponse = extras.getString("leftResponse");
-            rightResponse = extras.getString("rightResponse");
-            try {
-                if (leftResponse != null) {
-                    Log.e("leftResponse= ", leftResponse);
-                    JSONObject leftResObj = new JSONObject(leftResponse);
-                    JSONObject leftResult = leftResObj.getJSONObject("result");
-                    String leftDisease = leftResult.getString("disease");
-                    Double leftPossibility = leftResult.getDouble("possibility");
-//                    Integer leftSeverity = leftResult.getInt("severity");
-                    Log.e("Disease: ", leftDisease);
-                    Log.e("Possibility: ", String.valueOf(leftPossibility));
-                    leftDiseaseView.setText(leftDisease);
-                    leftProgress.setProgress((float)(leftPossibility*100));
-
-                    if (leftDisease == "Healthy") {
-                        leftProgress.setFinishedStrokeColor(Color.GREEN);
-                        leftProgress.setUnfinishedStrokeColor(Color.RED);
-                        leftRec.setText("Congratulations ! Your left eye is healthy.");
-                    } else {
-                        leftProgress.setFinishedStrokeColor(Color.RED);
-                        leftProgress.setUnfinishedStrokeColor(Color.GREEN);
-                        leftRec.setText("Danger! You have to meet a doctor as soon as possible.");
-                    }
-                } else {
-                    Log.e("LEFT", "NO DATA");
-                }
-                if (rightResponse != null) {
-                    Log.e("rightResponse= ", rightResponse);
-                    JSONObject rightResObj = new JSONObject(rightResponse);
-                    JSONObject rightResult = rightResObj.getJSONObject("result");
-                    String rightDisease = rightResult.getString("disease");
-                    Double rightPossibility = rightResult.getDouble("possibility");
-//                    Integer rightSeverity = rightResult.getInt("severity");
-                    Log.e("Disease: ", rightDisease);
-                    Log.e("Possibility: ", String.valueOf(rightPossibility));
-                    rightDiseaseView.setText(rightDisease);
-                    rightProgress.setProgress((float)(rightPossibility*100));
-                    if (rightDisease == "Healthy") {
-                        rightProgress.setFinishedStrokeColor(Color.GREEN);
-                        rightProgress.setUnfinishedStrokeColor(Color.RED);
-                        rightRec.setText("Congratulations ! Your left eye is healthy.");
-                    } else {
-                        rightProgress.setFinishedStrokeColor(Color.RED);
-                        rightProgress.setUnfinishedStrokeColor(Color.GREEN);
-                        rightRec.setText("Danger! You have to meet a doctor as soon as possible.");
-                    }
-                } else {
-                    Log.e("RIGHT", "NO DATA");
-                }
-            } catch(JSONException e) {
-                Log.e("", "unexpected JSON exception", e);
+            if (leftResponse == null) {
+                leftResponse = extras.getString("leftResponse");
+            }
+            if (rightResponse == null) {
+                rightResponse = extras.getString("rightResponse");
             }
         } else {
             Log.e("ERROR", "Couldn't get result from HttpUpload.postExecute");
+        }
+        try {
+            if (leftResponse != null) {
+                Log.e("leftResponse= ", leftResponse);
+                JSONObject leftResObj = new JSONObject(leftResponse);
+                JSONObject leftResult = leftResObj.getJSONObject("result");
+                String leftDisease = leftResult.getString("disease");
+                Double leftPossibility = leftResult.getDouble("possibility");
+//                    Integer leftSeverity = leftResult.getInt("severity");
+                Log.e("Disease: ", leftDisease);
+                Log.e("Possibility: ", String.valueOf(leftPossibility));
+                leftDiseaseView.setText(leftDisease);
+                leftProgress.setProgress((float)(leftPossibility*100));
+
+                if (leftDisease.equals("Healthy")) {
+                    leftProgress.setFinishedStrokeColor(Color.GREEN);
+                    leftProgress.setUnfinishedStrokeColor(Color.RED);
+                    leftRec.setText("Congratulations ! Your left eye is healthy.");
+                } else {
+                    leftProgress.setFinishedStrokeColor(Color.RED);
+                    leftProgress.setUnfinishedStrokeColor(Color.GREEN);
+                    leftRec.setText("Danger! You have to meet a doctor as soon as possible.");
+                }
+            } else {
+                Log.e("LEFT", "NO DATA");
+            }
+            if (rightResponse != null) {
+                Log.e("rightResponse= ", rightResponse);
+                JSONObject rightResObj = new JSONObject(rightResponse);
+                JSONObject rightResult = rightResObj.getJSONObject("result");
+                String rightDisease = rightResult.getString("disease");
+                Double rightPossibility = rightResult.getDouble("possibility");
+//                    Integer rightSeverity = rightResult.getInt("severity");
+                Log.e("Disease: ", rightDisease);
+                Log.e("Possibility: ", String.valueOf(rightPossibility));
+                rightDiseaseView.setText(rightDisease);
+                rightProgress.setProgress((float)(rightPossibility*100));
+                if (rightDisease.equals("Healthy")) {
+                    rightProgress.setFinishedStrokeColor(Color.GREEN);
+                    rightProgress.setUnfinishedStrokeColor(Color.RED);
+                    rightRec.setText("Congratulations ! Your left eye is healthy.");
+                } else {
+                    rightProgress.setFinishedStrokeColor(Color.RED);
+                    rightProgress.setUnfinishedStrokeColor(Color.GREEN);
+                    rightRec.setText("Danger! You have to meet a doctor as soon as possible.");
+                }
+            } else {
+                Log.e("RIGHT", "NO DATA");
+            }
+        } catch(JSONException e) {
+            Log.e("", "unexpected JSON exception", e);
         }
     }
 }

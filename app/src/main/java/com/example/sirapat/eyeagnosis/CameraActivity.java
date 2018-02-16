@@ -97,6 +97,9 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
     File dir;
 
+    String tempLeftRes;
+    String tempRightRes;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -113,6 +116,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 }
                 case R.id.navigation_result:
                     Intent i = new Intent(getApplicationContext(), Result.class);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
                     startActivity(i);
                     return true;
             }
@@ -138,8 +147,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             if(diagnoseMode == -1) {
                 Log.e("ERROR","Mode = -1, something went wrong");
             }
+            if (extras.getString("tempLeftRes") != null) {
+                tempLeftRes = extras.getString("tempLeftRes");
+            }
+            if (extras.getString("tempRightRes") != null) {
+                tempRightRes = extras.getString("tempRightRes");
+            }
         } else {
-            Log.e("ERROR", "Couldn't get mode from main activity");
+            Log.e("ERROR", "Couldn't get mode");
         }
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -594,6 +609,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     @Override
     protected void onResume() {
         super.onResume();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_FASTEST);
     }
 

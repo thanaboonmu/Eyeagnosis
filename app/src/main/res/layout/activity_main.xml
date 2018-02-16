@@ -36,7 +36,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Normal mode\ncan detects\n1. Pinguecula\n2. Ptertygium.\n\nRed reflect mode\ncan detects\n1. Cataract \n2. Retinoblastoma." />
+            android:text="Normal mode\ncan detects\n1. Pinguecula\n2. Ptertygium\n\nRed reflect mode\ncan detects\n1. Cataract \n2. Retinoblastoma" />
     </LinearLayout>
 
     <LinearLayout
