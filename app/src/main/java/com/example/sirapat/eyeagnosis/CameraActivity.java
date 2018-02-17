@@ -64,11 +64,13 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private int RIGHT_SIDE = 1;
     // LOCAL IP
     final private String HME = "192.168.1.110";
-    final private String SENIOR_5G = "192.168.1.86";
-    final private String CMP = "192.168.1.8";
-    final private String KMUTT_SECURE = "10.35.247.141";
+    final private String CMP = "192.168.43.72";
     final private String MKE = "192.168.0.108";
-    private String IP = HME;
+    final private String SENIOR_5G = "192.168.1.86";
+    final private String KMUTT_SECURE = "10.35.244.123";
+    final private String KMUTT_SECURE_N = "10.35.248.80";
+
+    private String IP = CMP;
     //
 
     final private int CAMERA_INTENT = 1;
@@ -108,6 +110,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             switch (item.getItemId()) {
                 case R.id.navigation_home: {
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
                     startActivity(i);
                     return true;
                 }
@@ -174,6 +182,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     String modeMsg = "RED REFLECT TEST\nต้อกระจก/มะเร็งจอตา";
                     modeText.setText(modeMsg);
                     modeText.setTextColor(Color.parseColor("#FF0000")); // RED
+                    lightBar.setIconImageResource(R.drawable.good_darkness);
                 } else {
                     diagnoseMode = NORMAL_MODE;
                     mode = "normal";
@@ -181,6 +190,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     String modeMsg = "NORMAL TEST\nต้อลม/ต้อเนื้อ";
                     modeText.setText(modeMsg);
                     modeText.setTextColor(Color.parseColor("#00A86B")); // JADE
+                    lightBar.setIconImageResource(R.drawable.brightness);
                 }
             }
         });
@@ -239,6 +249,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                         loading.show(getSupportFragmentManager(), "Analyzing");
                         Ion.with(CameraActivity.this)
                                 .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
+                                .setTimeout(300000)
                                 .progressDialog(progressDialog)
                                 .setMultipartParameter("name", "source")
                                 .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -250,6 +261,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                             leftResponse = result.toString();
                                             Ion.with(CameraActivity.this)
                                                     .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
+                                                    .setTimeout(300000)
                                                     .progressDialog(progressDialog)
                                                     .setMultipartParameter("name", "source")
                                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -307,6 +319,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
                                     .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
+                                    .setTimeout(200000)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -346,6 +359,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
                                     .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
+                                    .setTimeout(200000)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -631,7 +645,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
         if(abs(previousSensorValue - sensorEvent.values[0]) >= 5 || previousSensorValue == 0.1f) {
             if(diagnoseMode == NORMAL_MODE) {
-                lightBar.setIconImageResource(R.drawable.brightness);
                 if(sensorEvent.values[0] >= 50) {
                     lightBar.setIconImageResource(R.drawable.brightness);
                     showSensorToast("GOOD BRIGHTNESS");
@@ -640,7 +653,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     showSensorToast("TOO DARK");
                 }
             } else if(diagnoseMode == RED_REFLECT_MODE) {
-                lightBar.setIconImageResource(R.drawable.good_darkness);
                 if(sensorEvent.values[0] >= 10) {
                     lightBar.setIconImageResource(R.drawable.too_bright);
                     showSensorToast("TOO BRIGHT");

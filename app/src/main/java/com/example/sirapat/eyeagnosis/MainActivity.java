@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_camera: {
                     Intent i = new Intent(getApplicationContext(), CameraActivity.class);
                     i.putExtra("mode", NORMAL_MODE);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
                     startActivity(i);
                     return true;
                 }

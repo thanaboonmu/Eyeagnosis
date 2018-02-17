@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import org.json.JSONException;
@@ -92,6 +93,9 @@ public class Result extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
+        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view_res);
+        animationView.loop(false);
+
         DonutProgress leftProgress = (DonutProgress) findViewById(R.id.leftDonut);
         leftProgress.setFinishedStrokeWidth(40);
         leftProgress.setUnfinishedStrokeWidth(40);
@@ -122,21 +126,25 @@ public class Result extends AppCompatActivity {
                 JSONObject leftResult = leftResObj.getJSONObject("result");
                 String leftDisease = leftResult.getString("disease");
                 Double leftPossibility = leftResult.getDouble("possibility");
-//                    Integer leftSeverity = leftResult.getInt("severity");
+                String leftRecommendation = leftResult.getString("recommendation");
+
                 Log.e("Disease: ", leftDisease);
                 Log.e("Possibility: ", String.valueOf(leftPossibility));
+                Log.e("Recommendation: ", leftRecommendation);
                 leftDiseaseView.setText(leftDisease);
                 leftProgress.setProgress((float)(leftPossibility*100));
 
                 if (leftDisease.equals("Healthy")) {
+                    animationView.setAnimation("good.json");
                     leftProgress.setFinishedStrokeColor(Color.GREEN);
                     leftProgress.setUnfinishedStrokeColor(Color.RED);
-                    leftRec.setText("Congratulations ! Your left eye is healthy.");
                 } else {
+                    animationView.setAnimation("warning.json");
                     leftProgress.setFinishedStrokeColor(Color.RED);
                     leftProgress.setUnfinishedStrokeColor(Color.GREEN);
-                    leftRec.setText("Danger! You have to meet a doctor as soon as possible.");
                 }
+                animationView.playAnimation();
+                leftRec.setText(leftRecommendation);
             } else {
                 Log.e("LEFT", "NO DATA");
             }
@@ -146,20 +154,23 @@ public class Result extends AppCompatActivity {
                 JSONObject rightResult = rightResObj.getJSONObject("result");
                 String rightDisease = rightResult.getString("disease");
                 Double rightPossibility = rightResult.getDouble("possibility");
-//                    Integer rightSeverity = rightResult.getInt("severity");
+                String rightRecommendation = rightResult.getString("recommendation");
                 Log.e("Disease: ", rightDisease);
                 Log.e("Possibility: ", String.valueOf(rightPossibility));
+                Log.e("Recommendation: ", rightRecommendation);
                 rightDiseaseView.setText(rightDisease);
                 rightProgress.setProgress((float)(rightPossibility*100));
                 if (rightDisease.equals("Healthy")) {
+                    animationView.setAnimation("good.json");
                     rightProgress.setFinishedStrokeColor(Color.GREEN);
                     rightProgress.setUnfinishedStrokeColor(Color.RED);
-                    rightRec.setText("Congratulations ! Your left eye is healthy.");
                 } else {
+                    animationView.setAnimation("warning.json");
                     rightProgress.setFinishedStrokeColor(Color.RED);
                     rightProgress.setUnfinishedStrokeColor(Color.GREEN);
-                    rightRec.setText("Danger! You have to meet a doctor as soon as possible.");
                 }
+                animationView.playAnimation();
+                rightRec.setText(rightRecommendation);
             } else {
                 Log.e("RIGHT", "NO DATA");
             }
