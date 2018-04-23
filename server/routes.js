@@ -17,7 +17,7 @@ module.exports = (router) => {
 		} else {
 			AuthenticationController.signin(credentials.name, credentials.pass)
 			.then(result => {
-				const token = jwt.sign(result, config.secret, {expiresIn: '1d'});
+				const token = jwt.sign(result, config.secret, {expiresIn: '365d'});
 				res.status(result.status).json({message: result.message, token: token});
 			})
 			.catch(err => res.status(err.status).json({message: err.message}));
