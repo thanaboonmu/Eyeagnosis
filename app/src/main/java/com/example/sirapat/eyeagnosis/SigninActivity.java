@@ -73,7 +73,6 @@ public class SigninActivity extends AppCompatActivity {
 
     private void signin() {
         if(!validate()) {
-            onSigninFailed();
             return;
         }
         mSigninButton.setEnabled(false);
@@ -82,7 +81,6 @@ public class SigninActivity extends AppCompatActivity {
         progressDialog.setMessage("Sign in, Authenticating...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        delay(2000);
 
         callSigninAPI();
 
@@ -136,20 +134,6 @@ public class SigninActivity extends AppCompatActivity {
                 });
     }
 
-    public void delay(final int milliseconds) {
-        Thread welcomeThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    super.run();
-                    sleep(milliseconds);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        welcomeThread.start();
-    }
 
     public void onSigninSuccess() {
         mSigninButton.setEnabled(true);
