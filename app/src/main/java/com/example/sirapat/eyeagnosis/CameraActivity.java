@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -50,6 +51,7 @@ import com.koushikdutta.ion.Ion;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,14 +65,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     final private int LEFT_SIDE = 0;
     final private int RIGHT_SIDE = 1;
     // LOCAL IP
-    final private String HME = "192.168.1.110";
+    final private String HME = "192.168.1.105";
     final private String CMP = "192.168.43.72";
     final private String MKE = "192.168.0.108";
     final private String SENIOR_5G = "192.168.1.86";
     final private String KMUTT_SECURE = "10.35.244.123";
     final private String KMUTT_SECURE_N = "10.35.248.80";
 
-    private String IP = CMP;
+    private String IP = "192.168.1.160";
     //
 
     final private int CAMERA_INTENT = 1;
@@ -238,6 +240,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             }
         });
 
+        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+        final String token = sp.getString("token", "");
+        final String username = sp.getString("username", "");
+
+
         final CatLoadingView loading = new CatLoadingView();
         Button uploadButton = (Button) findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(new View.OnClickListener() {
@@ -248,7 +255,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 //                        progressDialog.show();
                         loading.show(getSupportFragmentManager(), "Analyzing");
                         Ion.with(CameraActivity.this)
-                                .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
+                                .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode)
                                 .setTimeout(300000)
                                 .progressDialog(progressDialog)
                                 .setMultipartParameter("name", "source")
@@ -260,7 +267,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                         if (result != null) {
                                             leftResponse = result.toString();
                                             Ion.with(CameraActivity.this)
-                                                    .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
+                                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode)
                                                     .setTimeout(300000)
                                                     .progressDialog(progressDialog)
                                                     .setMultipartParameter("name", "source")
@@ -318,9 +325,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 //                            progressDialog.show();
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + IP + ":8080/upload-image?side=left&mode=" + mode)
+                                    .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode + "&username=" + username)
                                     .setTimeout(200000)
                                     .progressDialog(progressDialog)
+                                    .setHeader("Authorization", "Bearer " + token)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(leftFilePath))
                                     .asJsonObject()
@@ -358,7 +366,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 //                            progressDialog.show();
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + IP + ":8080/upload-image?side=right&mode=" + mode)
+                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode)
                                     .setTimeout(200000)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
@@ -515,7 +523,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 if(eyeSide == LEFT_SIDE) {
                     leftBitmap = img;
 //                    FileOutputStream fos = new FileOutputStream(dir);
-//                    img.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//                    img.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 //                    uri = Uri.fromFile(dir);
                     leftFilePath = uri.getPath();
                     leftImage.setImageBitmap(img);

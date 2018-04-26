@@ -1,18 +1,17 @@
 package com.example.sirapat.eyeagnosis;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +63,49 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.signout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("token", "");
+                    editor.putString("username", "");
+                    editor.apply();
+                    Intent i = new Intent(MainActivity.this, SigninActivity.class);
+                    MainActivity.this.startActivity(i);
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.btn_signout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Confirmation?").setMessage("Sign out?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -90,7 +133,10 @@ public class MainActivity extends AppCompatActivity {
         animationView.setAnimation("camera2.json");
         animationView.loop(true);
         animationView.playAnimation();
-
+        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+        String token = sp.getString("token", "No token found");
+        Toast.makeText(MainActivity.this, token, Toast.LENGTH_LONG).show();
+        Log.e("token",token);
 //        Button normalModeButton = (Button) findViewById(R.id.normalModeButton);
 //        normalModeButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
