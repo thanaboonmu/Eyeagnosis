@@ -1,25 +1,22 @@
-// Eyeagnosis server
+'use strict'
 
-var config = require('./config');
-var express = require('express');
-var gcloud = require('google-cloud');
-var PythonShell = require('python-shell');
-var multiparty = require('multiparty');
-var fs = require('fs');
+const config = require('../config/config');
+const express = require('express');
+const gcloud = require('google-cloud');
+const PythonShell = require('python-shell');
+const multiparty = require('multiparty');
+const fs = require('fs');
 
-var datastore = gcloud.datastore({
+
+const storage = gcloud.storage({
 projectId: config.projectId,
 keyFilename: config.keyFilename
 });
 
-var storage = gcloud.storage({
-projectId: config.projectId,
-keyFilename: config.keyFilename
-});
+const bucket = storage.bucket(config.bucketName);
 
-var bucket = storage.bucket(config.bucketName);
-
-var app = express();
+const AuthenticationController = require('./authentication');
+const Result = require('../models/result');
 
 function rawBody(req, res, next) {
     var chunks = [];
@@ -87,7 +84,25 @@ function runPython(imageUrl, mode, callback) {
     });
 }
 
-app.post('/upload-image', function (req, res) {
+
+function saveResultToDB(record, callback) {
+    const result = new Result({
+        username: record.username,
+        side: record.result.side,
+        disease: record.result.disease,
+        possibility: record.result.possibility,
+        date: new Date()
+    });
+    result.save(function(err){
+        if(err){
+            return callback(err,null);
+        } else {
+            return callback(null,"Record saved successfully");
+        }
+    });
+}
+
+exports.upload = (req, res) => {
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
         Object.keys(fields).forEach(function(name) {
@@ -124,6 +139,23 @@ app.post('/upload-image', function (req, res) {
                                 result.side = req.query.side;
                                 response.result = result;
                                 response.status = 'OK';
+
+                                if(req.query.username) {
+                                    if(AuthenticationController.checkToken(req)) {
+                                        response.username = req.query.username;
+                                        saveResultToDB(response, function(err, success){
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                console.log(success);
+                                            }
+                                        });
+                                    } else {
+                                        console.log("Unauthorized, didn't save the record");
+                                    }
+                                } else {
+                                    console.log("No username found, didn't save the record");
+                                }
                                 console.log('Response: ' + JSON.stringify(response) + '\n');
                                 console.log("Response@ " + new Date());
                                 res.status(200).send(response);
@@ -136,44 +168,5 @@ app.post('/upload-image', function (req, res) {
             res.status(500).send('No upload image found');
         }      
     });
-    // if (req.rawBody && req.bodyLength > 0) {
-    //     // save image to bucket
-    //     uploadToBucket(req.rawBody, function(err, imageUrl) {
-    //         if (err) {
-    //             res.status(500).send(err);
-    //         }
-    //         else {
-    //             console.log("3 " + new Date());
-    //             console.log('Uploaded to bucket: ' + imageUrl);
-    //             // call Python backend
-    //             runPython(imageUrl, function(err, results) {
-    //                 var response = {};
-    //                 if (err) {
-    //                     res.status(500).send(err);
-    //                 }
-    //                 else {
-    //                     var result = null
-    //                     if (results && results.length > 0) {
-    //                         result = JSON.parse(results[0].replace(new RegExp('\'', 'g'), '"'))
-    //                     }
-    //                     if (!result) {
-    //                         result = {}
-    //                     }
-    //                     result.side = req.query.side
-    //                     response.result = result;
-    //                     response.status = 'OK';
-    //                     console.log('Response: ' + JSON.stringify(response) + '\n');
-    //                     console.log("4 " + new Date());
-    //                     res.status(200).send(response);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // } else {
-    //     res.status(500).send('No upload image found');
-    // }
-});
-
-app.listen(8080);
-
-console.log('Running on http://localhost:8080/');
+    
+}

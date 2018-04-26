@@ -30,7 +30,7 @@
    Progress
    
     ANDROID
-     TODO (LATER): fix rotation/png, login, tracking
+     TODO:login, tracking, crop, guides
      70%
     Python
      50% 

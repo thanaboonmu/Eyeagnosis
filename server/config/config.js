@@ -12,9 +12,9 @@
 */
 
 module.exports = {
-  projectId: 'my-project-1479114136736',
-  keyFilename: './key.json',
-  bucketName: 'my-project-1479114136736.appspot.com',
+  projectId: 'MY_PROJECT_ID',
+  keyFilename: 'MY_KEY_FILENAME',
+  bucketName: 'MY_BUCKET_NAME',
   cookieSecret: '[cookie signing key]',
   oauth2: {
     clientId: '[Client ID for web application credentials]',
