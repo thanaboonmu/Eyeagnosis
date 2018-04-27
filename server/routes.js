@@ -25,17 +25,18 @@ module.exports = (router) => {
 	});
 
 	router.post('/users', (req, res) => {
-		const username = req.body.username;
-		const password = req.body.password;
+		const credentials = auth(req);
 		const gender = req.body.gender;
 		const age = req.body.age;
-		if (!username || !password || !gender || !age) {
+		if (!credentials) {
+			res.status(400).json({message: 'Invalid request'});
+		} 
+		if (!gender || !age) {
 			console.log("req.body",req.body);
 			res.status(400).json({message: 'Invalid request'});
 		} else {
-			AuthenticationController.signup(username, password, gender, age)
+			AuthenticationController.signup(credentials.name, credentials.pass, gender, age)
 			.then(result => {
-				res.setHeader('Location', '/users/'+username);
 				res.status(result.status).json({message: result.message});
 			})
 			.catch(err => res.status(err.status).json({message: err.message}));
