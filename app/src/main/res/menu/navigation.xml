@@ -5,16 +5,21 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home"/>
+        android:title=""/>
 
     <item
         android:id="@+id/navigation_camera"
         android:icon="@drawable/ic_photo_camera_black_24dp"
-        android:title="Take photo"/>
+        android:title=""/>
 
     <item
         android:id="@+id/navigation_result"
         android:icon="@drawable/ic_result_black_24dp"
-        android:title="Result"/>
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_track"
+        android:icon="@drawable/ic_track"
+        android:title=""/>
 
 </menu>

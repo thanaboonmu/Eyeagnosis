@@ -40,10 +40,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SigninActivity" android:theme="@style/AppTheme.Dark"/>
+        <activity android:name=".SigninActivity" android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".SignupActivity" android:theme="@style/AppTheme.Dark"/>
         <activity android:name=".MainActivity" />
-        <activity android:name=".CameraActivity"/>
+        <activity android:name=".CameraActivity" />
         <activity android:name=".Result" />
+        <activity android:name=".TrackActivity"/>
     </application>
 
 </manifest>
