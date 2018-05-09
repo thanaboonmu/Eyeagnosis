@@ -17,25 +17,7 @@
     Download server folder
     $ cd server
     $ npm install
-    $ node app.js
-    normal_test.py will be used [can be edited on app.js]
-    
-   How to test?
-       
-    Download postman
-    Post request to http://localhost:8080/upload-image?side=left&mode=normal [side=left|right] [mode=normal|red_reflect]
-    In Body > form-data > name a key and insert value with an image
-  
-  
-   Progress
-   
-    ANDROID
-     TODO:login, tracking, crop, guides
-     70%
-    Python
-     50% 
-    IOS
-     10%
+    $ node server.js
       
       
       
