@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -27,10 +28,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -50,6 +50,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.roger.catloadinglibrary.CatLoadingView;
 
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -59,21 +62,13 @@ import static java.lang.Math.abs;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
 
+    private String IP;
+
     final private int REQUEST_CODE_ASK_PERMISSIONS = 0;
     final private int NORMAL_MODE = 0;
     final private int RED_REFLECT_MODE = 1;
     final private int LEFT_SIDE = 0;
     final private int RIGHT_SIDE = 1;
-    // LOCAL IP
-    final private String HME = "192.168.1.105";
-    final private String CMP = "192.168.43.72";
-    final private String MKE = "192.168.0.108";
-    final private String SENIOR_5G = "192.168.1.86";
-    final private String KMUTT_SECURE = "10.35.244.123";
-    final private String KMUTT_SECURE_N = "10.35.248.80";
-
-    private String IP = "192.168.1.160";
-    //
 
     final private int CAMERA_INTENT = 1;
     final private int BROWSE_INTENT = 2;
@@ -81,6 +76,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private Uri uri = null;
     private int diagnoseMode = -1;
     private String mode = "normal";
+    private String usernameParam = "";
     private Sensor mLight = null;
     private SensorManager mSensorManager = null;
     private float previousSensorValue = 0.1f;
@@ -124,7 +120,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 case R.id.navigation_camera: {
                     return true;
                 }
-                case R.id.navigation_result:
+                case R.id.navigation_result: {
                     Intent i = new Intent(getApplicationContext(), Result.class);
                     if (tempLeftRes != null) {
                         i.putExtra("tempLeftRes", tempLeftRes);
@@ -134,15 +130,78 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     }
                     startActivity(i);
                     return true;
+                }
+                case R.id.navigation_track: {
+                    Intent i = new Intent(getApplicationContext(), TrackActivity.class);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
+                    startActivity(i);
+                    return true;
+                }
             }
             return false;
         }
 
     };
 
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+        // if there is token then show sign out button
+        if (!sp.getString("token","").equals("") && !sp.getString("username","").equals("")) {
+            getMenuInflater().inflate(R.menu.signout, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("token", "");
+                    editor.putString("username", "");
+                    editor.apply();
+                    Intent i = new Intent(CameraActivity.this, SigninActivity.class);
+                    CameraActivity.this.startActivity(i);
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.btn_signout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CameraActivity.this);
+            builder.setTitle("Confirmation").setMessage("Sign out?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Config config = new Config();
+        IP = config.IP;
+
         setContentView(R.layout.activity_camera);
         setTitle("Normal test");
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -199,10 +258,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
         leftImage = (ImageView) findViewById(R.id.leftImageView);
         rightImage = (ImageView) findViewById(R.id.rightImageView);
-//        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Analyzing...", true);
-//        progressDialog = new ProgressDialog(CameraActivity.this);
-//        progressDialog.setMessage("Uploaded, Analyzing...");
-//        progressDialog.setCancelable(false);
         ImageButton leftButton = (ImageButton) findViewById(R.id.leftImageButton);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +298,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
         final String token = sp.getString("token", "");
         final String username = sp.getString("username", "");
-
+        if (token.equals("") && username.equals("")) {
+            usernameParam = "";
+        } else {
+            usernameParam = "&username=" + username;
+        }
 
         final CatLoadingView loading = new CatLoadingView();
         Button uploadButton = (Button) findViewById(R.id.uploadButton);
@@ -252,11 +311,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             public void onClick(View view) {
                 if (isNetworkConnected()) {
                     if (leftBitmap != null && rightBitmap != null) { // both sides
-//                        progressDialog.show();
                         loading.show(getSupportFragmentManager(), "Analyzing");
                         Ion.with(CameraActivity.this)
-                                .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode)
+                                .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode + usernameParam)
                                 .setTimeout(300000)
+                                .setHeader("Authorization", "Bearer " + token)
                                 .progressDialog(progressDialog)
                                 .setMultipartParameter("name", "source")
                                 .setMultipartFile("image", "image/png", new File(leftFilePath))
@@ -267,8 +326,9 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                         if (result != null) {
                                             leftResponse = result.toString();
                                             Ion.with(CameraActivity.this)
-                                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode)
+                                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode + usernameParam)
                                                     .setTimeout(300000)
+                                                    .setHeader("Authorization", "Bearer " + token)
                                                     .progressDialog(progressDialog)
                                                     .setMultipartParameter("name", "source")
                                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -276,7 +336,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                                     .setCallback(new FutureCallback<JsonObject>() {
                                                         @Override
                                                         public void onCompleted(Exception e, JsonObject result) {
-//                                                        progressDialog.dismiss();
                                                             loading.dismiss();
                                                             if (result != null) {
                                                                 rightResponse = result.toString();
@@ -295,40 +354,14 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                         }
                                     }
                                 });
-//                        progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.show();
-//                        HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
-//                            @Override
-//                            protected void onPostExecute(String res) {
-//                                super.onPostExecute(res);
-//                                leftResponse = res;
-//                                HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
-//                                    @Override
-//                                    protected void onPostExecute(String res) {
-//                                        super.onPostExecute(res);
-//                                        rightResponse = res;
-//                                        progressDialog.dismiss();
-//                                        Intent i = new Intent(CameraActivity.this, Result.class);
-//                                        i.putExtra("leftResponse", leftResponse);
-//                                        i.putExtra("rightResponse", rightResponse);
-//                                        CameraActivity.this.startActivity(i);
-//                                    }
-//                                };
-//                                rightUpload.execute(RIGHT_SIDE);
-//
-//                            }
-//                        };
-//                        leftUpload.execute(LEFT_SIDE);
                     } else if (leftBitmap != null || rightBitmap != null) {
                         if (leftBitmap != null) { // left side
-//                            progressDialog.show();
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode + "&username=" + username)
+                                    .load("http://" + IP + ":8080/api/image?side=left&mode=" + mode + usernameParam)
                                     .setTimeout(200000)
-                                    .progressDialog(progressDialog)
                                     .setHeader("Authorization", "Bearer " + token)
+                                    .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(leftFilePath))
                                     .asJsonObject()
@@ -336,7 +369,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                         @Override
                                         public void onCompleted(Exception e, JsonObject result) {
                                             loading.dismiss();
-//                                            progressDialog.dismiss();
                                             if(result != null) {
                                                 leftResponse = result.toString();
                                                 Intent i = new Intent(CameraActivity.this, Result.class);
@@ -347,27 +379,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                             }
                                         }
                                     });
-//                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-//                            progressDialog.setCancelable(false);
-//                            progressDialog.show();
-//                            HttpUpload leftUpload = new HttpUpload(CameraActivity.this, leftBitmap) {
-//                                @Override
-//                                protected void onPostExecute(String res) {
-//                                    super.onPostExecute(res);
-//                                    leftResponse = res;
-//                                    progressDialog.dismiss();
-//                                    Intent i = new Intent(CameraActivity.this, Result.class);
-//                                    i.putExtra("leftResponse", leftResponse);
-//                                    CameraActivity.this.startActivity(i);
-//                                }
-//                            };
-//                            leftUpload.execute(LEFT_SIDE);
                         } else { //right side
-//                            progressDialog.show();
                             loading.show(getSupportFragmentManager(), "Analyzing");
                             Ion.with(CameraActivity.this)
-                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode)
+                                    .load("http://" + IP + ":8080/api/image?side=right&mode=" + mode + usernameParam)
                                     .setTimeout(200000)
+                                    .setHeader("Authorization", "Bearer " + token)
                                     .progressDialog(progressDialog)
                                     .setMultipartParameter("name", "source")
                                     .setMultipartFile("image", "image/png", new File(rightFilePath))
@@ -375,7 +392,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                     .setCallback(new FutureCallback<JsonObject>() {
                                         @Override
                                         public void onCompleted(Exception e, JsonObject result) {
-//                                            progressDialog.dismiss();
                                             loading.dismiss();
                                             if (result != null) {
                                                 rightResponse = result.toString();
@@ -387,21 +403,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                                             }
                                         }
                                     });
-//                            progressDialog = ProgressDialog.show(CameraActivity.this, "Upload to server", "Uploading...", true);
-//                            progressDialog.setCancelable(false);
-//                            progressDialog.show();
-//                            HttpUpload rightUpload = new HttpUpload(CameraActivity.this, rightBitmap) {
-//                                @Override
-//                                protected void onPostExecute(String res) {
-//                                    super.onPostExecute(res);
-//                                    rightResponse = res;
-//                                    progressDialog.dismiss();
-//                                    Intent i = new Intent(CameraActivity.this, Result.class);
-//                                    i.putExtra("rightResponse", rightResponse);
-//                                    CameraActivity.this.startActivity(i);
-//                                }
-//                            };
-//                            rightUpload.execute(RIGHT_SIDE);
                         }
                     } else {
                         Toast.makeText(CameraActivity.this, "At least 1 eye is required", Toast.LENGTH_SHORT).show();
@@ -515,83 +516,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScanIntent.setData(uri);
                 sendBroadcast(mediaScanIntent);
-                // load the saved image
-                getContentResolver().notifyChange(uri, null);
-                ContentResolver cr = getContentResolver();
-                Bitmap img = MediaStore.Images.Media.getBitmap(cr, uri);
-                img = checkOrientation(img, "/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
-                if(eyeSide == LEFT_SIDE) {
-                    leftBitmap = img;
-//                    FileOutputStream fos = new FileOutputStream(dir);
-//                    img.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-//                    uri = Uri.fromFile(dir);
-                    leftFilePath = uri.getPath();
-                    leftImage.setImageBitmap(img);
-                } else if (eyeSide == RIGHT_SIDE) {
-                    rightBitmap = img;
-                    rightFilePath = uri.getPath();
-                    rightImage.setImageBitmap(img);
-                }
-                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
-//                Bitmap tempBitmap = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.RGB_565);
-//                Canvas tempCanvas = new Canvas(tempBitmap);
-//                tempCanvas.drawBitmap(img, 0, 0, null);
-//
-//                FaceDetector faceDetector = new
-//                        FaceDetector.Builder(getApplicationContext())
-//                        .setTrackingEnabled(false)
-//                        .setLandmarkType(FaceDetector.ALL_LANDMARKS)
-//                        .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
-//                        .setMode(FaceDetector.FAST_MODE)
-//                        .build();
-//                if(!faceDetector.isOperational()){
-//                    Log.e("ERROR","Couldn't set up face detector");
-//                    if(eyeSide == LEFT_SIDE) {
-//                        leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-//                    } else if(eyeSide == RIGHT_SIDE) {
-//                        rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-//                    }
-//                    Toast.makeText(getApplicationContext(),"Could not set up the face detector!", Toast.LENGTH_SHORT).show();
-//                    Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                Paint myPaint = new Paint();
-//                myPaint.setColor(Color.YELLOW);
-//                myPaint.setStyle(Paint.Style.STROKE);
-//                myPaint.setStrokeWidth(10);
-//
-//                Frame frame = new Frame.Builder().setBitmap(img).build();
-//                SparseArray<Face> faces = faceDetector.detect(frame);
-//                if(faces.size() > 0) {
-//                    Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(faces.size()) + " FACE DETECTED!!!", Toast.LENGTH_SHORT);
-//                    toast.setGravity(Gravity.CENTER,0,0);
-//                    toast.show();
-//                }
-//                for(int i=0; i<faces.size(); i++) {
-//                    Face thisFace = faces.valueAt(i);
-//                    float x1 = thisFace.getPosition().x;
-//                    float y1 = thisFace.getPosition().y;
-//                    float x2 = x1 + thisFace.getWidth();
-//                    float y2 = y1 + thisFace.getHeight();
-//                    tempCanvas.drawRoundRect(new RectF(x1, y1, x2, y2), 2, 2, myPaint);
-//                    Log.e("left prob=:",String.valueOf(thisFace.getIsLeftEyeOpenProbability()));
-//                    Log.e("right prob=:",String.valueOf(thisFace.getIsRightEyeOpenProbability()));
-//                    for(Landmark landmark : thisFace.getLandmarks()) {
-//                        if (landmark.getType() == Landmark.LEFT_EYE || landmark.getType() == Landmark.RIGHT_EYE) {
-//                            int cx = (int) landmark.getPosition().x;
-//                            int cy = (int) landmark.getPosition().y;
-//                            tempCanvas.drawCircle(cx, cy, 150, myPaint);
-//                        }
-//                    }
-//                }
-//                if(eyeSide == LEFT_SIDE) {
-//                    leftImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-//                } else if(eyeSide == RIGHT_SIDE) {
-//                    rightImage.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
-//                }
+                CropImage.activity(uri)
+                        .setAspectRatio(16,9)
+                        .setCropShape(CropImageView.CropShape.RECTANGLE)
+                        .start(CameraActivity.this);
             } catch (Exception e){
-                e.printStackTrace();
+                Log.e("error", e.toString());
             }
 
         } else if(requestCode == BROWSE_INTENT && resultCode == RESULT_OK) {
@@ -605,16 +535,47 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            if (eyeSide == LEFT_SIDE) {
-                leftBitmap = BitmapFactory.decodeFile(picturePath);
-                leftBitmap = checkOrientation(leftBitmap, picturePath);
-                leftImage.setImageBitmap(leftBitmap);
-                leftFilePath = picturePath;
-            } else if (eyeSide == RIGHT_SIDE){
-                rightBitmap = BitmapFactory.decodeFile(picturePath);
-                rightBitmap = checkOrientation(rightBitmap, picturePath);
-                rightImage.setImageBitmap(rightBitmap);
-                rightFilePath = picturePath;
+            dir = new File(picturePath);
+            uri = Uri.fromFile(dir);
+            CropImage.activity(uri)
+                    .setAspectRatio(16,9)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
+                    .start(CameraActivity.this);
+//            if (eyeSide == LEFT_SIDE) {
+//                leftBitmap = BitmapFactory.decodeFile(picturePath);
+//                leftBitmap = checkOrientation(leftBitmap, picturePath);
+//                leftImage.setImageBitmap(leftBitmap);
+//                leftFilePath = picturePath;
+//            } else if (eyeSide == RIGHT_SIDE){
+//                rightBitmap = BitmapFactory.decodeFile(picturePath);
+//                rightBitmap = checkOrientation(rightBitmap, picturePath);
+//                rightImage.setImageBitmap(rightBitmap);
+//                rightFilePath = picturePath;
+//            }
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            try {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Uri resultUri = result.getUri();
+                getContentResolver().notifyChange(resultUri, null);
+                ContentResolver cr = getContentResolver();
+                Bitmap img = MediaStore.Images.Media.getBitmap(cr,resultUri);
+//                img = rotateImage(img, -90);
+//                img = checkOrientation(img, "/storage/emulated/0/DCIM/eyeagnosis/" + imageFileName);
+                FileOutputStream fos = new FileOutputStream(dir);
+                img.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                uri = Uri.fromFile(dir);
+                if(eyeSide == LEFT_SIDE) {
+                    leftBitmap = img;
+                    leftFilePath = uri.getPath();
+                    leftImage.setImageBitmap(img);
+                } else if (eyeSide == RIGHT_SIDE) {
+                    rightBitmap = img;
+                    rightFilePath = uri.getPath();
+                    rightImage.setImageBitmap(img);
+                }
+                Snackbar.make(findViewById(android.R.id.content), "File saved at: "+ uri.getPath(), Snackbar.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Log.e("error", e.toString());
             }
         } else {
             Log.e("ERROR", "can't get image");

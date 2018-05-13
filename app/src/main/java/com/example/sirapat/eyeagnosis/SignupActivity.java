@@ -137,6 +137,7 @@ public class SignupActivity extends AppCompatActivity {
                         } else {
                             Log.e("Sign in error: ", e.toString());
                             Toast.makeText(SignupActivity.this, "Could not connect to the server", Toast.LENGTH_SHORT).show();
+                            onSignupFailed();
                         }
                     }
                 });

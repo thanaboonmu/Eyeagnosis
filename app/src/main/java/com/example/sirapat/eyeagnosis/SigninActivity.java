@@ -29,13 +29,13 @@ import org.json.JSONObject;
 
 public class SigninActivity extends AppCompatActivity {
 
-    private static final int SIGNUP_INTENT = 0;
     private String IP;
 
     private EditText mUsernameText;
     private EditText mPasswordText;
     private Button mSigninButton;
     private TextView mSignupLink;
+    private TextView mSkipLink;
     private ProgressDialog progressDialog;
 
     private int statusCode;
@@ -54,6 +54,7 @@ public class SigninActivity extends AppCompatActivity {
         mPasswordText = (EditText) findViewById(R.id.input_password);
         mSigninButton = (Button) findViewById(R.id.btn_signin);
         mSignupLink = (TextView) findViewById(R.id.link_signup);
+        mSkipLink = (TextView) findViewById(R.id.link_skip);
 
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +66,16 @@ public class SigninActivity extends AppCompatActivity {
         mSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-//                startActivityForResult(intent, SIGNUP_INTENT);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mSkipLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -111,7 +120,6 @@ public class SigninActivity extends AppCompatActivity {
                                 if(statusCode == 200) {
                                     String token = signinResponse.getString("token");
                                     String username = signinResponse.getString("message");
-                                    Toast.makeText(SigninActivity.this, token, Toast.LENGTH_LONG).show();
                                     SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sp.edit();
                                     editor.putString("token", token);
@@ -129,6 +137,7 @@ public class SigninActivity extends AppCompatActivity {
                         } else {
                             Log.e("Sign in error: ", e.toString());
                             Toast.makeText(SigninActivity.this, "Could not connect to the server", Toast.LENGTH_SHORT).show();
+                            onSigninFailed();
                         }
                     }
                 });
@@ -137,12 +146,24 @@ public class SigninActivity extends AppCompatActivity {
 
     public void onSigninSuccess() {
         mSigninButton.setEnabled(true);
+        Thread delayProgressThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    sleep(1500);  // 1.5 seconds of loading
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    progressDialog.dismiss();
+                    Intent i = new Intent(SigninActivity.this, MainActivity.class);
+                    SigninActivity.this.startActivity(i);
+                }
+            }
+        };
         if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
+            delayProgressThread.start();
         }
-        Intent i = new Intent(SigninActivity.this, MainActivity.class);
-        SigninActivity.this.startActivity(i);
-
     }
 
     public void onSigninFailed() {
@@ -159,20 +180,18 @@ public class SigninActivity extends AppCompatActivity {
         String username = mUsernameText.getText().toString();
         String password = mPasswordText.getText().toString();
 
-        if(username.isEmpty()) {
+        if(username.isEmpty() || username.length() < 4 || username.length() > 10) {
             mUsernameText.setError("Enter a valid username");
             valid = false;
         } else {
             mUsernameText.setError(null);
-            valid = true;
         }
 
-        if(password.isEmpty() || password.length() < 3 || password.length() > 10) {
-            mPasswordText.setError("Password should be between 3 and 10 characters");
+        if(password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            mPasswordText.setError("Password should be between 4 and 10 characters");
             valid = false;
         } else {
             mPasswordText.setError(null);
-            valid = true;
         }
 
         return valid;

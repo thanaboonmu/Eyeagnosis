@@ -1,6 +1,8 @@
 package com.example.sirapat.eyeagnosis;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -21,8 +23,16 @@ public class SplashScreen extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(getApplicationContext(), SigninActivity.class);
-                    startActivity(i);
+                    SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+                    String token = sp.getString("token", "");
+                    String username = sp.getString("username", "");
+                    if (token.equals("") && username.equals("")) {
+                        Intent i = new Intent(getApplicationContext(), SigninActivity.class);
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                    }
                     finish();
                 }
             }

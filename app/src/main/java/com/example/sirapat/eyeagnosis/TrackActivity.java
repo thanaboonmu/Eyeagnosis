@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,17 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.premnirmal.textcounter.CounterView;
+
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.roger.catloadinglibrary.CatLoadingView;
 
-import org.json.JSONArray;
 
-import java.io.File;
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
+import org.w3c.dom.Text;
+
 
 /**
  * Created by sirapat on 28/4/2018 AD.
@@ -149,6 +156,8 @@ public class TrackActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
         setTitle("Tracking");
+        TextView mSigninLink = (TextView) findViewById(R.id.link_signin);
+
         Config config = new Config();
         IP = config.IP;
 
@@ -167,12 +176,31 @@ public class TrackActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
         final String token = sp.getString("token", "");
         final String username = sp.getString("username", "");
+
+        if(token.equals("") && username.equals("")) {
+            mSigninLink.setText("Tap here to sign in");
+            mSigninLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
+                    startActivity(intent);
+                }
+            });
+            Toast.makeText(TrackActivity.this, "Sign in to use this feature", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final CounterView counterView = (CounterView) findViewById(R.id.counterView);
+        final ValueLineChart mCubicValueLineChart = (ValueLineChart) findViewById(R.id.cubiclinechart);
+        final ValueLineSeries series = new ValueLineSeries();
+        series.setColor(0xFF56B7F1);
+
         final CatLoadingView loading = new CatLoadingView();
 
         loading.show(getSupportFragmentManager(), "Getting data...");
         Ion.with(TrackActivity.this)
                 .load("http://" + IP + ":8080/api/users/" + username)
-                .setTimeout(200000)
+                .setTimeout(10000)
                 .setHeader("Authorization", "Bearer " + token)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
@@ -180,16 +208,37 @@ public class TrackActivity extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonArray result) {
                         loading.dismiss();
                         if(result != null) {
-                            Log.e("eeee",result.toString());
-                            Toast.makeText(TrackActivity.this, result.toString(), Toast.LENGTH_LONG).show();
-                            for (int i = 0; i < result.size(); i++) {
-                                Log.e(String.valueOf(i),result.get(i).getAsJsonObject().get("possibility").toString());
+                            int size = result.size();
+                            float before = 0;
+                            float after = 0;
+                            Log.e("result",result.toString());
+                            for (int i = 0; i < size; i++) {
+                                String possibility = result.get(i).getAsJsonObject().get("possibility").toString();
+                                possibility = possibility.replace("\"", "");
+                                Log.e(String.valueOf(i), possibility);
+                                series.addPoint(new ValueLinePoint(String.valueOf(i), Float.parseFloat(possibility)*100));
+                                if(i == (size-2)) {
+                                    before = Float.parseFloat(possibility)*100;
+                                } else if (i == (size - 1)) {
+                                    after = Float.parseFloat(possibility)*100;
+                                }
                             }
+                            float dif = after-before;
+                            if(dif < 0) {
+                                dif = Math.abs(dif);
+                                counterView.setPrefix("-");
+                                counterView.setSuffix("% worse");
+                                counterView.setTextColor(Color.parseColor("#FF0000"));
+                            }
+                            counterView.setEndValue(dif);
+                            counterView.start();
+                            mCubicValueLineChart.addSeries(series);
+                            mCubicValueLineChart.startAnimation();
                         } else {
+                            loading.dismiss();
                             Toast.makeText(TrackActivity.this, "Server isn't running", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
 }

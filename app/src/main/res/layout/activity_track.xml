@@ -37,6 +37,18 @@
         app:egLegendHeight="40dp"
         app:egShowStandardValue="true"/>
 
+    <TextView
+        android:id="@+id/link_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navigation"
+        android:layout_marginBottom="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        android:text=""/>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"

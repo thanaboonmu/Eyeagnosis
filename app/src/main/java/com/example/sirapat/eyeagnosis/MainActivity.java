@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                     return true;
                 }
-                case R.id.navigation_result:
+                case R.id.navigation_result: {
                     Intent i = new Intent(getApplicationContext(), Result.class);
                     if (tempLeftRes != null) {
                         i.putExtra("tempLeftRes", tempLeftRes);
@@ -57,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                     startActivity(i);
                     return true;
+                }
+                case R.id.navigation_track: {
+                    Intent i = new Intent(getApplicationContext(), TrackActivity.class);
+                    if (tempLeftRes != null) {
+                        i.putExtra("tempLeftRes", tempLeftRes);
+                    }
+                    if (tempRightRes != null) {
+                        i.putExtra("tempRightRes", tempRightRes);
+                    }
+                    startActivity(i);
+                    return true;
+                }
             }
             return false;
         }
@@ -66,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
     // create an action bar button
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
-        getMenuInflater().inflate(R.menu.signout, menu);
+        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+        // if there is token then show sign out button
+        if (!sp.getString("token","").equals("") && !sp.getString("username","").equals("")) {
+            getMenuInflater().inflate(R.menu.signout, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -99,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.btn_signout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Confirmation?").setMessage("Sign out?").setPositiveButton("Yes", dialogClickListener)
+            builder.setTitle("Confirmation").setMessage("Sign out?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         }
         return super.onOptionsItemSelected(item);
@@ -133,28 +149,7 @@ public class MainActivity extends AppCompatActivity {
         animationView.setAnimation("camera2.json");
         animationView.loop(true);
         animationView.playAnimation();
-        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
-        String token = sp.getString("token", "No token found");
-        Toast.makeText(MainActivity.this, token, Toast.LENGTH_LONG).show();
-        Log.e("token",token);
-//        Button normalModeButton = (Button) findViewById(R.id.normalModeButton);
-//        normalModeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(view.getContext(), CameraActivity.class);
-//                i.putExtra("mode", NORMAL_MODE);
-//                startActivity(i);
-//            }
-//        });
-//        Button redReflectModeButton = (Button) findViewById(R.id.redReflectModeButton);
-//        redReflectModeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(view.getContext(), CameraActivity.class);
-//                i.putExtra("mode", RED_REFLECT_MODE);
-//                startActivity(i);
-//            }
-//        });
+
     }
 
     @Override
