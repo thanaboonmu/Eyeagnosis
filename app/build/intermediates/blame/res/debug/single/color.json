@@ -1,0 +1,106 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/wallet_primary_text_holo_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/res/color/wallet_primary_text_holo_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/design_error.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/color/design_error.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_seek_thumb.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_spinner.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_switch_thumb.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_switch_track.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_btn_colored_text_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_default.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/wallet_secondary_text_holo_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/res/color/wallet_secondary_text_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/common_signin_btn_text_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/color/common_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/design_tint_password_toggle.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/color/design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_edittext.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/abc_tint_btn_checkable.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/color/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/color/common_signin_btn_text_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/color/common_signin_btn_text_dark.xml"
+    }
+]

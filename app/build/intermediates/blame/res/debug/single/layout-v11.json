@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_narrow.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_narrow_custom.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media_custom.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_template_big_media.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_media_action.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/layout-v11/notification_media_cancel_action.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/layout-v11/notification_media_cancel_action.xml"
+    }
+]

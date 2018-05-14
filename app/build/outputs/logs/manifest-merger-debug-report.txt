@@ -1,0 +1,317 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:2:1-61:12
+	package
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:4:5-45
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+meta-data#com.google.android.gms.vision.DEPENDENCIES
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:6:5-8:32
+	android:value
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:8:9-29
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:7:9-66
+uses-feature#android.hardware.camera2
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:10:5-61
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:10:19-58
+uses-feature#android.hardware.sensor.accelerometer
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:11:5-74
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:11:19-71
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:13:5-81
+MERGED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:22:5-80
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:13:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:14:5-80
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:14:22-77
+uses-permission#android.permission.INTERNET
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:15:5-67
+MERGED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/sirapat/.android/build-cache/a4b4e2edb981025bdb1ef68eaa1668d82d36ab5c/output/AndroidManifest.xml:21:5-67
+MERGED from [com.google.android.gms:play-services-appinvite:7.8.0] /Users/sirapat/.android/build-cache/47c1636be16cf41e74b92aa97aeb6f028903d019/output/AndroidManifest.xml:19:5-67
+MERGED from [com.google.android.gms:play-services-gcm:7.8.0] /Users/sirapat/.android/build-cache/668e8cb640ba32118d00a600471b95bb3564de16/output/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-wallet:7.8.0] /Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:21:5-66
+MERGED from [com.koushikdutta.ion:ion:2.2.1] /Users/sirapat/.android/build-cache/ff6844b24f62534a8b208da5548dc1d08eb5eafc/output/AndroidManifest.xml:11:5-67
+MERGED from [com.koushikdutta.async:androidasync:2.2.1] /Users/sirapat/.android/build-cache/f7db047d84d7df06457bc26a80cc5f4d75ee1391/output/AndroidManifest.xml:11:5-67
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:15:22-64
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:16:5-76
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:16:22-73
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:17:5-79
+MERGED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/sirapat/.android/build-cache/a4b4e2edb981025bdb1ef68eaa1668d82d36ab5c/output/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-nearby:7.8.0] /Users/sirapat/.android/build-cache/064f1fe4a22a27e29b4557560ab26ff53ce50376/output/AndroidManifest.xml:19:5-79
+MERGED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:20:5-78
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:17:22-76
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:20:5-71
+MERGED from [com.google.android.gms:play-services-wallet:7.8.0] /Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/AndroidManifest.xml:21:5-70
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:20:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:21:5-71
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:21:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:22:5-72
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:22:22-69
+application
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:24:5-52:19
+MERGED from [com.google.android.gms:play-services:7.8.0] /Users/sirapat/.android/build-cache/cd4e7b220c59af71495821eb00d17fa7b045c2dd/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/sirapat/.android/build-cache/a4b4e2edb981025bdb1ef68eaa1668d82d36ab5c/output/AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:7.8.0] /Users/sirapat/.android/build-cache/21e61ff11a56db6b6918773d8695a500d8792386/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-appinvite:7.8.0] /Users/sirapat/.android/build-cache/47c1636be16cf41e74b92aa97aeb6f028903d019/output/AndroidManifest.xml:20:5-20
+MERGED from [com.google.android.gms:play-services-appstate:7.8.0] /Users/sirapat/.android/build-cache/ed54cc78d23e22e5265d384b77f345da29b5cd66/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-cast:7.8.0] /Users/sirapat/.android/build-cache/569b1e40a280a8a2e50e2a95c625229e89557421/output/AndroidManifest.xml:19:5-20
+MERGED from [com.android.support:mediarouter-v7:22.2.0] /Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-fitness:7.8.0] /Users/sirapat/.android/build-cache/2f4322d6829af78a7262e67442a5762c8d04e74a/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-games:7.8.0] /Users/sirapat/.android/build-cache/5cb707e9644166a0d78738d22ee59757a21a83eb/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-drive:7.8.0] /Users/sirapat/.android/build-cache/8b5a82a928bb82d2b9c9f5dc38942757eefcba4e/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-gcm:7.8.0] /Users/sirapat/.android/build-cache/668e8cb640ba32118d00a600471b95bb3564de16/output/AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-location:7.8.0] /Users/sirapat/.android/build-cache/4c3e9026c50a7aa61722d6f3f50e695cdfa62829/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-nearby:7.8.0] /Users/sirapat/.android/build-cache/064f1fe4a22a27e29b4557560ab26ff53ce50376/output/AndroidManifest.xml:20:5-20
+MERGED from [com.google.android.gms:play-services-panorama:7.8.0] /Users/sirapat/.android/build-cache/d1f3771fad1c8cff2fa5825fc28968251c37618c/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-plus:7.8.0] /Users/sirapat/.android/build-cache/df61ade849f5f0a2190d584200da37ac76c500c7/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-safetynet:7.8.0] /Users/sirapat/.android/build-cache/8f70a4c6e350f5a3f646ef13b8d3ec51d82dc616/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-vision:7.8.0] /Users/sirapat/.android/build-cache/46c39362839bce0afe47c201d338f4e5f9aa6bb4/output/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-identity:7.8.0] /Users/sirapat/.android/build-cache/d81e023d946f7d0a9c88f7b83ab8e054c856fe79/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:28:5-20
+MERGED from [com.google.android.gms:play-services-wearable:7.8.0] /Users/sirapat/.android/build-cache/e17591392ddcbf15b37a206b9fbd229b5eabb196/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-base:7.8.0] /Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c20806cabb0025dd4fd38ad53dffb21c77b7c672/output/AndroidManifest.xml:26:5-20
+MERGED from [com.airbnb.android:lottie:2.0.0] /Users/sirapat/.android/build-cache/deade9363232d148320d55890e07f07840b45e85/output/AndroidManifest.xml:10:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/sirapat/.android/build-cache/7d38de32b226884b12f5285cca070111a2fdf665/output/AndroidManifest.xml:9:5-20
+MERGED from [com.koushikdutta.ion:ion:2.2.1] /Users/sirapat/.android/build-cache/ff6844b24f62534a8b208da5548dc1d08eb5eafc/output/AndroidManifest.xml:13:5-14:19
+MERGED from [com.koushikdutta.async:androidasync:2.2.1] /Users/sirapat/.android/build-cache/f7db047d84d7df06457bc26a80cc5f4d75ee1391/output/AndroidManifest.xml:13:5-14:19
+MERGED from [com.roger.catloadinglibrary:catloadinglibrary:1.0.1] /Users/sirapat/.android/build-cache/3be6d1f7bc17f7fdf0c0d8ac1e4fd6c873bb0b77/output/AndroidManifest.xml:11:5-15:19
+MERGED from [com.mikhaellopez:circularimageview:3.0.2] /Users/sirapat/.android/build-cache/4c874fc7b664fd5c7d93b241c142fafaefc9d429/output/AndroidManifest.xml:11:5-13:38
+MERGED from [com.github.dmytrodanylyk.circular-progress-button:library:1.0.5] /Users/sirapat/.android/build-cache/4faa5422cb7dbed6f03a4a26d16a59d06aac852b/output/AndroidManifest.xml:4:5-6:19
+MERGED from [com.github.blackfizz:eazegraph:1.2.5l] /Users/sirapat/.android/build-cache/b9328978138258afc45781c3f5d2327101f58337/output/AndroidManifest.xml:12:5-13:19
+MERGED from [com.github.premnirmal:TextCounter:1.1.0] /Users/sirapat/.android/build-cache/53f45d5e62caab2d7534cebaae7734ec854ba63d/output/AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/sirapat/.android/build-cache/15c8a48a157cf7d26cbfec444f3830976840d2d5/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/1a3943f2e7b7ac787d806ee0daadce7ed45ba4a8/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c27142fe0431a21b260c5d1c971a6193e58090db/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/sirapat/.android/build-cache/996748220eb6fdfc4a5f4db98a6b61bc5ed55c17/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/sirapat/.android/build-cache/d0e8aa1304d5555a97b7391c225272d6666d2128/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/69f17e6768a7de261338e8f6811400bb2fb48e2a/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c7ee6df023d5aff383adb1ccdbcff0802aab3a36/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/a3ae8b16d5179c91ebc4422d8d55b7afb7b92d34/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:exifinterface:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c0bd01f307b393f512d4526ac4f26bc11ce20851/output/AndroidManifest.xml:26:5-20
+	android:label
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:27:9-41
+	android:supportsRtl
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:31:9-35
+	android:hardwareAccelerated
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:28:9-44
+	android:roundIcon
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:30:9-48
+	android:allowBackup
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:25:9-35
+	android:icon
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:26:9-43
+		REJECTED from [com.github.dmytrodanylyk.circular-progress-button:library:1.0.5] /Users/sirapat/.android/build-cache/4faa5422cb7dbed6f03a4a26d16a59d06aac852b/output/AndroidManifest.xml:4:18-54
+	android:largeHeap
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:29:9-33
+	android:theme
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:32:9-40
+	tools:replace
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:33:9-37
+activity#com.example.sirapat.eyeagnosis.SplashScreen
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:34:9-43:20
+	android:label
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:36:13-45
+	android:theme
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:37:13-69
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:35:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:38:13-42:29
+action#android.intent.action.MAIN
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:39:17-69
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:39:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:41:17-77
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:41:27-74
+activity#com.example.sirapat.eyeagnosis.SigninActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:44:9-89
+	android:theme
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:44:50-86
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:44:19-49
+activity#com.example.sirapat.eyeagnosis.SignupActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:45:9-88
+	android:theme
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:45:50-86
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:45:19-49
+activity#com.example.sirapat.eyeagnosis.MainActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:46:9-50
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:46:19-47
+activity#com.example.sirapat.eyeagnosis.CameraActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:47:9-52
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:47:19-49
+activity#com.example.sirapat.eyeagnosis.Result
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:48:9-44
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:48:19-41
+activity#com.example.sirapat.eyeagnosis.TrackActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:49:9-50
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:49:19-48
+activity#com.soundcloud.android.crop.CropImageActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:50:9-82
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:50:19-79
+activity#com.theartofdev.edmodo.cropper.CropImageActivity
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:51:9-84
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:51:19-82
+provider#com.activeandroid.content.ContentProvider
+ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:54:5-59:16
+	android:authorities
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:56:9-61
+	android:enabled
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:57:9-31
+	android:exported
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:58:9-33
+	android:name
+		ADDED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml:55:9-65
+uses-sdk
+INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:multidex:1.0.1] /Users/sirapat/.android/build-cache/8c1621355a36abfdd1c47d5ce07ea20e3a65fc9f/output/AndroidManifest.xml:18:5-42
+MERGED from [com.akexorcist:RoundCornerProgressBar:2.0.3] /Users/sirapat/.android/build-cache/c8bcacc7f020fd85a049c6f269498c875369d89b/output/AndroidManifest.xml:8:5-10:41
+MERGED from [com.google.android.gms:play-services:7.8.0] /Users/sirapat/.android/build-cache/cd4e7b220c59af71495821eb00d17fa7b045c2dd/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:23:5-42
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/sirapat/.android/build-cache/a4b4e2edb981025bdb1ef68eaa1668d82d36ab5c/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appindexing:7.8.0] /Users/sirapat/.android/build-cache/21e61ff11a56db6b6918773d8695a500d8792386/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appinvite:7.8.0] /Users/sirapat/.android/build-cache/47c1636be16cf41e74b92aa97aeb6f028903d019/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appstate:7.8.0] /Users/sirapat/.android/build-cache/ed54cc78d23e22e5265d384b77f345da29b5cd66/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-cast:7.8.0] /Users/sirapat/.android/build-cache/569b1e40a280a8a2e50e2a95c625229e89557421/output/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:mediarouter-v7:22.2.0] /Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-fitness:7.8.0] /Users/sirapat/.android/build-cache/2f4322d6829af78a7262e67442a5762c8d04e74a/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-games:7.8.0] /Users/sirapat/.android/build-cache/5cb707e9644166a0d78738d22ee59757a21a83eb/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-drive:7.8.0] /Users/sirapat/.android/build-cache/8b5a82a928bb82d2b9c9f5dc38942757eefcba4e/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-gcm:7.8.0] /Users/sirapat/.android/build-cache/668e8cb640ba32118d00a600471b95bb3564de16/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-location:7.8.0] /Users/sirapat/.android/build-cache/4c3e9026c50a7aa61722d6f3f50e695cdfa62829/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-nearby:7.8.0] /Users/sirapat/.android/build-cache/064f1fe4a22a27e29b4557560ab26ff53ce50376/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-panorama:7.8.0] /Users/sirapat/.android/build-cache/d1f3771fad1c8cff2fa5825fc28968251c37618c/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-plus:7.8.0] /Users/sirapat/.android/build-cache/df61ade849f5f0a2190d584200da37ac76c500c7/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-safetynet:7.8.0] /Users/sirapat/.android/build-cache/8f70a4c6e350f5a3f646ef13b8d3ec51d82dc616/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-vision:7.8.0] /Users/sirapat/.android/build-cache/46c39362839bce0afe47c201d338f4e5f9aa6bb4/output/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-wallet:7.8.0] /Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/AndroidManifest.xml:19:5-42
+MERGED from [com.google.android.gms:play-services-identity:7.8.0] /Users/sirapat/.android/build-cache/d81e023d946f7d0a9c88f7b83ab8e054c856fe79/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:27:5-42
+MERGED from [com.google.android.gms:play-services-wearable:7.8.0] /Users/sirapat/.android/build-cache/e17591392ddcbf15b37a206b9fbd229b5eabb196/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:7.8.0] /Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/sirapat/.android/build-cache/648c3974a4b53b6b5b07a7e2eb70f03bc997e1a9/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c20806cabb0025dd4fd38ad53dffb21c77b7c672/output/AndroidManifest.xml:20:5-44
+MERGED from [com.airbnb.android:lottie:2.0.0] /Users/sirapat/.android/build-cache/deade9363232d148320d55890e07f07840b45e85/output/AndroidManifest.xml:6:5-8:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/sirapat/.android/build-cache/7d38de32b226884b12f5285cca070111a2fdf665/output/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.lzyzsd:circleprogress:1.2.1] /Users/sirapat/.android/build-cache/804608cd0976e8d160f0edfc3541efe877f7ce70/output/AndroidManifest.xml:8:5-10:41
+MERGED from [com.koushikdutta.ion:ion:2.2.1] /Users/sirapat/.android/build-cache/ff6844b24f62534a8b208da5548dc1d08eb5eafc/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.koushikdutta.async:androidasync:2.2.1] /Users/sirapat/.android/build-cache/f7db047d84d7df06457bc26a80cc5f4d75ee1391/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.roger.catloadinglibrary:catloadinglibrary:1.0.1] /Users/sirapat/.android/build-cache/3be6d1f7bc17f7fdf0c0d8ac1e4fd6c873bb0b77/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mikhaellopez:circularimageview:3.0.2] /Users/sirapat/.android/build-cache/4c874fc7b664fd5c7d93b241c142fafaefc9d429/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.dmytrodanylyk.circular-progress-button:library:1.0.5] /Users/sirapat/.android/build-cache/4faa5422cb7dbed6f03a4a26d16a59d06aac852b/output/AndroidManifest.xml:2:5-73
+MERGED from [com.github.blackfizz:eazegraph:1.2.5l] /Users/sirapat/.android/build-cache/b9328978138258afc45781c3f5d2327101f58337/output/AndroidManifest.xml:8:5-10:41
+MERGED from [com.github.premnirmal:TextCounter:1.1.0] /Users/sirapat/.android/build-cache/53f45d5e62caab2d7534cebaae7734ec854ba63d/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.soundcloud.android:android-crop:1.0.1] /Users/sirapat/.android/build-cache/b1defc32a48efbd41d99ef9b854059c474e13e85/output/AndroidManifest.xml:6:5-8:41
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.5.1] /Users/sirapat/.android/build-cache/5f63ac4ed3c86e72b468fe52f54e38df80d233eb/output/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/sirapat/.android/build-cache/15c8a48a157cf7d26cbfec444f3830976840d2d5/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/1a3943f2e7b7ac787d806ee0daadce7ed45ba4a8/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c27142fe0431a21b260c5d1c971a6193e58090db/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/sirapat/.android/build-cache/996748220eb6fdfc4a5f4db98a6b61bc5ed55c17/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/sirapat/.android/build-cache/d0e8aa1304d5555a97b7391c225272d6666d2128/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/69f17e6768a7de261338e8f6811400bb2fb48e2a/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c7ee6df023d5aff383adb1ccdbcff0802aab3a36/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/a3ae8b16d5179c91ebc4422d8d55b7afb7b92d34/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:exifinterface:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c0bd01f307b393f512d4526ac4f26bc11ce20851/output/AndroidManifest.xml:20:5-44
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sirapat/Desktop/Eyeagnosis/app/src/main/AndroidManifest.xml
+activity#com.google.android.gms.ads.AdActivity
+ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:26:9-29:64
+	android:configChanges
+		ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:28:13-122
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:29:13-61
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:27:13-65
+activity#com.google.android.gms.ads.purchase.InAppPurchaseActivity
+ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:30:9-31:52
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:31:13-50
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads:7.8.0] /Users/sirapat/.android/build-cache/427bc349a7e0eb0fd790757df8150d9e118facfd/output/AndroidManifest.xml:30:19-91
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.android.gms:play-services-gcm:7.8.0] /Users/sirapat/.android/build-cache/668e8cb640ba32118d00a600471b95bb3564de16/output/AndroidManifest.xml:21:5-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-gcm:7.8.0] /Users/sirapat/.android/build-cache/668e8cb640ba32118d00a600471b95bb3564de16/output/AndroidManifest.xml:21:22-79
+uses-permission#android.permission.USE_CREDENTIALS
+ADDED from [com.google.android.gms:play-services-wallet:7.8.0] /Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/AndroidManifest.xml:22:5-73
+	android:name
+		ADDED from [com.google.android.gms:play-services-wallet:7.8.0] /Users/sirapat/.android/build-cache/169e73e9d8d75037de084d871afbcd86b74f3fce/output/AndroidManifest.xml:22:22-71
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:23:5-25:33
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:24:8-40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:7.8.0] /Users/sirapat/.android/build-cache/bd4b65357134fdef1a536cd82abe7daa9dd964a7/output/AndroidManifest.xml:25:8-31
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/AndroidManifest.xml:22:13-58
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/sirapat/.android/build-cache/648c3974a4b53b6b5b07a7e2eb70f03bc997e1a9/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c20806cabb0025dd4fd38ad53dffb21c77b7c672/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/sirapat/.android/build-cache/15c8a48a157cf7d26cbfec444f3830976840d2d5/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/1a3943f2e7b7ac787d806ee0daadce7ed45ba4a8/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c27142fe0431a21b260c5d1c971a6193e58090db/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/sirapat/.android/build-cache/996748220eb6fdfc4a5f4db98a6b61bc5ed55c17/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/sirapat/.android/build-cache/d0e8aa1304d5555a97b7391c225272d6666d2128/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/69f17e6768a7de261338e8f6811400bb2fb48e2a/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c7ee6df023d5aff383adb1ccdbcff0802aab3a36/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/sirapat/.android/build-cache/a3ae8b16d5179c91ebc4422d8d55b7afb7b92d34/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:exifinterface:26.0.0-alpha1] /Users/sirapat/.android/build-cache/c0bd01f307b393f512d4526ac4f26bc11ce20851/output/AndroidManifest.xml:22:5-24:41
+	android:value
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:27:9-38
+	android:name
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/AndroidManifest.xml:26:9-47

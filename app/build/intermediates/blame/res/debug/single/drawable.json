@@ -1,0 +1,306 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/eyeagnosis_logo.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/eyeagnosis_logo.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_connecting.xml",
+        "source": "/Users/sirapat/.android/build-cache/569b1e40a280a8a2e50e2a95c625229e89557421/output/res/drawable/cast_ic_notification_connecting.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_connecting_mono_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_media_route_connecting_mono_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/background.xml",
+        "source": "/Users/sirapat/.android/build-cache/3be6d1f7bc17f7fdf0c0d8ac1e4fd6c873bb0b77/output/res/drawable/background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_ab_back_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_small_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/notification_icon_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/design_snackbar_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable/design_snackbar_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/design_bottom_navigation_item_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable/design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_clear_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_go_search_api_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_launcher.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/right_eye.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/right_eye.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_settings_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_settings_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_result_black_24dp.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_result_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_pause_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_pause_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/crop__selectable_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/b1defc32a48efbd41d99ef9b854059c474e13e85/output/res/drawable/crop__selectable_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_search_api_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/camera.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/camera.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_icon_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/drawable/common_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_home_black_24dp.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_dashboard_black_24dp.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_icon_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/drawable/common_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_mono_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_media_route_mono_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/notification_bg_low.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/signin_logo.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/signin_logo.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/left_eye.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/left_eye.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_indicator_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_tick_mark_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_text_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/drawable/common_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_text_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/cd581e08e71228eb42268d434f46a354713df2fa/output/res/drawable/common_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_notifications_black_24dp.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable/design_fab_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_play_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_play_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/crop__texture.xml",
+        "source": "/Users/sirapat/.android/build-cache/b1defc32a48efbd41d99ef9b854059c474e13e85/output/res/drawable/crop__texture.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/brightness.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/brightness.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/notification_tile_bg.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_settings_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_settings_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_mono_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_media_route_mono_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_pause_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_pause_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_media_route_connecting_mono_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_media_route_connecting_mono_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/design_password_eye.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable/design_password_eye.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/mr_ic_play_dark.xml",
+        "source": "/Users/sirapat/.android/build-cache/4ca9f423e18bb5d7866010b5f54b7575eade1181/output/res/drawable/mr_ic_play_dark.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/too_dark.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/too_dark.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/notification_bg.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/ic_photo_camera_black_24dp.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/ic_photo_camera_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/abc_vector_test.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable/abc_vector_test.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/too_bright.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/too_bright.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/navigation_empty_icon.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable/navigation_empty_icon.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable/good_darkness.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/drawable/good_darkness.png"
+    }
+]

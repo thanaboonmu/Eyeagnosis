@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher_round.png",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    }
+]

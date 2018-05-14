@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable-v21/avd_hide_password.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/crop__selectable_background.xml",
+        "source": "/Users/sirapat/.android/build-cache/b1defc32a48efbd41d99ef9b854059c474e13e85/output/res/drawable-v21/crop__selectable_background.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/avd_show_password.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable-v21/avd_show_password.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
+        "source": "/Users/sirapat/.android/build-cache/0050bb5a2ffe1fb25c04b350be874532f38bc115/output/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",
+        "source": "/Users/sirapat/.android/build-cache/e531e3b3c63ebe4141feb3f7b212886c6b560890/output/res/drawable-v21/design_password_eye.xml"
+    }
+]

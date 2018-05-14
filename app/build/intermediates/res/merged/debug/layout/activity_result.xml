@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sirapat.eyeagnosis.Result">
+
+        <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Diagnosis result" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view_res"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/resultTextView"
+            android:layout_marginTop="10dp"/>
+        <TextView
+        android:id="@+id/leftEyeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/animation_view_res"
+        android:layout_alignRight="@+id/leftDonut"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:fontFamily="sans-serif--condensed"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:text="Left eye"/>
+
+        <TextView
+        android:id="@+id/rightEyeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/animation_view_res"
+        android:layout_alignStart="@+id/rightDonut"
+        android:layout_alignLeft="@+id/rightDonut"
+        android:layout_alignRight="@+id/rightDonut"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:fontFamily="sans-serif--condensed"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:text="Right eye"/>
+
+        <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/leftDonut"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/leftEyeText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:donut_progress="0"/>
+
+        <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/rightDonut"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignTop="@+id/leftDonut"
+        android:layout_alignBottom="@+id/leftDonut"
+        android:layout_toRightOf="@+id/leftDonut"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="30dp"
+        app:donut_progress="0"/>
+
+        <TextView
+        android:id="@+id/leftDisease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leftDonut"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/leftDonut"
+        android:layout_alignRight="@+id/leftDonut"
+        android:layout_alignStart="@+id/leftDonut"
+        android:layout_alignEnd="@+id/leftDonut"
+        android:gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:text="Unknown" />
+
+        <TextView
+        android:id="@+id/rightDisease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rightDonut"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/rightDonut"
+        android:layout_alignRight="@+id/rightDonut"
+        android:layout_alignStart="@+id/rightDonut"
+        android:layout_alignEnd="@+id/rightDonut"
+        android:gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:text="Unknown" />
+
+        <TextView
+        android:id="@+id/leftRec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leftDisease"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/leftDonut"
+        android:layout_alignRight="@+id/leftDonut"
+        android:layout_alignStart="@+id/leftDonut"
+        android:layout_alignEnd="@+id/leftDonut"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:text="Recommendation\n(Not diagnosed yet)" />
+
+        <TextView
+        android:id="@+id/rightRec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rightDisease"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/rightDonut"
+        android:layout_alignRight="@+id/rightDonut"
+        android:layout_alignStart="@+id/rightDonut"
+        android:layout_alignEnd="@+id/rightDonut"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:text="Recommendation\n(Not diagnosed yet)" />
+
+        <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation"/>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/menu/crop_image_menu.xml",
+        "source": "/Users/sirapat/.android/build-cache/5f63ac4ed3c86e72b468fe52f54e38df80d233eb/output/res/menu/crop_image_menu.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/menu/signout.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/menu/signout.xml"
+    },
+    {
+        "merged": "/Users/sirapat/Desktop/Eyeagnosis/app/build/intermediates/res/merged/debug/menu/navigation.xml",
+        "source": "/Users/sirapat/Desktop/Eyeagnosis/app/src/main/res/menu/navigation.xml"
+    }
+]
