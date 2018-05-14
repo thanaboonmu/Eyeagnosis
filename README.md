@@ -19,5 +19,7 @@
     $ npm install
     $ node server.js
       
-      
+    Running as a service
+    $ npm install -g pm2
+    $ pm2 start server.js
       
