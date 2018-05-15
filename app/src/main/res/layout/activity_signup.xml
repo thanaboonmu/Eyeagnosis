@@ -118,7 +118,7 @@
             android:gravity="center"
             android:textStyle=""
             android:textSize="16dp"
-            android:text="Already have an account? Sign in"
+            android:text="@string/signin_link"
             android:clickable="true"/>
 
 

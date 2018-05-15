@@ -65,17 +65,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:textStyle=""
             android:textSize="16dp"
-            android:text="No account yet? Sign up"
+            android:text="@string/signup_link"
             android:clickable="true"/>
 
         <TextView
             android:id="@+id/link_skip"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:gravity="right"
+            android:layout_gravity="right"
             android:textSize="16dp"
             android:text="SKIP"
             android:clickable="true"/>

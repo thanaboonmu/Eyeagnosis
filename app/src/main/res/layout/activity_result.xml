@@ -24,7 +24,9 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/resultTextView"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            app:lottie_fileName="result.json"
+            app:lottie_autoPlay="true"/>
         <TextView
         android:id="@+id/leftEyeText"
         android:layout_width="match_parent"
@@ -36,7 +38,7 @@
         android:fontFamily="sans-serif--condensed"
         android:textSize="18dp"
         android:textColor="@color/black"
-        android:text="Left eye"/>
+        android:text="LEFT EYE"/>
 
         <TextView
         android:id="@+id/rightEyeText"
@@ -51,7 +53,7 @@
         android:fontFamily="sans-serif--condensed"
         android:textSize="18dp"
         android:textColor="@color/black"
-        android:text="Right eye"/>
+        android:text="RIGHT EYE"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/leftDonut"
@@ -60,7 +62,7 @@
         android:layout_below="@+id/leftEyeText"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:donut_progress="0"/>
+        app:donut_progress="50"/>
 
         <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/rightDonut"
@@ -71,7 +73,7 @@
         android:layout_toRightOf="@+id/leftDonut"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="30dp"
-        app:donut_progress="0"/>
+        app:donut_progress="50"/>
 
         <TextView
         android:id="@+id/leftDisease"
@@ -87,7 +89,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="16dp"
         android:textColor="@color/black"
-        android:text="Unknown" />
+        android:text="\?\?\?\?\?" />
 
         <TextView
         android:id="@+id/rightDisease"
@@ -103,7 +105,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="16dp"
         android:textColor="@color/black"
-        android:text="Unknown" />
+        android:text="\?\?\?\?\?" />
 
         <TextView
         android:id="@+id/leftRec"
@@ -118,7 +120,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="16dp"
         android:textColor="@color/black"
-        android:text="Recommendation\n(Not diagnosed yet)" />
+        android:text="Diagnose to see the result and advices." />
 
         <TextView
         android:id="@+id/rightRec"
@@ -133,7 +135,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="16dp"
         android:textColor="@color/black"
-        android:text="Recommendation\n(Not diagnosed yet)" />
+        android:text="Diagnose to see the result and advices." />
 
         <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
