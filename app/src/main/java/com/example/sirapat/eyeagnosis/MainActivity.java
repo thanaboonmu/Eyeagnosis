@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
-
+        setTitle("Home");
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {

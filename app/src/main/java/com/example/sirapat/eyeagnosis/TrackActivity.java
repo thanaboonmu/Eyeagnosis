@@ -209,18 +209,25 @@ public class TrackActivity extends AppCompatActivity {
                         loading.dismiss();
                         if(result != null) {
                             int size = result.size();
+                            float pos_num = 100.0f;
                             float before = 0;
                             float after = 0;
                             Log.e("result",result.toString());
                             for (int i = 0; i < size; i++) {
                                 String possibility = result.get(i).getAsJsonObject().get("possibility").toString();
+                                String disease = result.get(i).getAsJsonObject().get("disease").toString();
                                 possibility = possibility.replace("\"", "");
                                 Log.e(String.valueOf(i), possibility);
-                                series.addPoint(new ValueLinePoint(String.valueOf(i), Float.parseFloat(possibility)*100));
+                                if(disease.equals("\"Healthy\"")) {
+                                    pos_num = Float.parseFloat(possibility)*100;
+                                } else {
+                                    pos_num = 100f - Float.parseFloat(possibility)*100;
+                                }
+                                series.addPoint(new ValueLinePoint(String.valueOf(i), pos_num));
                                 if(i == (size-2)) {
-                                    before = Float.parseFloat(possibility)*100;
+                                    before = pos_num;
                                 } else if (i == (size - 1)) {
-                                    after = Float.parseFloat(possibility)*100;
+                                    after = pos_num;
                                 }
                             }
                             float dif = after-before;

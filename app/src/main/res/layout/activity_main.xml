@@ -8,167 +8,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout0"
-        android:orientation="horizontal"
+    <ImageView
+        android:id="@+id/appname"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/appname"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/appname"/>
+
+    <com.tomer.fadingtextview.FadingTextView
+        android:id="@+id/fadingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="2"
-        android:layout_marginTop="11dp"
-        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_below="@+id/animation_view"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="21sp"
+        android:textColor="@color/blue"
+        app:texts="@array/welcomes"
+        app:timeout="1000" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="170dp"
-            android:layout_height="180dp"
-            android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_below="@+id/fadingTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Normal mode\ncan detects\n1. Pinguecula\n2. Ptertygium\n\nRed reflect mode\ncan detects\n1. Cataract \n2. Retinoblastoma" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="2"
-        android:layout_below="@+id/linearLayout0"
-        android:layout_marginTop="11dp" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="26dp"
             android:textColor="@color/green"
             android:textSize="16sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Pinguecula(ต้อลม)"/>
+            android:text="Normal mode\n- Pinguecula\n (ต้อลม)\n- Ptertygium\n (ต้อเนื้อ)"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="26dp"
             android:textColor="@color/red"
             android:textSize="16sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Cataract(ต้อกระจก)"/>
-    </LinearLayout>
+            android:text="Red reflect mode\n- Cataract\n (ต้อกระจก)\n- Retinoblastoma\n (มะเร็งในจอตา)"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="2"
-        android:layout_below="@+id/linearLayout1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="appears as a yellow-coloured on the white of the eye and won't grow across cornea."
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:text="is a clouding of the normally clear lens of eye. You'll have difficulty to see thing."/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="2"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Pterygium(ต้อเนื้อ)"
-            android:textColor="@color/green"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Retinoblastoma"
-            android:textColor="@color/red"
-            android:textSize="16sp" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:weightSum="2"
-        android:layout_below="@+id/linearLayout3" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="can be seen as a fleshy, pink growth on the white of the eye, and usually extend onto the cornea."
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:text="is cancer of the eye. It begins in the retina, usually affects young children, sometimes occur in adults."/>
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
