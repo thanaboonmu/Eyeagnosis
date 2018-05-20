@@ -24,6 +24,7 @@
         android:layout_below="@+id/appname"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:paddingBottom="30dp"
         android:fontFamily="sans-serif-condensed"
         android:textSize="21sp"
         android:textColor="@color/blue"

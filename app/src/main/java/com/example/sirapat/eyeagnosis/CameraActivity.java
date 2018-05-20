@@ -205,6 +205,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         setContentView(R.layout.activity_camera);
         setTitle("Normal test");
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(1);

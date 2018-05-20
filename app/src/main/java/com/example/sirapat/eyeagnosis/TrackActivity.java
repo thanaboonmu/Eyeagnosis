@@ -49,7 +49,7 @@ public class TrackActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home: {
-                    Intent i = new Intent(getApplicationContext(), CameraActivity.class);
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     if (tempLeftRes != null) {
                         i.putExtra("tempLeftRes", tempLeftRes);
                     }
@@ -151,6 +151,7 @@ public class TrackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(3);

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,10 +15,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.VideoView;
 
-import com.airbnb.lottie.LottieAnimationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -145,17 +151,33 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Temp Res: ", "No temp res yet");
         }
 
-        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
-        animationView.setAnimation("camera2.json");
-        animationView.loop(true);
-        animationView.playAnimation();
+        ImageView mAppNameImage = (ImageView) findViewById(R.id.appname);
+        Animation animation = new AlphaAnimation(1, 0);
+        animation.setDuration(4000);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setRepeatMode(Animation.REVERSE);
+        mAppNameImage.startAnimation(animation);
+
+        VideoView videoView = (VideoView)findViewById(R.id.videoView);
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.nsc_demo;
+        videoView.setVideoURI(Uri.parse(path));
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        videoView.start();
 
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Menu menu = navigation.getMenu();
         MenuItem menuItem = menu.getItem(0);
