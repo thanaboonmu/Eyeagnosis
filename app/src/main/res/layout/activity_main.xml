@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/appname"/>
+        android:src="@drawable/appname"
+        android:background="@color/white"/>
 
     <com.tomer.fadingtextview.FadingTextView
         android:id="@+id/fadingTextView"
@@ -24,7 +25,7 @@
         android:layout_below="@+id/appname"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingBottom="30dp"
+        android:paddingBottom="0dp"
         android:fontFamily="sans-serif-condensed"
         android:textSize="21sp"
         android:textColor="@color/blue"
@@ -53,10 +54,10 @@
             android:layout_weight="1"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Watch the video\nfor guidelines\n\nNormal mode\n\u2022 Pinguecula\n  (ต้อลม)\n\u2022 Ptertygium\n  (ต้อเนื้อ)\nRed reflect mode\n\u2022 Cataract\n  (ต้อกระจก)\n\u2022 Retinoblastoma\n  (มะเร็งในจอตา)"/>
+            android:text="Watch the video\nfor guidelines\n\nThere are 2 modes\n1.Normal mode\n can detect\n\u2022 Pinguecula\n  (ต้อลม)\n\u2022 Ptertygium\n  (ต้อเนื้อ)\n\n2.Red reflect mode\n can detect\n\u2022 Cataract\n  (ต้อกระจก)\n\u2022 Retinoblastoma\n  (มะเร็งในจอตา)"/>
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -65,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/white"
         app:menu="@menu/navigation"/>
 
 </RelativeLayout>

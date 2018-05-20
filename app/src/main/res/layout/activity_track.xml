@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.sirapat.eyeagnosis.TrackActivity"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.sirapat.eyeagnosis.TrackActivity">
 
     <com.github.premnirmal.textcounter.CounterView
         android:id="@+id/counterView"
@@ -13,48 +13,46 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
-        android:textSize="30dp"
         android:textColor="@color/green"
+        android:textSize="30dp"
         app:autoStart="false"
-        app:startValue="0"
         app:incrementValue="1"
-        app:timeInterval="2"
         app:prefix="+"
+        app:startValue="0"
         app:suffix="% better"
-        />
+        app:timeInterval="2" />
 
 
-    <org.eazegraph.lib.charts.ValueLineChart
-        xmlns:app="http://schemas.android.com/apk/com.github.blackfizz:eazegraph"
+    <org.eazegraph.lib.charts.ValueLineChart xmlns:app="http://schemas.android.com/apk/com.github.blackfizz:eazegraph"
         android:id="@+id/cubiclinechart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="230dp"
-        app:egUseCubic="true"
-        app:egUseOverlapFill="true"
         app:egCurveSmoothness="0.4"
         app:egIndicatorLineColor="#FE6DA8"
         app:egLegendHeight="40dp"
-        app:egShowStandardValue="true"/>
+        app:egShowStandardValue="true"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true" />
 
     <TextView
         android:id="@+id/link_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/navigation"
-        android:layout_marginBottom="40dp"
-        android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:text=""
         android:textColor="@color/colorPrimary"
-        android:textStyle="italic"
-        android:text=""/>
+        android:textStyle="italic" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="0dp"
         android:layout_gravity="center"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_fileName="history.json"
@@ -64,10 +62,9 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"/>
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:menu="@menu/navigation" />
 
-</RelativeLayout>
-<!---->
+</RelativeLayout><!---->

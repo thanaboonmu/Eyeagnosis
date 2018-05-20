@@ -6,144 +6,145 @@
     android:layout_height="match_parent"
     tools:context="com.example.sirapat.eyeagnosis.Result">
 
-        <TextView
+    <TextView
         android:id="@+id/resultTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:text="Diagnosis result"
         android:textColor="@color/black"
-        android:text="Diagnosis result" />
+        android:textSize="20dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view_res"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/resultTextView"
-            android:layout_marginTop="10dp"
-            app:lottie_fileName="result.json"
-            app:lottie_autoPlay="true"/>
-        <TextView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view_res"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/resultTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="result.json" />
+
+    <TextView
         android:id="@+id/leftEyeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/animation_view_res"
         android:layout_alignRight="@+id/leftDonut"
+        android:layout_below="@id/animation_view_res"
         android:layout_marginTop="0dp"
-        android:gravity="center"
         android:fontFamily="sans-serif--condensed"
-        android:textSize="18dp"
+        android:gravity="center"
+        android:text="LEFT EYE"
         android:textColor="@color/black"
-        android:text="LEFT EYE"/>
+        android:textSize="18dp" />
 
-        <TextView
+    <TextView
         android:id="@+id/rightEyeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/animation_view_res"
-        android:layout_alignStart="@+id/rightDonut"
         android:layout_alignLeft="@+id/rightDonut"
         android:layout_alignRight="@+id/rightDonut"
+        android:layout_alignStart="@+id/rightDonut"
+        android:layout_below="@id/animation_view_res"
         android:layout_marginTop="0dp"
-        android:gravity="center"
         android:fontFamily="sans-serif--condensed"
-        android:textSize="18dp"
+        android:gravity="center"
+        android:text="RIGHT EYE"
         android:textColor="@color/black"
-        android:text="RIGHT EYE"/>
+        android:textSize="18dp" />
 
-        <com.github.lzyzsd.circleprogress.DonutProgress
+    <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/leftDonut"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/leftEyeText"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:donut_progress="50"/>
+        app:donut_progress="50" />
 
-        <com.github.lzyzsd.circleprogress.DonutProgress
+    <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/rightDonut"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_alignTop="@+id/leftDonut"
         android:layout_alignBottom="@+id/leftDonut"
-        android:layout_toRightOf="@+id/leftDonut"
-        android:layout_marginRight="10dp"
+        android:layout_alignTop="@+id/leftDonut"
         android:layout_marginLeft="30dp"
-        app:donut_progress="50"/>
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/leftDonut"
+        app:donut_progress="50" />
 
-        <TextView
+    <TextView
         android:id="@+id/leftDisease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/leftDonut"
-        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/leftDonut"
         android:layout_alignLeft="@+id/leftDonut"
         android:layout_alignRight="@+id/leftDonut"
         android:layout_alignStart="@+id/leftDonut"
-        android:layout_alignEnd="@+id/leftDonut"
-        android:gravity="center"
+        android:layout_below="@+id/leftDonut"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="16dp"
+        android:gravity="center"
+        android:text="\?\?\?\?\?"
         android:textColor="@color/black"
-        android:text="\?\?\?\?\?" />
+        android:textSize="16dp" />
 
-        <TextView
+    <TextView
         android:id="@+id/rightDisease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rightDonut"
-        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/rightDonut"
         android:layout_alignLeft="@+id/rightDonut"
         android:layout_alignRight="@+id/rightDonut"
         android:layout_alignStart="@+id/rightDonut"
-        android:layout_alignEnd="@+id/rightDonut"
-        android:gravity="center"
+        android:layout_below="@+id/rightDonut"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="16dp"
+        android:gravity="center"
+        android:text="\?\?\?\?\?"
         android:textColor="@color/black"
-        android:text="\?\?\?\?\?" />
+        android:textSize="16dp" />
 
-        <TextView
+    <TextView
         android:id="@+id/leftRec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/leftDisease"
-        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/leftDonut"
         android:layout_alignLeft="@+id/leftDonut"
         android:layout_alignRight="@+id/leftDonut"
         android:layout_alignStart="@+id/leftDonut"
-        android:layout_alignEnd="@+id/leftDonut"
+        android:layout_below="@+id/leftDisease"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="16dp"
+        android:text="Diagnose to see the result and advices."
         android:textColor="@color/black"
-        android:text="Diagnose to see the result and advices." />
+        android:textSize="16dp" />
 
-        <TextView
+    <TextView
         android:id="@+id/rightRec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rightDisease"
-        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/rightDonut"
         android:layout_alignLeft="@+id/rightDonut"
         android:layout_alignRight="@+id/rightDonut"
         android:layout_alignStart="@+id/rightDonut"
-        android:layout_alignEnd="@+id/rightDonut"
+        android:layout_below="@+id/rightDisease"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="16dp"
+        android:text="Diagnose to see the result and advices."
         android:textColor="@color/black"
-        android:text="Diagnose to see the result and advices." />
+        android:textSize="16dp" />
 
-        <android.support.design.widget.BottomNavigationView
+    <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"/>
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:menu="@menu/navigation" />
 
 </RelativeLayout>
