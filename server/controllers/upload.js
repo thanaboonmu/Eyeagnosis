@@ -2,13 +2,13 @@
 
 const config = require('../config/config');
 const express = require('express');
-const gcloud = require('google-cloud');
+const gcloud_storage = require('@google-cloud/storage');
 const PythonShell = require('python-shell');
 const multiparty = require('multiparty');
 const fs = require('fs');
 
 
-const storage = gcloud.storage({
+const storage = gcloud_storage({
 projectId: config.projectId,
 keyFilename: config.keyFilename
 });
@@ -88,6 +88,7 @@ function runPython(imageUrl, mode, callback) {
 function saveResultToDB(record, callback) {
     const result = new Result({
         username: record.username,
+        imgUrl: record.result.imgUrl,
         side: record.result.side,
         disease: record.result.disease,
         possibility: record.result.possibility,
@@ -126,6 +127,7 @@ exports.upload = (req, res) => {
                         runPython(imageUrl, req.query.mode, function(err, results) {
                             var response = {};
                             if (err) {
+                                console.log(err);
                                 res.status(500).send(err);
                             }
                             else {
@@ -137,6 +139,7 @@ exports.upload = (req, res) => {
                                     result = {};
                                 }
                                 result.side = req.query.side;
+                                response.imgUrl = imageUrl;
                                 response.result = result;
                                 response.status = 'OK';
 

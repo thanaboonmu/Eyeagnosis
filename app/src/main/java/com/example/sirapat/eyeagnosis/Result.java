@@ -28,6 +28,7 @@ public class Result extends AppCompatActivity {
     final private int NORMAL_MODE = 0;
     String leftResponse;
     String rightResponse;
+    String leftDisease = "Unknown";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -186,7 +187,7 @@ public class Result extends AppCompatActivity {
                 Log.e("leftResponse= ", leftResponse);
                 JSONObject leftResObj = new JSONObject(leftResponse);
                 JSONObject leftResult = leftResObj.getJSONObject("result");
-                String leftDisease = leftResult.getString("disease");
+                leftDisease = leftResult.getString("disease");
                 Double leftPossibility = leftResult.getDouble("possibility");
                 String leftRecommendation = leftResult.getString("recommendation");
 
@@ -224,6 +225,9 @@ public class Result extends AppCompatActivity {
                 rightProgress.setProgress((float)(rightPossibility*100));
                 if (rightDisease.equals("Healthy")) {
                     animationView.setAnimation("good.json");
+                    if(!leftDisease.equals("Healthy") && !leftDisease.equals("Unknown")) {
+                        animationView.setAnimation("warning.json");
+                    }
                     rightProgress.setFinishedStrokeColor(Color.GREEN);
                     rightProgress.setUnfinishedStrokeColor(Color.RED);
                 } else {
