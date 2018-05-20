@@ -30,13 +30,15 @@
         android:textSize="21sp"
         android:textColor="@color/blue"
         app:texts="@array/welcomes"
-        app:timeout="2000" />
+        app:timeout="2000"
+        android:layout_marginBottom="30dp"/>
 
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
+        android:orientation="horizontal"
         android:layout_below="@+id/fadingTextView"
         android:layout_margin="10dp">
 
@@ -46,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -57,7 +60,7 @@
             android:textColor="@color/blue"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Watch the video\nfor guidelines\n\nThere are 2 modes\n1.Normal mode\n can detect\n\u2022 Pinguecula\n  (ต้อลม)\n\u2022 Ptertygium\n  (ต้อเนื้อ)\n\n2.Red reflect mode\n can detect\n\u2022 Cataract\n  (ต้อกระจก)\n\u2022 Retinoblastoma\n  (มะเร็งในจอตา)"/>
+            android:text="Watch the video\nfor guidelines\n\nNormal mode\n\u2022 Pinguecula\n  (ต้อลม)\n\u2022 Ptertygium\n  (ต้อเนื้อ)\nRed reflect mode\n\u2022 Cataract\n  (ต้อกระจก)\n\u2022 Retinoblastoma\n  (มะเร็งในจอตา)"/>
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView

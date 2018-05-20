@@ -15,12 +15,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.tomer.fadingtextview.FadingTextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -159,8 +163,17 @@ public class MainActivity extends AppCompatActivity {
         animation.setRepeatMode(Animation.REVERSE);
         mAppNameImage.startAnimation(animation);
 
+        SharedPreferences sp = getSharedPreferences("myjwt", Context.MODE_PRIVATE);
+        final String token = sp.getString("token", "");
+        final String username = sp.getString("username", "");
+
+        String[] texts = {"Welcome " + username, "Tap camera below to begin"};
+        FadingTextView FTV = (FadingTextView) findViewById(R.id.fadingTextView);
+        FTV.setTexts(texts);
+
+
         VideoView videoView = (VideoView)findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.nsc_demo;
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.demo;
         videoView.setVideoURI(Uri.parse(path));
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
